@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>proflowsync — narzędzia AI, które dają Ci przewagę</title>
-<meta name="description" content="Najlepsze narzędzia AI + darmowy pack 50 promptów. Wyprzedź innych, zanim będzie za późno.">
+<meta name="description" content="5 narzędzi AI, których używam na co dzień + darmowy pack 50 promptów. Wyprzedź innych, zanim będzie za późno.">
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   body {
@@ -15,16 +15,19 @@
   .hub { max-width:520px; margin:0 auto; }
   .avatar {
     width:92px; height:92px; border-radius:50%; margin:0 auto 16px; display:block;
-    background:linear-gradient(135deg,#7b2ff7,#00d4ff); display:flex; align-items:center;
-    justify-content:center; font-size:40px; box-shadow:0 0 40px rgba(123,47,247,.5);
+    background:linear-gradient(135deg,#7b2ff7,#00d4ff);
+    align-items:center; justify-content:center; font-size:40px;
+    display:flex; box-shadow:0 0 40px rgba(123,47,247,.5);
   }
   h1 { text-align:center; font-size:26px; font-weight:800; letter-spacing:-.5px; }
   .handle { text-align:center; color:#9b8cff; font-size:15px; margin:2px 0 6px; }
-  .tag { text-align:center; color:#b8b8c8; font-size:15px; margin-bottom:28px; }
+  .tag { text-align:center; color:#b8b8c8; font-size:15px; margin-bottom:14px; }
+  .trust { text-align:center; font-size:13px; color:#8a8aa0; margin-bottom:26px; }
+  .trust b { color:#00d4ff; }
   /* LEAD MAGNET */
   .magnet {
     background:linear-gradient(135deg,#7b2ff7,#b14bff); border-radius:20px; padding:22px;
-    text-align:center; margin-bottom:28px; box-shadow:0 10px 40px rgba(123,47,247,.4);
+    text-align:center; margin-bottom:14px; box-shadow:0 10px 40px rgba(123,47,247,.4);
   }
   .magnet .gift { font-size:34px; }
   .magnet h2 { font-size:20px; font-weight:800; margin:6px 0; }
@@ -34,8 +37,26 @@
     padding:13px 30px; border-radius:14px; font-size:16px; transition:transform .15s;
   }
   .magnet a:active { transform:scale(.96); }
+  .magnet .micro { font-size:11px; color:#e8ddff; margin-top:10px; opacity:.85; }
   .section-title { font-size:13px; text-transform:uppercase; letter-spacing:1.5px; color:#8a8aa0;
-    margin:0 4px 12px; font-weight:700; }
+    margin:26px 4px 12px; font-weight:700; }
+  /* FEATURED #1 */
+  .featured {
+    position:relative; background:linear-gradient(135deg,#1e1440,#2a1a4a);
+    border:1.5px solid #7b2ff7; border-radius:18px; padding:20px 18px 16px; margin-bottom:14px;
+    box-shadow:0 0 30px rgba(123,47,247,.35); text-decoration:none; color:#fff; display:block;
+    transition:transform .15s;
+  }
+  .featured:active { transform:scale(.98); }
+  .featured .crown { position:absolute; top:-11px; left:16px; background:linear-gradient(90deg,#ffb800,#ff7a00);
+    color:#1a1035; font-size:11px; font-weight:800; padding:4px 12px; border-radius:10px; letter-spacing:.5px; }
+  .featured .frow { display:flex; align-items:center; gap:14px; }
+  .featured .ico { font-size:30px; width:52px; height:52px; flex-shrink:0; border-radius:14px;
+    background:linear-gradient(135deg,#7b2ff7,#00d4ff); display:flex; align-items:center; justify-content:center; }
+  .featured .name { font-weight:800; font-size:18px; }
+  .featured .desc { font-size:13px; color:#c9bdf0; margin-top:2px; }
+  .featured .cta { margin-top:12px; background:#fff; color:#7b2ff7; font-weight:800; text-align:center;
+    padding:11px; border-radius:12px; font-size:15px; }
   /* NARZĘDZIA */
   .tool {
     display:flex; align-items:center; gap:14px; background:#16162a; border:1px solid #262640;
@@ -52,6 +73,7 @@
   .tool .arrow { color:#7b2ff7; font-size:20px; font-weight:700; }
   .badge { font-size:11px; background:#2a1a4a; color:#b39bff; padding:2px 8px; border-radius:8px;
     margin-left:6px; font-weight:600; }
+  .badge.free { background:#0f3320; color:#4ade80; }
   /* SOCIAL */
   .social { display:flex; justify-content:center; gap:14px; margin-top:30px; }
   .social a { width:48px; height:48px; border-radius:14px; background:#16162a; border:1px solid #262640;
@@ -60,6 +82,7 @@
   .social a:active { transform:scale(.92); }
   .foot { text-align:center; color:#55556a; font-size:12px; margin-top:26px; }
   .foot a { color:#7b7b95; }
+  .disc { text-align:center; color:#44445a; font-size:11px; margin-top:10px; }
 </style>
 </head>
 <body>
@@ -67,53 +90,63 @@
     <div class="avatar">🤖</div>
     <h1>proflowsync</h1>
     <div class="handle">@proflowsync</div>
-    <div class="tag">AI zmienia świat szybciej niż myślisz.<br>Tu masz narzędzia, żeby być krok przed innymi.</div>
+    <div class="tag">AI zmienia świat szybciej niż myślisz.<br>Tu masz dokładnie te narzędzia, których używam.</div>
+    <div class="trust">🔥 Dołącz do <b>500+</b> osób, które wyprzedzają innych z AI</div>
 
     <!-- ===== LEAD MAGNET ===== -->
     <div class="magnet">
       <div class="gift">🎁</div>
       <h2>Darmowy pack: 50 promptów AI</h2>
       <p>Gotowe prompty, które oszczędzą Ci godziny pracy. Za darmo, bez haczyków.</p>
-      <!-- TODO: podmień na link do lead-magnetu (Formspree / getresponse / pack.html) -->
-      <a href="pack.html">Pobierz za darmo →</a>
+      <!-- TODO: gdy masz GetResponse → podmień na link do formularza email (budowa listy) -->
+      <a href="pack.html">Odbierz za darmo →</a>
+      <div class="micro">Ponad 2 000 pobrań · zero spamu</div>
     </div>
 
-    <!-- ===== NARZĘDZIA AFILIACYJNE ===== -->
-    <div class="section-title">⚡ Narzędzia AI, których używam</div>
+    <!-- ===== TOP 1 REKOMENDACJA ===== -->
+    <div class="section-title">👑 Moja #1 rekomendacja</div>
+    <!-- TODO: wklej link afiliacyjny Writesonic (płaci LIFETIME) -->
+    <a class="featured" href="#" target="_blank" rel="noopener">
+      <span class="crown">★ NAJLEPSZY WYBÓR</span>
+      <div class="frow">
+        <div class="ico">🚀</div>
+        <div class="body">
+          <div class="name">Writesonic</div>
+          <div class="desc">Artykuły, treści SEO i posty — pisze za Ciebie w kilka sekund. Tego używam codziennie.</div>
+        </div>
+      </div>
+      <div class="cta">Wypróbuj za darmo →</div>
+    </a>
 
-    <!-- TODO: podmień href="#" na swój link afiliacyjny po rejestracji -->
+    <!-- ===== POZOSTAŁE NARZĘDZIA ===== -->
+    <div class="section-title">⚡ Reszta mojego zestawu AI</div>
+
+    <!-- TODO: podmień href="#" na link afiliacyjny po rejestracji -->
+    <a class="tool" href="#" target="_blank" rel="noopener">
+      <div class="ico">📧</div>
+      <div class="body"><div class="name">GetResponse <span class="badge">email + AI</span></div>
+        <div class="desc">Zbieraj maile i zarabiaj na liście — na autopilocie</div></div>
+      <div class="arrow">→</div>
+    </a>
+
     <a class="tool" href="#" target="_blank" rel="noopener">
       <div class="ico">🎙️</div>
       <div class="body"><div class="name">Speechify <span class="badge">AI głos</span></div>
-        <div class="desc">Zamień tekst na naturalny głos w sekundy</div></div>
+        <div class="desc">Tekst → naturalny lektor w sekundy. Idealne pod shorty</div></div>
       <div class="arrow">→</div>
     </a>
 
     <a class="tool" href="#" target="_blank" rel="noopener">
       <div class="ico">🎬</div>
       <div class="body"><div class="name">InVideo AI <span class="badge">AI video</span></div>
-        <div class="desc">Twórz filmy i shorty z samego tekstu</div></div>
+        <div class="desc">Zrób gotowy film z jednego zdania — bez montażu</div></div>
       <div class="arrow">→</div>
     </a>
 
     <a class="tool" href="#" target="_blank" rel="noopener">
       <div class="ico">✍️</div>
       <div class="body"><div class="name">Copy.ai <span class="badge">AI pisanie</span></div>
-        <div class="desc">Teksty, opisy, maile — w minutę zamiast godzin</div></div>
-      <div class="arrow">→</div>
-    </a>
-
-    <a class="tool" href="#" target="_blank" rel="noopener">
-      <div class="ico">🚀</div>
-      <div class="body"><div class="name">Writesonic <span class="badge">AI pisanie</span></div>
-        <div class="desc">Artykuły i treści SEO napędzane AI</div></div>
-      <div class="arrow">→</div>
-    </a>
-
-    <a class="tool" href="#" target="_blank" rel="noopener">
-      <div class="ico">📧</div>
-      <div class="body"><div class="name">GetResponse <span class="badge">email + AI</span></div>
-        <div class="desc">Automatyzuj mailing i zarabiaj na liście</div></div>
+        <div class="desc">Opisy, maile, reklamy — w minutę zamiast godzin</div></div>
       <div class="arrow">→</div>
     </a>
 
@@ -124,6 +157,7 @@
       <a href="https://www.youtube.com/@proflowsync" target="_blank" rel="noopener" title="YouTube">▶️</a>
     </div>
     <div class="foot">© proflowsync · narzędzia AI dla wyprzedzających czas</div>
+    <div class="disc">Niektóre linki są afiliacyjne — jeśli kupisz przez nie, dostaję prowizję (bez dopłaty dla Ciebie). Polecam tylko to, czego sam używam.</div>
   </div>
 </body>
 </html>
