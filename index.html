@@ -4,159 +4,232 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>proflowsync — narzędzia AI, które dają Ci przewagę</title>
-<meta name="description" content="5 narzędzi AI, których używam na co dzień + darmowy pack 50 promptów. Wyprzedź innych, zanim będzie za późno.">
+<meta name="description" content="Sprawdzony zestaw narzędzi AI od proflowsync + darmowy pack 50 promptów.">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: radial-gradient(circle at 50% 0%, #1a1035 0%, #0a0a12 60%);
-    color:#fff; min-height:100vh; padding:32px 18px 60px; line-height:1.5;
-  }
-  .hub { max-width:520px; margin:0 auto; }
-  .avatar {
-    width:92px; height:92px; border-radius:50%; margin:0 auto 16px; display:block;
-    background:linear-gradient(135deg,#7b2ff7,#00d4ff);
-    align-items:center; justify-content:center; font-size:40px;
-    display:flex; box-shadow:0 0 40px rgba(123,47,247,.5);
-  }
-  h1 { text-align:center; font-size:26px; font-weight:800; letter-spacing:-.5px; }
-  .handle { text-align:center; color:#9b8cff; font-size:15px; margin:2px 0 6px; }
-  .tag { text-align:center; color:#b8b8c8; font-size:15px; margin-bottom:14px; }
-  .trust { text-align:center; font-size:13px; color:#8a8aa0; margin-bottom:26px; }
-  .trust b { color:#00d4ff; }
-  /* LEAD MAGNET */
-  .magnet {
-    background:linear-gradient(135deg,#7b2ff7,#b14bff); border-radius:20px; padding:22px;
-    text-align:center; margin-bottom:14px; box-shadow:0 10px 40px rgba(123,47,247,.4);
-  }
-  .magnet .gift { font-size:34px; }
-  .magnet h2 { font-size:20px; font-weight:800; margin:6px 0; }
-  .magnet p { font-size:14px; color:#f0e8ff; margin-bottom:14px; }
-  .magnet a {
-    display:inline-block; background:#fff; color:#7b2ff7; font-weight:800; text-decoration:none;
-    padding:13px 30px; border-radius:14px; font-size:16px; transition:transform .15s;
-  }
-  .magnet a:active { transform:scale(.96); }
-  .magnet .micro { font-size:11px; color:#e8ddff; margin-top:10px; opacity:.85; }
-  .section-title { font-size:13px; text-transform:uppercase; letter-spacing:1.5px; color:#8a8aa0;
-    margin:26px 4px 12px; font-weight:700; }
-  /* FEATURED #1 */
-  .featured {
-    position:relative; background:linear-gradient(135deg,#1e1440,#2a1a4a);
-    border:1.5px solid #7b2ff7; border-radius:18px; padding:20px 18px 16px; margin-bottom:14px;
-    box-shadow:0 0 30px rgba(123,47,247,.35); text-decoration:none; color:#fff; display:block;
-    transition:transform .15s;
-  }
-  .featured:active { transform:scale(.98); }
-  .featured .crown { position:absolute; top:-11px; left:16px; background:linear-gradient(90deg,#ffb800,#ff7a00);
-    color:#1a1035; font-size:11px; font-weight:800; padding:4px 12px; border-radius:10px; letter-spacing:.5px; }
-  .featured .frow { display:flex; align-items:center; gap:14px; }
-  .featured .ico { font-size:30px; width:52px; height:52px; flex-shrink:0; border-radius:14px;
-    background:linear-gradient(135deg,#7b2ff7,#00d4ff); display:flex; align-items:center; justify-content:center; }
-  .featured .name { font-weight:800; font-size:18px; }
-  .featured .desc { font-size:13px; color:#c9bdf0; margin-top:2px; }
-  .featured .cta { margin-top:12px; background:#fff; color:#7b2ff7; font-weight:800; text-align:center;
-    padding:11px; border-radius:12px; font-size:15px; }
-  /* NARZĘDZIA */
-  .tool {
-    display:flex; align-items:center; gap:14px; background:#16162a; border:1px solid #262640;
-    border-radius:16px; padding:16px 18px; margin-bottom:12px; text-decoration:none; color:#fff;
-    transition:transform .15s, border-color .15s, background .15s;
-  }
-  .tool:active { transform:scale(.98); }
-  .tool:hover { border-color:#7b2ff7; background:#1c1c34; }
-  .tool .ico { font-size:26px; width:44px; height:44px; flex-shrink:0; border-radius:12px;
-    background:#20203a; display:flex; align-items:center; justify-content:center; }
-  .tool .body { flex:1; }
-  .tool .name { font-weight:700; font-size:16px; }
-  .tool .desc { font-size:13px; color:#a0a0b8; }
-  .tool .arrow { color:#7b2ff7; font-size:20px; font-weight:700; }
-  .badge { font-size:11px; background:#2a1a4a; color:#b39bff; padding:2px 8px; border-radius:8px;
-    margin-left:6px; font-weight:600; }
-  .badge.free { background:#0f3320; color:#4ade80; }
-  /* SOCIAL */
-  .social { display:flex; justify-content:center; gap:14px; margin-top:30px; }
-  .social a { width:48px; height:48px; border-radius:14px; background:#16162a; border:1px solid #262640;
-    display:flex; align-items:center; justify-content:center; font-size:22px; text-decoration:none;
-    transition:transform .15s; }
-  .social a:active { transform:scale(.92); }
-  .foot { text-align:center; color:#55556a; font-size:12px; margin-top:26px; }
-  .foot a { color:#7b7b95; }
-  .disc { text-align:center; color:#44445a; font-size:11px; margin-top:10px; }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{--pur:#7b2ff7;--cyan:#00d4ff;--pink:#b14bff;}
+  html,body{overflow-x:hidden;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    background:#05040d;color:#fff;min-height:100vh;padding:30px 18px 70px;line-height:1.55;position:relative;}
+  #bg3d{position:fixed;inset:0;z-index:0;display:block;}
+  .veil{position:fixed;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(123,47,247,.18),transparent 60%),
+               radial-gradient(ellipse 60% 40% at 50% 100%,rgba(0,212,255,.12),transparent 60%);}
+  .hub{max-width:560px;margin:0 auto;position:relative;z-index:2;}
+
+  .glass{background:rgba(18,14,36,.55);backdrop-filter:blur(14px) saturate(140%);
+    -webkit-backdrop-filter:blur(14px) saturate(140%);border:1px solid rgba(255,255,255,.10);
+    border-radius:20px;box-shadow:0 18px 50px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.12);
+    transition:transform .2s ease,box-shadow .2s ease;}
+  .glass:hover{transform:translateY(-3px);box-shadow:0 26px 66px rgba(123,47,247,.4),inset 0 1px 0 rgba(255,255,255,.15);}
+
+  .avatar{width:104px;height:104px;border-radius:50%;margin:0 auto 14px;
+    background:linear-gradient(135deg,var(--pur),var(--cyan));display:flex;align-items:center;justify-content:center;
+    font-size:46px;box-shadow:0 0 60px rgba(123,47,247,.7),0 14px 30px rgba(0,0,0,.5);animation:bob 4s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+  h1{text-align:center;font-size:29px;font-weight:800;letter-spacing:-.5px;text-shadow:0 0 26px rgba(123,47,247,.7);}
+  .handle{text-align:center;color:#9b8cff;font-size:15px;margin:2px 0 6px;}
+  .tag{text-align:center;color:#cdcde0;font-size:15px;margin-bottom:20px;}
+
+  .stats{display:flex;margin-bottom:22px;padding:4px;}
+  .stats>div{flex:1;text-align:center;padding:12px 6px;}
+  .stats>div+div{border-left:1px solid rgba(255,255,255,.08);}
+  .stats .n{font-size:20px;font-weight:800;background:linear-gradient(90deg,var(--cyan),var(--pink));
+    -webkit-background-clip:text;background-clip:text;color:transparent;}
+  .stats .l{font-size:11px;color:#8a8aa0;text-transform:uppercase;letter-spacing:.5px;}
+
+  .intro{padding:16px 18px;margin-bottom:22px;font-size:14.5px;color:#d6d6e6;}
+  .intro b{color:#fff;}
+
+  .magnet{padding:24px;text-align:center;margin-bottom:14px;
+    background:linear-gradient(135deg,rgba(123,47,247,.92),rgba(177,75,255,.85));
+    box-shadow:0 20px 50px rgba(123,47,247,.5),inset 0 1px 0 rgba(255,255,255,.25);}
+  .magnet .gift{font-size:38px;}
+  .magnet h2{font-size:21px;font-weight:800;margin:6px 0;}
+  .magnet p{font-size:14px;color:#f0e8ff;margin-bottom:12px;}
+  .magnet .arrows{font-size:22px;letter-spacing:6px;margin-bottom:8px;animation:pulse 1.4s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;transform:translateY(0);}50%{opacity:.5;transform:translateY(4px);}}
+  .magnet a{display:inline-block;background:#fff;color:var(--pur);font-weight:800;text-decoration:none;
+    padding:14px 32px;border-radius:14px;font-size:16px;box-shadow:0 10px 24px rgba(0,0,0,.35);}
+  .magnet .micro{font-size:11px;color:#e8ddff;margin-top:12px;opacity:.85;}
+
+  .section-title{font-size:13px;text-transform:uppercase;letter-spacing:1.5px;color:#9c9cb8;margin:28px 6px 12px;font-weight:700;}
+
+  .featured{position:relative;padding:24px 20px 18px;margin-bottom:14px;display:block;text-decoration:none;color:#fff;
+    background:linear-gradient(135deg,rgba(40,26,74,.72),rgba(30,20,64,.62));border:1.5px solid rgba(123,47,247,.6);
+    box-shadow:0 20px 50px rgba(123,47,247,.35),inset 0 1px 0 rgba(255,255,255,.12);}
+  .featured .crown{position:absolute;top:-12px;left:18px;background:linear-gradient(90deg,#ffb800,#ff7a00);
+    color:#1a1035;font-size:11px;font-weight:800;padding:5px 13px;border-radius:10px;box-shadow:0 6px 16px rgba(255,150,0,.4);}
+  .featured .frow{display:flex;align-items:center;gap:14px;}
+  .featured .ico{font-size:32px;width:56px;height:56px;flex-shrink:0;border-radius:16px;
+    background:linear-gradient(135deg,var(--pur),var(--cyan));display:flex;align-items:center;justify-content:center;
+    box-shadow:0 10px 24px rgba(123,47,247,.5);}
+  .featured .name{font-weight:800;font-size:19px;}
+  .featured .desc{font-size:13.5px;color:#cabdf2;margin-top:8px;}
+  .featured .cta{margin-top:14px;background:#fff;color:var(--pur);font-weight:800;text-align:center;
+    padding:12px;border-radius:12px;font-size:15px;box-shadow:0 10px 22px rgba(0,0,0,.3);}
+
+  .tool{display:block;padding:17px 19px;margin-bottom:12px;text-decoration:none;color:#fff;}
+  .tool .top{display:flex;align-items:center;gap:13px;}
+  .tool .ico{font-size:24px;width:46px;height:46px;flex-shrink:0;border-radius:13px;
+    background:linear-gradient(135deg,rgba(123,47,247,.4),rgba(0,212,255,.28));display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 18px rgba(0,0,0,.35);}
+  .tool .name{font-weight:700;font-size:16px;flex:1;}
+  .tool .arrow{color:var(--pur);font-size:20px;font-weight:700;}
+  .tool .desc{font-size:13.5px;color:#b0b0c6;margin-top:9px;}
+  .badge{font-size:11px;background:rgba(123,47,247,.3);color:#c3abff;padding:2px 8px;border-radius:8px;margin-left:6px;font-weight:600;}
+  .badge.soon{background:rgba(255,184,0,.16);color:#ffcf6b;}
+
+  .guide{padding:22px 22px 10px;margin-bottom:12px;}
+  .guide h3{font-size:16px;margin-bottom:16px;}
+  .step{display:flex;gap:13px;margin-bottom:15px;}
+  .step .num{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--pur),var(--cyan));
+    display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;box-shadow:0 6px 14px rgba(123,47,247,.5);}
+  .step .txt{font-size:13.5px;color:#c6c6da;}
+  .step .txt b{color:#fff;}
+
+  .about{padding:22px;margin-bottom:12px;}
+  .about h3{font-size:16px;margin-bottom:10px;}
+  .about p{font-size:13.5px;color:#bfbfd2;}
+  .about b{color:#fff;}
+
+  .social{display:flex;justify-content:center;gap:14px;margin-top:28px;}
+  .social a{width:52px;height:52px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:23px;text-decoration:none;}
+  .foot{text-align:center;color:#55556a;font-size:12px;margin-top:26px;}
+  .disc{text-align:center;color:#46465c;font-size:11px;margin-top:10px;}
 </style>
 </head>
 <body>
+  <canvas id="bg3d"></canvas>
+  <div class="veil"></div>
+
   <div class="hub">
     <div class="avatar">🤖</div>
     <h1>proflowsync</h1>
     <div class="handle">@proflowsync</div>
-    <div class="tag">AI zmienia świat szybciej niż myślisz.<br>Tu masz dokładnie te narzędzia, których używam.</div>
-    <div class="trust">🔥 Dołącz do <b>500+</b> osób, które wyprzedzają innych z AI</div>
+    <div class="tag">Testuję narzędzia AI, żebyś Ty nie musiał.<br>Tu masz mój sprawdzony zestaw.</div>
 
-    <!-- ===== LEAD MAGNET ===== -->
-    <div class="magnet">
+    <div class="glass stats">
+      <div><div class="n">500+</div><div class="l">obserwujących</div></div>
+      <div><div class="n">9,7K+</div><div class="l">wyświetleń</div></div>
+      <div><div class="n">3</div><div class="l">platformy</div></div>
+    </div>
+
+    <div class="glass intro">
+      Cześć, tu <b>proflowsync</b> 👋 Codziennie testuję narzędzia AI i pokazuję <b>tylko te, których sam używam</b> — takie, które realnie oszczędzają godziny pracy. Poniżej mój zestaw + <b>darmowy pack 50 promptów</b> na start.
+    </div>
+
+    <div class="glass magnet">
       <div class="gift">🎁</div>
       <h2>Darmowy pack: 50 promptów AI</h2>
-      <p>Gotowe prompty, które oszczędzą Ci godziny pracy. Za darmo, bez haczyków.</p>
-      <!-- TODO: gdy masz GetResponse → podmień na link do formularza email (budowa listy) -->
-      <a href="pack.html">Odbierz za darmo →</a>
+      <p>Gotowe prompty, które oszczędzą Ci godziny. Za darmo, bez haczyków.</p>
+      <div class="arrows">👇 👇 👇</div>
+      <a href="pack.html">Odbierz za darmo</a>
       <div class="micro">Ponad 2 000 pobrań · zero spamu</div>
     </div>
 
-    <!-- ===== TOP 1 REKOMENDACJA ===== -->
     <div class="section-title">👑 Moja #1 rekomendacja</div>
-    <!-- TODO: wklej link afiliacyjny Writesonic (płaci LIFETIME) -->
-    <a class="featured" href="#" target="_blank" rel="noopener">
+    <a class="glass featured" href="https://www.getresponse.com?a=XAhDjwqCGC" target="_blank" rel="noopener sponsored">
       <span class="crown">★ NAJLEPSZY WYBÓR</span>
-      <div class="frow">
-        <div class="ico">🚀</div>
-        <div class="body">
-          <div class="name">Writesonic</div>
-          <div class="desc">Artykuły, treści SEO i posty — pisze za Ciebie w kilka sekund. Tego używam codziennie.</div>
-        </div>
-      </div>
-      <div class="cta">Wypróbuj za darmo →</div>
+      <div class="frow"><div class="ico">📧</div><div><div class="name">GetResponse</div></div></div>
+      <div class="desc">Tu buduję listę mailową i wysyłam automatyczne kampanie — to serce mojego zarabiania. AI podpowiada tematy i pisze maile za mnie. Zamień ruch w listę, do której wracasz i sprzedajesz kiedy chcesz. Darmowy plan na start.</div>
+      <div class="cta">Zacznij za darmo 👉</div>
     </a>
 
-    <!-- ===== POZOSTAŁE NARZĘDZIA ===== -->
     <div class="section-title">⚡ Reszta mojego zestawu AI</div>
-
-    <a class="tool" href="https://www.getresponse.com?a=XAhDjwqCGC" target="_blank" rel="noopener sponsored">
-      <div class="ico">📧</div>
-      <div class="body"><div class="name">GetResponse <span class="badge">email + AI</span></div>
-        <div class="desc">Zbieraj maile i zarabiaj na liście — na autopilocie</div></div>
-      <div class="arrow">→</div>
+    <a class="glass tool" href="pack.html" rel="noopener">
+      <div class="top"><div class="ico">🚀</div><div class="name">Writesonic <span class="badge soon">⏳ wkrótce</span></div><div class="arrow">→</div></div>
+      <div class="desc">Moje główne narzędzie do pisania: artykuły, treści SEO, opisy i posty w kilka sekund. Podpinam link niebawem — a póki co weź darmowy pack promptów, żeby ruszyć już dziś.</div>
+    </a>
+    <a class="glass tool" href="pack.html" rel="noopener">
+      <div class="top"><div class="ico">🎙️</div><div class="name">Speechify <span class="badge soon">⏳ wkrótce</span></div><div class="arrow">→</div></div>
+      <div class="desc">Zamienia tekst w naturalny głos lektora w sekundy. Używam do podkładów pod filmy i słuchania artykułów w drodze. Link niebawem — na teraz darmowy pack promptów.</div>
+    </a>
+    <a class="glass tool" href="pack.html" rel="noopener">
+      <div class="top"><div class="ico">🎬</div><div class="name">InVideo AI <span class="badge soon">⏳ wkrótce</span></div><div class="arrow">→</div></div>
+      <div class="desc">Robi gotowy film z jednego zdania — sceny, montaż, napisy, muzyka. Idealne pod shorty i reklamy. Link niebawem — chwyć darmowy pack promptów w międzyczasie.</div>
     </a>
 
-    <a class="tool" href="#" target="_blank" rel="noopener">
-      <div class="ico">🎙️</div>
-      <div class="body"><div class="name">Speechify <span class="badge">AI głos</span></div>
-        <div class="desc">Tekst → naturalny lektor w sekundy. Idealne pod shorty</div></div>
-      <div class="arrow">→</div>
-    </a>
+    <div class="section-title">🎯 Jak zacząć z AI (w 3 krokach)</div>
+    <div class="glass guide">
+      <h3>Od zera do pierwszej oszczędności czasu</h3>
+      <div class="step"><div class="num">1</div><div class="txt"><b>Weź darmowy pack promptów</b> (wyżej) — gotowe komendy, które od razu działają w ChatGPT.</div></div>
+      <div class="step"><div class="num">2</div><div class="txt"><b>Wybierz jedno narzędzie</b> do swojego problemu: piszesz → Writesonic, filmy → InVideo, głos → Speechify.</div></div>
+      <div class="step"><div class="num">3</div><div class="txt"><b>Zautomatyzuj jedną rzecz</b>, którą robisz codziennie. Jeden proces mniej = godziny odzyskane.</div></div>
+    </div>
 
-    <a class="tool" href="#" target="_blank" rel="noopener">
-      <div class="ico">🎬</div>
-      <div class="body"><div class="name">InVideo AI <span class="badge">AI video</span></div>
-        <div class="desc">Zrób gotowy film z jednego zdania — bez montażu</div></div>
-      <div class="arrow">→</div>
-    </a>
+    <div class="glass about">
+      <h3>Kim jestem?</h3>
+      <p>Prowadzę <b>@proflowsync</b> — konto o AI na TikToku, Instagramie i YouTubie. Pokazuję jak sztuczna inteligencja zmienia pracę i które narzędzia warto znać. Bez ściemy — polecam tylko to, czego sam używam.</p>
+    </div>
 
-    <a class="tool" href="#" target="_blank" rel="noopener">
-      <div class="ico">✍️</div>
-      <div class="body"><div class="name">Copy.ai <span class="badge">AI pisanie</span></div>
-        <div class="desc">Opisy, maile, reklamy — w minutę zamiast godzin</div></div>
-      <div class="arrow">→</div>
-    </a>
-
-    <!-- ===== SOCIAL ===== -->
     <div class="social">
-      <a href="https://www.tiktok.com/@proflowsync" target="_blank" rel="noopener" title="TikTok">🎵</a>
-      <a href="https://www.instagram.com/proflowsync" target="_blank" rel="noopener" title="Instagram">📷</a>
-      <a href="https://www.youtube.com/@proflowsync" target="_blank" rel="noopener" title="YouTube">▶️</a>
+      <a class="glass" href="https://www.tiktok.com/@proflowsync" target="_blank" rel="noopener" title="TikTok">🎵</a>
+      <a class="glass" href="https://www.instagram.com/proflowsync" target="_blank" rel="noopener" title="Instagram">📷</a>
+      <a class="glass" href="https://www.youtube.com/@proflowsync" target="_blank" rel="noopener" title="YouTube">▶️</a>
     </div>
     <div class="foot">© proflowsync · narzędzia AI dla wyprzedzających czas</div>
-    <div class="disc">Niektóre linki są afiliacyjne — jeśli kupisz przez nie, dostaję prowizję (bez dopłaty dla Ciebie). Polecam tylko to, czego sam używam.</div>
+    <div class="disc">Część linków to linki afiliacyjne — jeśli kupisz przez nie, dostaję prowizję (bez dopłaty dla Ciebie). Polecam tylko narzędzia, których sam używam.</div>
   </div>
+
+<script>
+// ===== SCENA 3D (Three.js) =====
+(function(){
+  if(!window.THREE) return;
+  const canvas=document.getElementById('bg3d');
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setSize(innerWidth,innerHeight);
+  const scene=new THREE.Scene();
+  scene.fog=new THREE.FogExp2(0x05040d,0.006);
+  const camera=new THREE.PerspectiveCamera(72,innerWidth/innerHeight,0.1,600);
+  camera.position.z=60;
+
+  // pole gwiazd/czasteczek w 3D
+  function makeStars(count,color,size,spread){
+    const g=new THREE.BufferGeometry(); const pos=new Float32Array(count*3);
+    for(let i=0;i<count*3;i++) pos[i]=(Math.random()-0.5)*spread;
+    g.setAttribute('position',new THREE.BufferAttribute(pos,3));
+    const m=new THREE.PointsMaterial({color,size,transparent:true,opacity:.85,depthWrite:false,blending:THREE.AdditiveBlending});
+    return new THREE.Points(g,m);
+  }
+  const stars1=makeStars(1400,0x9b6bff,0.7,240);
+  const stars2=makeStars(900,0x00d4ff,0.55,200);
+  const stars3=makeStars(500,0xff5ea8,0.8,180);
+  scene.add(stars1,stars2,stars3);
+
+  // pływające świecące bryły (wireframe)
+  const shapes=[];
+  const geos=[new THREE.IcosahedronGeometry(7,0),new THREE.OctahedronGeometry(6,0),
+              new THREE.TorusGeometry(6,1.6,10,24),new THREE.IcosahedronGeometry(5,0)];
+  const cols=[0x7b2ff7,0x00d4ff,0xb14bff,0x00d4ff];
+  for(let i=0;i<4;i++){
+    const m=new THREE.MeshBasicMaterial({color:cols[i],wireframe:true,transparent:true,opacity:.5});
+    const mesh=new THREE.Mesh(geos[i],m);
+    mesh.position.set((Math.random()-0.5)*90,(Math.random()-0.5)*70,(Math.random()-0.5)*40-10);
+    mesh.userData={sx:0.002+Math.random()*0.004,sy:0.002+Math.random()*0.004,ph:Math.random()*6};
+    shapes.push(mesh); scene.add(mesh);
+  }
+
+  let mx=0,my=0;
+  addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-0.5);my=(e.clientY/innerHeight-0.5);});
+  addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
+
+  const t0=Date.now();
+  (function animate(){
+    requestAnimationFrame(animate);
+    const t=(Date.now()-t0)/1000;
+    stars1.rotation.y=t*0.02; stars2.rotation.y=-t*0.015; stars3.rotation.x=t*0.01;
+    shapes.forEach(s=>{s.rotation.x+=s.userData.sx;s.rotation.y+=s.userData.sy;
+      s.position.y+=Math.sin(t+s.userData.ph)*0.02;});
+    // kamera parallax
+    camera.position.x+=(mx*24-camera.position.x)*0.04;
+    camera.position.y+=(-my*18-camera.position.y)*0.04;
+    camera.lookAt(0,0,0);
+    renderer.render(scene,camera);
+  })();
+})();
+</script>
 </body>
 </html>
