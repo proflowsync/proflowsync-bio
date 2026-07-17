@@ -214,9 +214,9 @@
 
     <div class="sect">📊 proflowsync w liczbach</div>
     <div class="stats">
-      <div class="stat"><div class="n">114</div><div class="l">filmów o AI</div></div>
-      <div class="stat"><div class="n">18k+</div><div class="l">wyświetleń</div></div>
-      <div class="stat"><div class="n">545</div><div class="l">obserwujących</div></div>
+      <div class="stat"><div class="n" id="st-filmy">114</div><div class="l">filmów o AI</div></div>
+      <div class="stat"><div class="n" id="st-wysw">18k+</div><div class="l">wyświetleń</div></div>
+      <div class="stat"><div class="n" id="st-obs">545</div><div class="l">obserwujących</div></div>
     </div>
 
     <div class="sect" id="tools">👑 Moja #1 rekomendacja</div>
@@ -276,6 +276,16 @@
       document.querySelectorAll('a[href$=".pdf"],a[href$=".zip"],a[href="pack.html"]').forEach(function(a){
         a.addEventListener('click',function(){ fetch(API+'/up').then(function(r){return r.json();}).then(function(d){ show(d&&d.count); }).catch(function(){}); });
       });
+    })();
+    // auto-update statystyk — hub pobiera stats.json (odświeżany codziennie przez skrypt)
+    (function(){
+      fetch('stats.json?t='+Date.now()).then(function(r){return r.json();}).then(function(d){
+        function fmt(n){ return n>=1000 ? Math.floor(n/1000)+'k+' : String(n); }
+        var f=document.getElementById('st-filmy'), w=document.getElementById('st-wysw'), o=document.getElementById('st-obs');
+        if(f&&d.filmy) f.textContent=d.filmy;
+        if(w&&d.wyswietlenia) w.textContent=fmt(d.wyswietlenia);
+        if(o&&d.obserwujacy) o.textContent=d.obserwujacy;
+      }).catch(function(){});
     })();
     (function(){
       var els=document.querySelectorAll('.hero,.magnet,.sect,.card,.guide,.about,.social,.review,.stats');
