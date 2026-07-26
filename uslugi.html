@@ -3,219 +3,237 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Automatyzacje AI dla firm — proflowsync</title>
-<meta name="description" content="Automatyzacje AI dla firm: chatboty, automatyzacje procesów, systemy treści. Oszczędź czas, zautomatyzuj robotę.">
+<title>proflowsync — automatyzacje AI dla firm</title>
+<meta name="description" content="Budujemy automatyzacje i systemy AI dla firm: chatboty, automatyzacje procesów, systemy treści. Oszczędź czas, zautomatyzuj robotę.">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  :root{--txt:#f2f6ff;--mut:#aab6d0;}
-  html,body{height:100%;overflow:hidden;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;background:#04060f;}
-  #stage{position:fixed;inset:0;}
+  :root{--txt:#eef3ff;--mut:#9aa8c7;--acc:#22d3ee;--acc2:#3b82f6;--vio:#a855f7;--ok:#34d399;--line:rgba(255,255,255,.09);--card:rgba(255,255,255,.035);}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',-apple-system,'Segoe UI',Roboto,sans-serif;background:#03060f;color:var(--txt);line-height:1.6;overflow-x:hidden;}
+  #webgl{position:fixed;inset:0;z-index:0;}
+  .veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at 50% 0%,transparent 40%,rgba(3,6,15,.55) 100%);}
+  .wrap{position:relative;z-index:2;}
+  .container{max-width:1080px;margin:0 auto;padding:0 26px;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
+    padding:16px 26px;backdrop-filter:blur(12px);background:rgba(3,6,15,.55);border-bottom:1px solid var(--line);}
+  nav .logo{font-weight:800;letter-spacing:.5px;font-size:18px;background:linear-gradient(90deg,var(--acc),var(--vio));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  nav a.btn{font-size:14px;font-weight:700;color:#03060f;background:linear-gradient(90deg,var(--acc),var(--acc2));padding:9px 18px;border-radius:10px;text-decoration:none;}
 
-  /* ANIMOWANE TŁO — zmienia kolor per slajd */
-  .bg{position:fixed;inset:0;z-index:0;transition:background 1.2s ease;background:radial-gradient(ellipse at 50% 40%,#0b1430,#04060f 70%);}
-  .orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.55;transition:background 1.2s ease;animation:drift 16s ease-in-out infinite;}
-  .orb.a{width:44vw;height:44vw;top:-12vw;left:-10vw;}
-  .orb.b{width:40vw;height:40vw;bottom:-14vw;right:-8vw;animation-delay:-6s;}
-  @keyframes drift{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(4vw,-5vw) scale(1.15);}}
-  .beams{position:fixed;inset:0;z-index:0;opacity:.12;
-    background-image:linear-gradient(rgba(255,255,255,.4) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.4) 1px,transparent 1px);
-    background-size:52px 52px;mask-image:radial-gradient(ellipse at 50% 45%,#000 25%,transparent 75%);}
+  /* reveal on scroll */
+  .rev{opacity:0;transform:translateY(36px);transition:opacity .9s cubic-bezier(.2,.7,.3,1),transform .9s cubic-bezier(.2,.7,.3,1);}
+  .rev.in{opacity:1;transform:none;}
+  .rev.d1{transition-delay:.1s;}.rev.d2{transition-delay:.2s;}.rev.d3{transition-delay:.3s;}
 
-  /* SLAJDY */
-  .slide{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    text-align:center;padding:32px 24px;opacity:0;visibility:hidden;transform:scale(1.04);
-    transition:opacity .8s ease,transform .8s ease,visibility .8s;}
-  .slide.active{opacity:1;visibility:visible;transform:scale(1);}
-  .inner{max-width:760px;width:100%;}
+  /* HERO */
+  .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 26px 80px;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--acc);
+    border:1px solid var(--line);padding:8px 16px;border-radius:999px;background:var(--card);margin-bottom:26px;}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok);animation:blink 2s infinite;}
+  @keyframes blink{50%{opacity:.3;}}
+  h1{font-size:clamp(38px,7vw,76px);line-height:1.04;font-weight:900;letter-spacing:-1.5px;}
+  h1 .g{background:linear-gradient(100deg,var(--acc),var(--acc2),var(--vio));background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s linear infinite;}
+  @keyframes shine{to{background-position:200% center;}}
+  .sub{font-size:clamp(17px,2.4vw,21px);color:var(--mut);max-width:620px;margin:26px auto 0;}
+  .herobtns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:38px;}
+  .btn-p{font-size:17px;font-weight:800;color:#03060f;background:linear-gradient(90deg,var(--acc),var(--acc2));padding:16px 34px;border-radius:14px;text-decoration:none;box-shadow:0 12px 46px rgba(34,211,238,.4);transition:transform .15s;}
+  .btn-p:hover{transform:translateY(-2px);}
+  .btn-s{font-size:17px;font-weight:700;color:var(--txt);border:1px solid var(--line);padding:16px 30px;border-radius:14px;text-decoration:none;background:var(--card);}
 
-  /* animacja wejścia elementów aktywnego slajdu */
-  .slide.active .up{animation:up .7s cubic-bezier(.2,.7,.3,1) both;}
-  .slide.active .up:nth-child(2){animation-delay:.12s;}
-  .slide.active .up:nth-child(3){animation-delay:.24s;}
-  .slide.active .up:nth-child(4){animation-delay:.36s;}
-  .slide.active .up:nth-child(5){animation-delay:.48s;}
-  @keyframes up{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+  /* PROOF bar */
+  .proof{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;padding:40px 26px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.02);}
+  .proof .item{text-align:center;}
+  .proof .num{font-size:34px;font-weight:900;background:linear-gradient(90deg,var(--acc),var(--vio));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .proof .lab{font-size:13px;color:var(--mut);letter-spacing:.5px;margin-top:2px;}
 
-  .kick{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--mut);margin-bottom:18px;font-weight:700;}
-  h1{font-size:clamp(30px,6vw,58px);line-height:1.08;font-weight:900;color:var(--txt);letter-spacing:-.5px;}
-  h1 .g{background:linear-gradient(90deg,var(--c1,#22d3ee),var(--c2,#3b82f6));-webkit-background-clip:text;background-clip:text;color:transparent;}
-  .big{font-size:clamp(40px,9vw,90px);font-weight:900;line-height:1;
-    background:linear-gradient(90deg,var(--c1,#22d3ee),var(--c2,#3b82f6));-webkit-background-clip:text;background-clip:text;color:transparent;}
-  .lead{font-size:clamp(17px,2.6vw,22px);color:var(--mut);margin-top:20px;line-height:1.5;}
-  .ic{font-size:clamp(52px,11vw,90px);margin-bottom:8px;filter:drop-shadow(0 0 30px var(--glow,rgba(34,211,238,.6)));}
-  .price{display:inline-block;margin-top:22px;font-size:clamp(18px,3vw,24px);font-weight:800;color:#04060f;
-    background:linear-gradient(90deg,var(--c1,#22d3ee),var(--c2,#3b82f6));padding:12px 26px;border-radius:14px;
-    box-shadow:0 10px 40px var(--glow,rgba(34,211,238,.35));}
-  .row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:26px;}
-  .pill{font-size:15px;color:var(--txt);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
-    padding:10px 18px;border-radius:999px;backdrop-filter:blur(6px);}
-  .steps4{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:26px;}
-  .st{flex:1;min-width:130px;max-width:170px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);
-    border-radius:16px;padding:18px 12px;}
-  .st .n{width:36px;height:36px;margin:0 auto 10px;border-radius:50%;font-weight:900;display:grid;place-items:center;
-    color:#04060f;background:linear-gradient(90deg,var(--c1,#22d3ee),var(--c2,#3b82f6));}
-  .st .l{font-size:13.5px;color:var(--mut);}
-  .metric{font-size:clamp(15px,2.4vw,19px);color:#34d399;font-weight:800;margin-top:16px;}
-  .cta{display:inline-block;margin-top:26px;font-size:clamp(18px,3vw,22px);font-weight:900;color:#04060f;
-    background:linear-gradient(90deg,#22d3ee,#3b82f6);padding:18px 40px;border-radius:16px;text-decoration:none;
-    box-shadow:0 12px 50px rgba(34,211,238,.4);}
-  .contact{margin-top:18px;color:var(--mut);font-size:16px;}
-  .contact a{color:#22d3ee;text-decoration:none;font-weight:700;}
+  section.blk{padding:100px 0;}
+  .tag{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--acc);font-weight:700;}
+  h2{font-size:clamp(28px,4.5vw,44px);font-weight:900;letter-spacing:-.5px;margin:12px 0 14px;line-height:1.1;}
+  .lead2{color:var(--mut);font-size:18px;max-width:600px;}
 
-  /* PROGRES + KROPKI */
-  .prog{position:fixed;top:0;left:0;height:3px;z-index:9;background:linear-gradient(90deg,#22d3ee,#3b82f6);width:0;box-shadow:0 0 12px rgba(34,211,238,.7);}
-  .dots{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:9;display:flex;gap:9px;}
-  .dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.22);cursor:pointer;transition:all .3s;}
-  .dot.on{background:#22d3ee;width:26px;border-radius:6px;box-shadow:0 0 12px rgba(34,211,238,.7);}
-  .brand{position:fixed;top:18px;left:22px;z-index:9;font-weight:900;letter-spacing:.5px;color:#22d3ee;font-size:15px;}
-  .hint{position:fixed;top:20px;right:22px;z-index:9;font-size:12px;color:var(--mut);}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:44px;}
+  .srv{position:relative;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;overflow:hidden;transition:transform .25s,border-color .25s;}
+  .srv:hover{transform:translateY(-4px);border-color:rgba(34,211,238,.35);}
+  .srv::after{content:"";position:absolute;top:-40%;right:-40%;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(34,211,238,.14),transparent 70%);}
+  .srv .ic{font-size:34px;margin-bottom:14px;}
+  .srv h3{font-size:20px;font-weight:800;margin-bottom:8px;}
+  .srv p{color:var(--mut);font-size:15px;margin-bottom:16px;}
+  .srv .price{font-weight:800;color:var(--ok);font-size:15px;}
+
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:44px;}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;}
+  .step .n{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:900;font-size:19px;color:#03060f;background:linear-gradient(135deg,var(--acc),var(--acc2));margin-bottom:14px;}
+  .step h4{font-size:17px;margin-bottom:6px;}
+  .step p{color:var(--mut);font-size:14.5px;}
+
+  .cases{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:44px;}
+  .case{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px;}
+  .case .pill{display:inline-block;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--acc);border:1px solid var(--line);border-radius:999px;padding:4px 12px;margin-bottom:14px;}
+  .case h3{font-size:18px;margin-bottom:8px;}
+  .case p{color:var(--mut);font-size:14.5px;}
+  .case .m{color:var(--ok);font-weight:800;font-size:15px;margin-top:12px;}
+
+  .final{text-align:center;padding:110px 26px;}
+  .final h2{max-width:700px;margin:12px auto 16px;}
+  .final .sub{margin-bottom:34px;}
+  footer{text-align:center;color:var(--mut);font-size:14px;padding:40px 26px;border-top:1px solid var(--line);}
+  footer a{color:var(--acc);text-decoration:none;}
+  @media(max-width:600px){.proof{gap:26px;}section.blk{padding:70px 0;}}
 </style>
 </head>
 <body>
-<div id="stage">
-  <div class="bg" id="bg"><div class="orb a" id="o1"></div><div class="orb b" id="o2"></div></div>
-  <div class="beams"></div>
-  <div class="prog" id="prog"></div>
-  <div class="brand">proflowsync</div>
-  <div class="hint">▶ auto · klik = pauza</div>
+<canvas id="webgl"></canvas>
+<div class="veil"></div>
 
-  <!-- 0: HOOK -->
-  <section class="slide" data-c1="#22d3ee" data-c2="#3b82f6" data-bg="radial-gradient(ellipse at 50% 40%,#0b1a3a,#04060f 70%)" data-o1="#1d4ed8" data-o2="#22d3ee">
-    <div class="inner">
-      <div class="kick up">automatyzacje AI dla firm</div>
-      <h1 class="up">Twoja firma traci godziny<br>na robotę, którą zrobi<br><span class="g">za Ciebie AI</span></h1>
-      <p class="lead up">Chatboty · automatyzacje · systemy treści.<br>Ty robisz biznes — AI robi resztę.</p>
+<div class="wrap">
+  <nav>
+    <div class="logo">proflowsync</div>
+    <a class="btn" href="#kontakt">Bezpłatna konsultacja</a>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="eyebrow rev in"><span class="dot"></span> automatyzacje &amp; systemy AI dla firm</div>
+    <h1 class="rev in">Zautomatyzuj robotę,<br>która <span class="g">zjada Twój czas</span></h1>
+    <p class="sub rev in d1">Budujemy chatboty, automatyzacje procesów i systemy treści oparte na AI. Ty prowadzisz biznes — sztuczna inteligencja robi powtarzalną robotę za Ciebie.</p>
+    <div class="herobtns rev in d2">
+      <a class="btn-p" href="#kontakt">📩 Umów bezpłatną konsultację</a>
+      <a class="btn-s" href="#uslugi">Zobacz co robimy</a>
     </div>
-  </section>
+  </header>
 
-  <!-- 1: Chatbot -->
-  <section class="slide" data-c1="#22d3ee" data-c2="#0ea5e9" data-bg="radial-gradient(ellipse at 50% 40%,#062a33,#04060f 70%)" data-o1="#0891b2" data-o2="#22d3ee" style="--glow:rgba(34,211,238,.6)">
-    <div class="inner">
-      <div class="ic up" style="--c1:#22d3ee;--c2:#0ea5e9">💬</div>
-      <h1 class="up"><span class="g">Chatbot AI</span> obsługi klienta</h1>
-      <p class="lead up">Odpowiada klientom <b>24/7</b> — na stronie, Facebooku, WhatsAppie.<br>Zna Twoją ofertę, umawia wizyty, zbiera kontakty.</p>
-      <div class="price up" style="--c1:#22d3ee;--c2:#0ea5e9">od 1500 zł + 150 zł/mies</div>
-    </div>
-  </section>
+  <!-- PROOF -->
+  <div class="proof">
+    <div class="item rev"><div class="num">200+</div><div class="lab">filmów opublikowanych automatycznie</div></div>
+    <div class="item rev d1"><div class="num">3</div><div class="lab">platformy obsługiwane bez człowieka</div></div>
+    <div class="item rev d2"><div class="num">24/7</div><div class="lab">systemy działają non-stop</div></div>
+  </div>
 
-  <!-- 2: Automatyzacje -->
-  <section class="slide" data-c1="#a78bfa" data-c2="#7c3aed" data-bg="radial-gradient(ellipse at 50% 40%,#1e1046,#04060f 70%)" data-o1="#7c3aed" data-o2="#a78bfa" style="--glow:rgba(167,139,250,.6)">
-    <div class="inner">
-      <div class="ic up" style="--c1:#a78bfa;--c2:#7c3aed">⚙️</div>
-      <h1 class="up"><span class="g">Automatyzacja</span> procesów</h1>
-      <p class="lead up">Maile, zamówienia, faktury, raporty, przenoszenie danych.<br>Raz ustawione — <b>działa samo</b>, bez Twojego czasu.</p>
-      <div class="price up" style="--c1:#a78bfa;--c2:#7c3aed">od 800 zł / proces</div>
-    </div>
-  </section>
-
-  <!-- 3: Automat treści -->
-  <section class="slide" data-c1="#f472b6" data-c2="#db2777" data-bg="radial-gradient(ellipse at 50% 40%,#3d0d29,#04060f 70%)" data-o1="#db2777" data-o2="#f472b6" style="--glow:rgba(244,114,182,.6)">
-    <div class="inner">
-      <div class="ic up" style="--c1:#f472b6;--c2:#db2777">📱</div>
-      <h1 class="up"><span class="g">Automat treści</span> na social media</h1>
-      <p class="lead up">System sam generuje i publikuje filmy z AI<br>na <b>TikTok, YouTube i Instagram</b>. Marka rośnie sama.</p>
-      <div class="price up" style="--c1:#f472b6;--c2:#db2777">od 1500 zł + abonament</div>
-    </div>
-  </section>
-
-  <!-- 4: Asystent + integracje -->
-  <section class="slide" data-c1="#34d399" data-c2="#10b981" data-bg="radial-gradient(ellipse at 50% 40%,#06331f,#04060f 70%)" data-o1="#10b981" data-o2="#34d399" style="--glow:rgba(52,211,153,.6)">
-    <div class="inner">
-      <div class="ic up" style="--c1:#34d399;--c2:#10b981">🧠</div>
-      <h1 class="up"><span class="g">Asystent AI</span> dla Twojej firmy</h1>
-      <p class="lead up">Zna Twoje dokumenty, pisze oferty i maile,<br>odpowiada pracownikom. Wiedza firmy pod ręką.</p>
-      <div class="row up">
-        <span class="pill">🔗 integracje z Twoimi narzędziami</span>
-        <span class="pill">🔒 dane zostają u Ciebie</span>
+  <div class="container">
+    <!-- USŁUGI -->
+    <section class="blk" id="uslugi">
+      <span class="tag rev">co robimy</span>
+      <h2 class="rev">Rozwiązania, które oddają Ci czas</h2>
+      <p class="lead2 rev">Konkretnie i po ludzku — nie sprzedajemy technologii, tylko efekt: mniej ręcznej roboty, więcej czasu na biznes.</p>
+      <div class="cards">
+        <div class="srv rev"><div class="ic">💬</div><h3>Chatbot AI obsługi klienta</h3><p>Odpowiada klientom 24/7 na stronie, Facebooku i WhatsAppie. Zna ofertę, umawia, zbiera kontakty.</p><div class="price">od 1500 zł + 150 zł/mies</div></div>
+        <div class="srv rev d1"><div class="ic">⚙️</div><h3>Automatyzacja procesów</h3><p>Maile, zamówienia, faktury, raporty, przenoszenie danych między systemami. Raz ustawione — działa samo.</p><div class="price">od 800 zł / proces</div></div>
+        <div class="srv rev d2"><div class="ic">📱</div><h3>Automat treści na social media</h3><p>System sam generuje i publikuje filmy z AI na TikTok, YouTube i Instagram. Marka rośnie bez Twojego czasu.</p><div class="price">od 1500 zł + abonament</div></div>
+        <div class="srv rev"><div class="ic">🧠</div><h3>Asystent AI dla firmy</h3><p>Zna Twoje dokumenty, pisze oferty i maile, odpowiada pracownikom. Wiedza firmy zawsze pod ręką.</p><div class="price">od 2000 zł</div></div>
+        <div class="srv rev d1"><div class="ic">🔗</div><h3>Integracja AI z Twoimi narzędziami</h3><p>Podłączamy AI do tego, czego już używasz — CRM, sklep, arkusze, maile. AI pracuje tam, gdzie Ty.</p><div class="price">wycena indywidualna</div></div>
+        <div class="srv rev d2"><div class="ic">🚀</div><h3>Audyt i wdrożenie AI</h3><p>Pokażemy, gdzie AI da najwięcej oszczędności, dobierzemy narzędzia i wdrożymy. Plan, nie teoria.</p><div class="price">od 500 zł</div></div>
       </div>
-      <div class="price up" style="--c1:#34d399;--c2:#10b981">od 2000 zł</div>
-    </div>
-  </section>
+    </section>
 
-  <!-- 5: DOWÓD -->
-  <section class="slide" data-c1="#fbbf24" data-c2="#f59e0b" data-bg="radial-gradient(ellipse at 50% 40%,#3a2a06,#04060f 70%)" data-o1="#f59e0b" data-o2="#fbbf24">
-    <div class="inner">
-      <div class="kick up">dowód, że to działa</div>
-      <div class="big up">200+</div>
-      <p class="lead up">filmów opublikowanych <b>automatycznie</b> na 3 platformach<br>przez system, który zbudowałem. Bez udziału człowieka.</p>
-      <div class="metric up">✔ realne systemy AI · nie prezentacja — działają na żywo</div>
-    </div>
-  </section>
-
-  <!-- 6: JAK TO DZIAŁA -->
-  <section class="slide" data-c1="#22d3ee" data-c2="#3b82f6" data-bg="radial-gradient(ellipse at 50% 40%,#0b1a3a,#04060f 70%)" data-o1="#1d4ed8" data-o2="#22d3ee">
-    <div class="inner">
-      <div class="kick up">jak to działa — bez ryzyka</div>
-      <h1 class="up" style="font-size:clamp(24px,4vw,38px)">Od pomysłu do <span class="g">działającego AI</span></h1>
-      <div class="steps4 up">
-        <div class="st"><div class="n">1</div><div class="l">Bezpłatna rozmowa — co Ci zżera czas</div></div>
-        <div class="st"><div class="n">2</div><div class="l">Wycena z góry — zero ukrytych kosztów</div></div>
-        <div class="st"><div class="n">3</div><div class="l">Buduję i wdrażam u Ciebie</div></div>
-        <div class="st"><div class="n">4</div><div class="l">Działa samo — jestem pod ręką</div></div>
+    <!-- PROCES -->
+    <section class="blk">
+      <span class="tag rev">jak działamy</span>
+      <h2 class="rev">Od pomysłu do działającego AI — bez ryzyka</h2>
+      <div class="steps">
+        <div class="step rev"><div class="n">1</div><h4>Rozmowa</h4><p>Bezpłatnie. Mówisz co Ci zżera czas, my mówimy co da się zautomatyzować.</p></div>
+        <div class="step rev d1"><div class="n">2</div><h4>Wycena</h4><p>Konkretna cena i termin z góry. Zero ukrytych kosztów — płacisz za efekt.</p></div>
+        <div class="step rev d2"><div class="n">3</div><h4>Wdrożenie</h4><p>Budujemy, testujemy i uruchamiamy system u Ciebie.</p></div>
+        <div class="step rev d3"><div class="n">4</div><h4>Działa</h4><p>System pracuje sam. Jesteśmy pod ręką z opieką i rozwojem.</p></div>
       </div>
-    </div>
+    </section>
+
+    <!-- DOWÓD -->
+    <section class="blk">
+      <span class="tag rev">dowód, że to działa</span>
+      <h2 class="rev">Systemy, które zbudowaliśmy — działają na żywo</h2>
+      <div class="cases">
+        <div class="case rev"><span class="pill">automat treści</span><h3>Autonomiczny system publikacji</h3><p>Sam pisze scenariusze (AI), renderuje filmy, sprawdza jakość i publikuje na TikTok, YouTube i Instagram — bez udziału człowieka.</p><div class="m">200+ filmów opublikowanych automatycznie</div></div>
+        <div class="case rev d1"><span class="pill">asystent AI</span><h3>Lokalny asystent głosowy</h3><p>Rozumie mowę, myśli (LLM), odpowiada głosem. Cała wiedza zostaje na Twoim komputerze — zero chmury, zero abonamentów.</p><div class="m">głos → AI → głos, w pełni offline</div></div>
+        <div class="case rev d2"><span class="pill">system sprzedaży</span><h3>Marka + lejek + sklep od zera</h3><p>Strona, generator treści, sklep z produktem cyfrowym, automatyczne statystyki — wszystko spięte i działające.</p><div class="m">kompletny system online</div></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- CTA -->
+  <section class="final" id="kontakt">
+    <span class="tag rev">zacznijmy</span>
+    <h2 class="rev">Zobaczmy, co AI zrobi dla Twojej firmy</h2>
+    <p class="sub rev d1">Bezpłatna konsultacja, 15 minut, bez zobowiązań. Powiedz co Cię męczy w codziennej robocie — powiemy, jak to zdjąć z głowy.</p>
+    <a class="btn-p rev d2" href="mailto:bytomtattoo@gmail.com?subject=Zapytanie%20o%20automatyzacj%C4%99%20AI&body=Cze%C5%9B%C4%87%2C%20chc%C4%99%20porozmawia%C4%87%20o%20automatyzacji%20AI.%20Moja%20firma%3A%20...%20Co%20mnie%20m%C4%99czy%3A%20...">📩 Napisz do nas</a>
   </section>
 
-  <!-- 7: CTA -->
-  <section class="slide" data-c1="#22d3ee" data-c2="#3b82f6" data-bg="radial-gradient(ellipse at 50% 45%,#0e2550,#04060f 68%)" data-o1="#3b82f6" data-o2="#22d3ee">
-    <div class="inner">
-      <div class="kick up">zacznijmy</div>
-      <h1 class="up">Zobaczmy, co AI<br><span class="g">zrobi dla Twojej firmy</span></h1>
-      <p class="lead up">Bezpłatna konsultacja, 15 minut, bez zobowiązań.<br>Powiedz co Cię męczy — powiem jak to zdjąć z głowy.</p>
-      <a class="cta up" href="mailto:bytomtattoo@gmail.com?subject=Zapytanie%20o%20automatyzacj%C4%99%20AI&body=Cze%C5%9B%C4%87%2C%20chc%C4%99%20porozmawia%C4%87%20o%20automatyzacji%20AI.%20Moja%20firma%3A%20...%20Co%20mnie%20m%C4%99czy%3A%20...">📩 Napisz do mnie</a>
-      <div class="contact up">bytomtattoo@gmail.com · proflowsync</div>
-    </div>
-  </section>
-
-  <div class="dots" id="dots"></div>
+  <footer>
+    <div class="logo" style="font-weight:800;color:var(--acc)">proflowsync</div>
+    <p style="margin-top:8px">automatyzacje i systemy AI dla firm · <a href="mailto:bytomtattoo@gmail.com">bytomtattoo@gmail.com</a></p>
+  </footer>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-  const slides = [...document.querySelectorAll('.slide')];
-  const bg = document.getElementById('bg'), o1 = document.getElementById('o1'), o2 = document.getElementById('o2');
-  const prog = document.getElementById('prog'), dotsBox = document.getElementById('dots');
-  const DUR = 5600;              // czas jednego slajdu (ms)
-  let i = 0, timer = null, t0 = 0, paused = false;
+  // ===== WebGL: futurystyczna SIEĆ WĘZŁÓW (metafora automatyzacji AI) =====
+  const cv = document.getElementById('webgl');
+  const renderer = new THREE.WebGLRenderer({canvas:cv, antialias:true, alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  const scene = new THREE.Scene();
+  const cam = new THREE.PerspectiveCamera(65, innerWidth/innerHeight, 0.1, 1000);
+  cam.position.z = 60;
 
-  slides.forEach((_, idx) => {
-    const d = document.createElement('div'); d.className = 'dot'; d.onclick = () => go(idx);
-    dotsBox.appendChild(d);
-  });
-  const dots = [...dotsBox.children];
+  // węzły
+  const N = window.innerWidth < 700 ? 90 : 170;
+  const pts = [], vel = [];
+  const R = 70;
+  const posArr = new Float32Array(N*3);
+  for(let i=0;i<N;i++){
+    const x=(Math.random()-.5)*R*2, y=(Math.random()-.5)*R*1.2, z=(Math.random()-.5)*R;
+    pts.push(new THREE.Vector3(x,y,z));
+    vel.push(new THREE.Vector3((Math.random()-.5)*.05,(Math.random()-.5)*.05,(Math.random()-.5)*.05));
+    posArr[i*3]=x;posArr[i*3+1]=y;posArr[i*3+2]=z;
+  }
+  // punkty
+  const pg = new THREE.BufferGeometry();
+  pg.setAttribute('position', new THREE.BufferAttribute(posArr,3));
+  const pm = new THREE.PointsMaterial({color:0x22d3ee,size:1.1,transparent:true,opacity:.9,blending:THREE.AdditiveBlending});
+  const points = new THREE.Points(pg,pm); scene.add(points);
+  // linie
+  const lg = new THREE.BufferGeometry();
+  const lmax = N*N;
+  const linePos = new Float32Array(lmax*6);
+  const lm = new THREE.LineBasicMaterial({color:0x3b82f6,transparent:true,opacity:.16,blending:THREE.AdditiveBlending});
+  const lines = new THREE.LineSegments(lg,lm); scene.add(lines);
 
-  function paint(s){
-    bg.style.background = s.dataset.bg;
-    o1.style.background = s.dataset.o1;
-    o2.style.background = s.dataset.o2;
-  }
-  function show(n){
-    slides[i].classList.remove('active');
-    i = (n + slides.length) % slides.length;
-    slides[i].classList.add('active');
-    dots.forEach((d,k)=>d.classList.toggle('on',k===i));
-    paint(slides[i]);
-  }
-  function go(n){ show(n); restart(); }
-  function next(){ show(i+1); }               // po ostatnim → pierwszy = PĘTLA
+  const mouse = {x:0,y:0};
+  addEventListener('mousemove',e=>{mouse.x=(e.clientX/innerWidth-.5);mouse.y=(e.clientY/innerHeight-.5);});
+  addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
+  renderer.setSize(innerWidth,innerHeight);
 
-  function restart(){ t0 = performance.now(); }
-  function loop(now){
-    if(!paused){
-      const p = Math.min(1,(now - t0)/DUR);
-      prog.style.width = (p*100)+'%';
-      if(p>=1){ next(); restart(); }
-    } else { restart(); }
-    requestAnimationFrame(loop);
+  const DIST = 16;
+  function animate(){
+    requestAnimationFrame(animate);
+    for(let i=0;i<N;i++){
+      const p=pts[i], v=vel[i];
+      p.add(v);
+      if(Math.abs(p.x)>R)v.x*=-1; if(Math.abs(p.y)>R*.6)v.y*=-1; if(Math.abs(p.z)>R*.5)v.z*=-1;
+      posArr[i*3]=p.x;posArr[i*3+1]=p.y;posArr[i*3+2]=p.z;
+    }
+    pg.attributes.position.needsUpdate=true;
+    // linie między bliskimi węzłami
+    let li=0;
+    for(let i=0;i<N;i++)for(let j=i+1;j<N;j++){
+      const a=pts[i],b=pts[j];
+      const dx=a.x-b.x,dy=a.y-b.y,dz=a.z-b.z;
+      if(dx*dx+dy*dy+dz*dz < DIST*DIST){
+        linePos[li++]=a.x;linePos[li++]=a.y;linePos[li++]=a.z;
+        linePos[li++]=b.x;linePos[li++]=b.y;linePos[li++]=b.z;
+      }
+    }
+    lg.setAttribute('position', new THREE.BufferAttribute(linePos.slice(0,li),3));
+    lg.attributes.position.needsUpdate=true;
+    // delikatny obrót + parallax myszy
+    scene.rotation.y += 0.0009;
+    cam.position.x += (mouse.x*22 - cam.position.x)*.04;
+    cam.position.y += (-mouse.y*16 - cam.position.y)*.04;
+    cam.lookAt(scene.position);
+    renderer.render(scene,cam);
   }
-  // pauza na klik / dotyk (film się zatrzymuje gdy klient czyta)
-  document.getElementById('stage').addEventListener('click', e=>{
-    if(e.target.closest('a')||e.target.closest('.dot')) return;
-    paused = !paused;
-    document.querySelector('.hint').textContent = paused ? '⏸ pauza · klik = graj' : '▶ auto · klik = pauza';
-  });
-  // start
-  slides[0].classList.add('active'); paint(slides[0]);
-  dots[0].classList.add('on'); restart(); requestAnimationFrame(loop);
+  animate();
+
+  // reveal on scroll
+  const io = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.15});
+  document.querySelectorAll('.rev:not(.in)').forEach(el=>io.observe(el));
 </script>
 </body>
 </html>
