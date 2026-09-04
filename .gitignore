@@ -1,3 +1,11 @@
 pack_pro.html
 PROMPT_PACK_PRO.pdf
 pack_pro_podglad.png
+
+# Robocze narzędzia i zrzuty ekranu — NIE należą do publicznego bio-huba.
+# Kod strony to *.html + stats.json. Reszta (skrypty automatyzacji, screeny
+# rejestracji afiliacji) w prywatnym backupie klaudyna\_proflowsync_skrypty_backup.
+*.py
+*.png
+*.jpg
+README_AFILIACJA.md
