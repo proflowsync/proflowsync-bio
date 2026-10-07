@@ -307,6 +307,16 @@
       },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
       els.forEach(function(e){io.observe(e);});
     })();
+    // licznik ruchu (0 zł, bez konta) — hub pinguje Abacus; HUD Zenka AI czyta te same liczby
+    (function(){
+      var NS='pfsync-bio-h7k2', API='https://abacus.jasoncameron.dev/hit/'+NS+'/';
+      try{ fetch(API+'visits',{keepalive:true}); }catch(e){}          // wejscie na hub
+      document.addEventListener('click', function(ev){
+        var a=ev.target.closest && ev.target.closest('a[href^="http"]');
+        if(!a || /proflowsync\.github\.io/.test(a.href)) return;      // pomijamy linki wewnetrzne
+        try{ fetch(API+'clicks',{keepalive:true}); }catch(e){}        // klik w program/produkt
+      }, true);
+    })();
   </script>
 </body>
 </html>
