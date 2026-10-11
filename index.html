@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>proflowsync: narzędzia AI, które dają Ci przewagę</title>
-<meta name="description" content="Sprawdzony zestaw narzędzi AI od proflowsync + darmowy pack 50 promptów. Zacznij za 0 zł.">
-<meta property="og:title" content="proflowsync: narzędzia AI">
-<meta property="og:description" content="Sprawdzony stack AI + darmowy pack 50 promptów.">
+<title>proflowsync: 50 promptów AI za darmo + narzędzia, które dają przewagę</title>
+<meta name="description" content="Zgarnij darmowy pack 50 promptów AI od proflowsync. Zacznij oszczędzać czas i zarabiać z AI za 0 zł.">
+<meta property="og:title" content="proflowsync: 50 promptów AI za darmo">
+<meta property="og:description" content="Darmowy pack 50 promptów AI + sprawdzony stack narzędzi. Start za 0 zł.">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   :root{
@@ -15,12 +15,12 @@
     --txt:#eaf2ff; --mut:#8fa0bd;
   }
   html,body{overflow-x:hidden;}
+  html{scroll-behavior:smooth;}
   body{
     font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
     background:var(--bg); color:var(--txt); line-height:1.5;
     min-height:100vh; position:relative;
   }
-  /* animowane neonowe tlo */
   .bg{position:fixed;inset:0;z-index:0;overflow:hidden;}
   .orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;animation:float 14s ease-in-out infinite;}
   .orb.a{width:340px;height:340px;background:var(--cyan);top:-120px;left:-100px;}
@@ -40,30 +40,62 @@
     animation:pulse 3.5s ease-in-out infinite;}
   @keyframes pulse{0%,100%{box-shadow:0 0 0 1px rgba(255,255,255,.15),0 0 40px rgba(0,229,255,.5),0 0 70px rgba(192,75,255,.35);}
     50%{box-shadow:0 0 0 1px rgba(255,255,255,.25),0 0 55px rgba(0,229,255,.75),0 0 95px rgba(192,75,255,.55);}}
-  h1{font-size:34px;font-weight:800;letter-spacing:.5px;
+  h1{font-size:30px;font-weight:800;letter-spacing:.5px;
     background:linear-gradient(90deg,#fff,var(--cyan),var(--mag),#fff);background-size:200% auto;
     -webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite;}
   @keyframes shine{to{background-position:200% center;}}
-  .tag{color:var(--mut);font-size:14px;margin-top:8px;letter-spacing:.3px;}
-  .hero-cta{display:inline-block;margin-top:20px;font-weight:800;font-size:16px;color:var(--bg);
-    background:linear-gradient(90deg,var(--lime),var(--cyan));padding:15px 28px;border-radius:14px;text-decoration:none;
+  .promise{font-size:20px;font-weight:800;margin-top:12px;color:var(--txt);line-height:1.35;}
+  .promise b{color:var(--lime);}
+  .tag{color:var(--mut);font-size:14px;margin-top:10px;letter-spacing:.3px;}
+  .hero-cta{display:inline-block;margin-top:20px;font-weight:800;font-size:17px;color:var(--bg);
+    background:linear-gradient(90deg,var(--lime),var(--cyan));padding:16px 30px;border-radius:14px;text-decoration:none;
     box-shadow:0 0 34px rgba(57,255,158,.45);transition:transform .15s,box-shadow .25s;letter-spacing:.3px;}
   .hero-cta:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 0 46px rgba(57,255,158,.65);}
   .hero-cta:active{transform:scale(.97);}
-  .chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px;}
-  .chip{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--txt);
-    padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);
-    box-shadow:inset 0 0 12px rgba(0,229,255,.06);}
+  .counter{display:inline-flex;align-items:center;gap:7px;margin-top:16px;font-size:12.5px;color:var(--mut);
+    padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);}
+  .counter b{color:var(--lime);font-weight:800;font-variant-numeric:tabular-nums;}
+  .counter .dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px var(--lime);animation:blip 2s ease-in-out infinite;}
+  @keyframes blip{0%,100%{opacity:1;}50%{opacity:.4;}}
 
   /* SEKCJE */
   .sect{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--mut);
-    margin:30px 4px 12px;display:flex;align-items:center;gap:8px;}
+    margin:34px 4px 12px;display:flex;align-items:center;gap:8px;}
   .sect::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent);}
 
-  /* KARTA */
+  /* LEAD MAGNET + CAPTURE (serce lejka) */
+  .magnet{text-align:center;border-radius:20px;padding:26px 18px;margin:26px 0 6px;position:relative;overflow:hidden;
+    background:linear-gradient(160deg,rgba(192,75,255,.16),rgba(0,229,255,.1));border:1px solid rgba(192,75,255,.32);
+    box-shadow:0 0 50px rgba(192,75,255,.18);scroll-margin-top:18px;}
+  .magnet .gift{font-size:44px;filter:drop-shadow(0 0 16px rgba(192,75,255,.7));animation:bob 2.6s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+  .magnet h2{font-size:23px;font-weight:800;margin:8px 0 6px;}
+  .magnet p{color:var(--mut);font-size:13.5px;margin-bottom:16px;}
+  .lead{display:flex;flex-direction:column;gap:10px;}
+  .lead input[type=email]{width:100%;padding:15px 16px;border-radius:13px;font-size:16px;
+    background:rgba(5,6,13,.6);border:1px solid var(--line);color:var(--txt);outline:none;transition:border-color .2s,box-shadow .2s;}
+  .lead input[type=email]:focus{border-color:rgba(0,229,255,.55);box-shadow:0 0 0 3px rgba(0,229,255,.12);}
+  .lead button{font-weight:800;font-size:16px;color:var(--bg);cursor:pointer;border:0;
+    background:linear-gradient(90deg,var(--mag),var(--cyan));padding:15px;border-radius:13px;
+    box-shadow:0 0 30px rgba(192,75,255,.45);transition:transform .15s;}
+  .lead button:active{transform:scale(.97);}
+  .magnet .micro{font-size:11px;color:var(--mut);margin-top:12px;letter-spacing:.5px;}
+  .bullets{list-style:none;text-align:left;max-width:300px;margin:4px auto 16px;display:grid;gap:7px;}
+  .bullets li{font-size:13.5px;color:var(--txt);display:flex;gap:9px;align-items:flex-start;}
+  .bullets li::before{content:"✦";color:var(--lime);flex:none;}
+  /* dostarczenie packa (pod formularzem GetResponse) */
+  .dlbox{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);}
+  .dl{display:block;font-weight:800;font-size:16px;color:var(--bg);margin-top:4px;
+    background:linear-gradient(90deg,var(--lime),var(--cyan));padding:14px;border-radius:13px;text-decoration:none;
+    box-shadow:0 0 30px rgba(57,255,158,.4);}
+  .okmsg{font-size:13px;color:var(--mut);font-weight:600;margin-bottom:12px;}
+  /* osadzony formularz GetResponse — damy mu oddech */
+  getresponse-form{display:block;min-height:120px;}
+
+  /* KARTY */
   .card{display:block;position:relative;border-radius:18px;padding:16px 16px;margin-bottom:12px;
     background:var(--card);border:1px solid var(--line);text-decoration:none;color:var(--txt);
-    transition:transform .18s ease,box-shadow .25s ease,border-color .25s ease;overflow:hidden;}
+    transition:transform .18s ease,box-shadow .25s ease,border-color .25s ease;overflow:hidden;cursor:pointer;}
   .card::before{content:"";position:absolute;inset:0;border-radius:18px;padding:1px;
     background:linear-gradient(120deg,transparent,rgba(0,229,255,.5),rgba(192,75,255,.5),transparent);
     -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
@@ -87,8 +119,6 @@
     background:linear-gradient(90deg,var(--cyan),var(--mag));padding:11px;border-radius:11px;text-align:center;
     box-shadow:0 0 22px rgba(0,229,255,.3);}
   .arrow{margin-left:auto;color:var(--mut);font-size:20px;}
-
-  /* FEATURED #1 */
   .featured{border:1px solid rgba(57,255,158,.3);
     background:linear-gradient(160deg,rgba(57,255,158,.08),rgba(0,229,255,.05),transparent);}
   .featured .crown{position:absolute;top:0;right:16px;transform:translateY(-50%);
@@ -96,19 +126,14 @@
     background:linear-gradient(90deg,var(--lime),var(--cyan));padding:5px 12px;border-radius:999px;
     box-shadow:0 0 20px rgba(57,255,158,.5);}
 
-  /* LEAD MAGNET */
-  .magnet{text-align:center;border-radius:20px;padding:26px 18px;margin:22px 0 6px;position:relative;overflow:hidden;
-    background:linear-gradient(160deg,rgba(192,75,255,.16),rgba(0,229,255,.1));border:1px solid rgba(192,75,255,.32);
-    box-shadow:0 0 50px rgba(192,75,255,.18);}
-  .magnet .gift{font-size:44px;filter:drop-shadow(0 0 16px rgba(192,75,255,.7));animation:bob 2.6s ease-in-out infinite;}
-  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
-  .magnet h2{font-size:22px;font-weight:800;margin:8px 0 6px;}
-  .magnet p{color:var(--mut);font-size:13.5px;margin-bottom:16px;}
-  .magnet a{display:block;font-weight:800;font-size:16px;color:var(--bg);
-    background:linear-gradient(90deg,var(--mag),var(--cyan));padding:14px;border-radius:13px;text-decoration:none;
-    box-shadow:0 0 30px rgba(192,75,255,.45);transition:transform .15s;}
-  .magnet a:active{transform:scale(.97);}
-  .magnet .micro{font-size:11px;color:var(--mut);margin-top:11px;letter-spacing:.5px;}
+  /* STATY */
+  .stats{display:flex;gap:10px;margin:2px 0;}
+  .stat{flex:1;text-align:center;padding:18px 8px;border-radius:15px;background:var(--card);border:1px solid var(--line);
+    transition:border-color .25s,box-shadow .25s;}
+  .stat:hover{border-color:rgba(0,229,255,.3);box-shadow:0 0 20px rgba(0,229,255,.12);}
+  .stat .n{font-size:26px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;
+    background:linear-gradient(90deg,var(--cyan),var(--mag));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .stat .l{font-size:11px;color:var(--mut);margin-top:6px;letter-spacing:.3px;}
 
   /* GUIDE */
   .guide{border-radius:18px;padding:18px;background:var(--card);border:1px solid var(--line);}
@@ -131,47 +156,12 @@
   .social a.tt:hover{color:#fff;border-color:rgba(255,255,255,.5);box-shadow:0 0 24px rgba(255,255,255,.2);}
   .social a.ig:hover{color:#e1306c;border-color:rgba(225,48,108,.5);box-shadow:0 0 24px rgba(225,48,108,.3);}
   .social a.yt:hover{color:#ff0033;border-color:rgba(255,0,51,.5);box-shadow:0 0 24px rgba(255,0,51,.3);}
-  .social a:active{transform:translateY(-3px);}
-  .social a:hover{transform:translateY(-3px);}
+  .social a:active,.social a:hover{transform:translateY(-3px);}
   .foot{text-align:center;color:var(--mut);font-size:11px;margin-top:26px;opacity:.7;letter-spacing:.5px;}
-  /* scroll-reveal, elementy wjezdzaja plynnie */
+
   .rev{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1);}
   .rev.in{opacity:1;transform:none;}
   @media (prefers-reduced-motion:reduce){.rev{opacity:1;transform:none;transition:none;}}
-  /* interaktywnosc: plynne przewijanie + klikalne chipy + strzalka */
-  html{scroll-behavior:smooth;}
-  a.chip{cursor:pointer;text-decoration:none;color:var(--txt);transition:border-color .2s,box-shadow .2s,transform .15s;}
-  a.chip:hover,a.chip:active{border-color:rgba(0,229,255,.45);transform:translateY(-1px);
-    box-shadow:inset 0 0 14px rgba(0,229,255,.14),0 0 16px rgba(0,229,255,.18);}
-  .scrolldown{display:grid;place-items:center;width:42px;height:42px;margin:22px auto 0;border-radius:50%;
-    border:1px solid var(--line);color:var(--cyan);font-size:22px;text-decoration:none;background:var(--card);
-    animation:bounce 1.8s ease-in-out infinite;transition:border-color .2s,box-shadow .2s;}
-  .scrolldown:hover{border-color:rgba(0,229,255,.5);box-shadow:0 0 22px rgba(0,229,255,.3);}
-  @keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(7px);}}
-  .card,.magnet a,.social a{cursor:pointer;}
-  /* licznik pobran (realny) */
-  .counter{display:inline-flex;align-items:center;gap:7px;margin-top:14px;font-size:12.5px;color:var(--mut);
-    padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);}
-  .counter b{color:var(--lime);font-weight:800;font-variant-numeric:tabular-nums;}
-  .counter .dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px var(--lime);animation:blip 2s ease-in-out infinite;}
-  @keyframes blip{0%,100%{opacity:1;}50%{opacity:.4;}}
-  /* opinie */
-  .review{border-radius:16px;padding:16px;margin-bottom:12px;background:var(--card);border:1px solid var(--line);}
-  .review .q{font-size:14px;color:var(--txt);line-height:1.6;}
-  .review .who{display:flex;align-items:center;gap:10px;margin-top:12px;}
-  .review .av{width:34px;height:34px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:15px;font-weight:800;color:var(--bg);
-    background:linear-gradient(135deg,var(--cyan),var(--mag));}
-  .review .nm{font-size:13px;font-weight:700;}
-  .review .tag{font-size:11px;color:var(--mut);}
-  .stars{color:#ffd23f;font-size:13px;letter-spacing:1px;margin-bottom:8px;}
-  /* realne statystyki (social proof) */
-  .stats{display:flex;gap:10px;margin:2px 0;}
-  .stat{flex:1;text-align:center;padding:18px 8px;border-radius:15px;background:var(--card);border:1px solid var(--line);
-    transition:border-color .25s,box-shadow .25s;}
-  .stat:hover{border-color:rgba(0,229,255,.3);box-shadow:0 0 20px rgba(0,229,255,.12);}
-  .stat .n{font-size:26px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;
-    background:linear-gradient(90deg,var(--cyan),var(--mag));-webkit-background-clip:text;background-clip:text;color:transparent;}
-  .stat .l{font-size:11px;color:var(--mut);margin-top:6px;letter-spacing:.3px;}
 </style>
 </head>
 <body>
@@ -179,6 +169,7 @@
   <div class="grid"></div>
 
   <div class="wrap">
+    <!-- 1. HOOK -->
     <div class="hero">
       <div class="ava">
         <svg viewBox="0 0 64 64" fill="none" aria-label="proflowsync">
@@ -187,83 +178,83 @@
               <stop stop-color="#eafcff"/><stop offset="1" stop-color="#dff2ff"/>
             </linearGradient>
           </defs>
-          <!-- P z przeplywem: trzon + petla + fala synchronizacji -->
           <path d="M20 50V16h13a11 11 0 0 1 0 22H20" stroke="url(#lg)" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M12 44c6-5 10 5 16 0s10 5 16 0" stroke="url(#lg)" stroke-width="4" stroke-linecap="round" opacity=".85"/>
           <circle cx="47" cy="18" r="3.4" fill="#eafcff"/>
         </svg>
       </div>
       <h1>proflowsync</h1>
-      <div class="tag">Narzędzia AI, które dają Ci realną przewagę</div>
-      <div class="chips">
-        <a class="chip" href="#tools">⚡ AI &amp; automatyzacja</a>
-        <a class="chip" href="#ebook">🎁 darmowy pack</a>
-        <a class="chip" href="#tools">💸 start za 0 zł</a>
+      <div class="promise">Widziałeś mój film? Odbierz <b>50 promptów AI za darmo</b> i zacznij robić z AI realną robotę.</div>
+      <div class="tag">Gotowe komendy do ChatGPT: treści, biznes, social media, zarabianie.</div>
+      <a class="hero-cta" href="#pack">🎁 Chcę darmowy pack</a>
+      <div class="counter"><span class="dot"></span> <b id="c-wysw">84k+</b>&nbsp;wyświetleń · <b id="c-filmy">755</b>&nbsp;filmów o AI</div>
+    </div>
+
+    <!-- 2. MAGNES + ZAPIS MAILA (brama lejka) -->
+    <div class="magnet" id="pack">
+      <div class="gift">🎁</div>
+      <h2>50 promptów AI za darmo</h2>
+      <ul class="bullets">
+        <li>Gotowe komendy, wklejasz i działa (ChatGPT / Claude)</li>
+        <li>Pod treści, biznes, social media i oszczędzanie czasu</li>
+        <li>Plus mój ebook AI START PACK w zestawie</li>
+      </ul>
+      <!-- Formularz GetResponse (zapis na listę proflowsync) -->
+      <getresponse-form form-id="8ecaf27f-fa50-4601-9988-d3c94c648a44" e="0"></getresponse-form>
+      <div class="dlbox">
+        <div class="okmsg">Pack wpada na Twój e-mail. Chcesz od razu? Pobierz tutaj:</div>
+        <a class="dl" href="AI_START_PACK_proflowsync.pdf" target="_blank" rel="noopener">📖 Pobierz ebook AI START PACK</a>
+        <a class="dl" href="pack.html" style="margin-top:10px">📝 Otwórz 50 promptów AI</a>
       </div>
-      <a class="hero-cta" href="#ebook">🎁 Odbierz darmowy pack promptów</a>
-      <div class="counter"><span class="dot"></span> <b>35&nbsp;000+</b>&nbsp;wyświetleń · <b>607</b>&nbsp;filmów o AI</div>
-      <a class="scrolldown" href="#ebook" aria-label="przewiń w dół">⌄</a>
+      <div class="micro">✦ 0 zł ✦ bez spamu ✦ wypiszesz się jednym klikiem</div>
     </div>
 
-    <div class="magnet" id="ebook">
-      <div class="gift">📖</div>
-      <h2>Darmowy ebook: AI START PACK</h2>
-      <p>Gotowe prompty + moje narzędzia AI w jednym pliku. Pobierz i zacznij oszczędzać czas już dziś.</p>
-      <a href="AI_START_PACK_proflowsync.pdf" target="_blank" rel="noopener">Pobierz ebook za darmo 👇</a>
-      <div class="micro">✦ gotowe prompty ✦ sprawdzone narzędzia ✦ zero spamu</div>
-    </div>
-
-    <a class="card" href="pack.html" rel="noopener">
-      <div class="crow"><div class="ico">📝</div><div class="name">50 promptów AI <span class="badge free">za darmo</span></div><div class="arrow">→</div></div>
-      <div class="desc">Wolisz same gotowe komendy? Weź osobny pack 50 promptów do ChatGPT, praca, treści, biznes, social media.</div>
-    </a>
+    <!-- 3. DOSPRZEDAŻ (drabina ofert) -->
+    <div class="sect">🚀 Chcesz wejść wyżej?</div>
     <a class="card pro-card" href="https://bytomartistry.gumroad.com/l/vbyrfa" target="_blank" rel="noopener sponsored">
       <div class="crow"><div class="ico">🚀</div><div class="name">200 promptów AI PRO <span class="badge pro">29 zł</span></div><div class="arrow">→</div></div>
-      <div class="desc">Darmowy pack Ci zasmakował? PRO to <b>200 zaawansowanych promptów</b> pod ZARABIANIE, copywriting sprzedażowy, viral content, e-commerce, email, SEO, strategia, automatyzacja, personal branding. Wklej, uzupełnij nawias, działaj. Dożywotni dostęp.</div>
+      <div class="desc">Darmowy pack Ci zasmakował? PRO to <b>200 zaawansowanych promptów</b> pod ZARABIANIE: copywriting sprzedażowy, viral content, e-commerce, email, SEO, strategia, automatyzacja, personal branding. Wklej, uzupełnij nawias, działaj. Dożywotni dostęp.</div>
     </a>
     <a class="card pro-card" href="https://bytomartistry.gumroad.com/l/hubcl" target="_blank" rel="noopener sponsored">
       <div class="crow"><div class="ico">🎬</div><div class="name">AI CONTENT MACHINE PRO <span class="badge pro">79 zł</span></div><div class="arrow">→</div></div>
-      <div class="desc">Chcesz <b>zarabiać na faceless contencie</b>? To kompletny system, którym robię 91k+ wyświetleń: 74 prompty i szablony w 7 modułach, od viralowego tematu i hooka, przez automatyczną produkcję, po lejek który zamienia wyświetlenia w kasę. Dożywotni dostęp.</div>
-    </a>
-    <a class="card" href="claude-skills-pack.zip" download rel="noopener">
-      <div class="crow"><div class="ico">🤖</div><div class="name">Skille AI do Claude Code <span class="badge free">za darmo</span></div><div class="arrow">→</div></div>
-      <div class="desc">5 gotowych skilli do Claude Code: treści, copy, SEO, maile, prompty. Wrzuć do skilli, wpisz /nazwę i masz gotową robotę.</div>
+      <div class="desc">Chcesz <b>zarabiać na faceless contencie</b>? Kompletny system, którym robię dziesiątki tysięcy wyświetleń: 74 prompty i szablony w 7 modułach, od viralowego tematu i hooka, przez produkcję, po lejek zamieniający wyświetlenia w kasę. Dożywotni dostęp.</div>
     </a>
 
+    <!-- 4. SOCIAL PROOF -->
     <div class="sect">📊 proflowsync w liczbach</div>
     <div class="stats">
-      <div class="stat"><div class="n" id="st-filmy">607</div><div class="l">filmów o AI</div></div>
-      <div class="stat"><div class="n" id="st-wysw">91k+</div><div class="l">wyświetleń</div></div>
-      <div class="stat"><div class="n" id="st-obs">556</div><div class="l">obserwujących</div></div>
+      <div class="stat"><div class="n" id="st-filmy">755</div><div class="l">filmów o AI</div></div>
+      <div class="stat"><div class="n" id="st-wysw">84k+</div><div class="l">wyświetleń</div></div>
+      <div class="stat"><div class="n" id="st-obs">539</div><div class="l">obserwujących</div></div>
     </div>
 
-    <div class="sect" id="tools">👑 Moja #1 rekomendacja</div>
+    <!-- 5. NARZĘDZIA (afiliacje — tylko to, czego używam) -->
+    <div class="sect" id="tools">👑 Narzędzia AI, których używam</div>
     <a class="card featured" href="https://www.getresponse.com?a=XAhDjwqCGC" target="_blank" rel="noopener sponsored">
       <span class="crown">★ najlepszy wybór</span>
       <div class="crow"><div class="ico logo"><img src="https://www.google.com/s2/favicons?domain=getresponse.com&sz=128" alt="GetResponse" loading="lazy"></div><div class="name">GetResponse <span class="badge free">plan 0 zł</span></div></div>
       <div class="desc">Tu buduję listę mailową i puszczam automatyczne kampanie, serce mojego zarabiania. AI podpowiada tematy i pisze maile za mnie.</div>
       <div class="cta">Zacznij za darmo →</div>
     </a>
-
-    <div class="sect">⚡ Reszta mojego stacku AI</div>
-    <a class="card" href="https://www.systeme.io/?sa=sa02764167884a74869326426ca729e008af9b332d" target="_blank" rel="noopener sponsored">
-      <div class="crow"><div class="ico logo"><img src="https://www.google.com/s2/favicons?domain=systeme.io&sz=128" alt="Systeme.io" loading="lazy"></div><div class="name">Systeme.io <span class="badge free">plan 0 zł</span></div><div class="arrow">→</div></div>
-      <div class="desc">Cały biznes online w jednym miejscu: strony sprzedażowe, maile, kursy i automatyzacje. Tu zaczynam każdy lejek.</div>
-    </a>
     <a class="card" href="https://try.elevenlabs.io/8pf4y0b3ggrt" target="_blank" rel="noopener sponsored">
       <div class="crow"><div class="ico logo"><img src="https://www.google.com/s2/favicons?domain=elevenlabs.io&sz=128" alt="ElevenLabs" loading="lazy"></div><div class="name">ElevenLabs <span class="badge">AI głos</span></div><div class="arrow">→</div></div>
-      <div class="desc">Najlepszy generator głosu AI, brzmi jak żywy lektor. Dokładnie ta technologia, o której nagrywam. Używam do podkładów pod shorty.</div>
+      <div class="desc">Najlepszy generator głosu AI, brzmi jak żywy lektor. Używam do podkładów pod shorty.</div>
     </a>
     <a class="card" href="https://invideo.sjv.io/c/7472459/883681/12258" target="_blank" rel="noopener sponsored">
       <div class="crow"><div class="ico logo"><img src="https://www.google.com/s2/favicons?domain=invideo.io&sz=128" alt="InVideo" loading="lazy"></div><div class="name">InVideo AI <span class="badge">AI wideo</span></div><div class="arrow">→</div></div>
-      <div class="desc">Generator wideo z AI: z samego tekstu robi gotowy film z lektorem, muzyką i napisami. Używam do szybkiego składania materiałów.</div>
+      <div class="desc">Z samego tekstu robi gotowy film z lektorem, muzyką i napisami. Do szybkiego składania materiałów.</div>
+    </a>
+    <a class="card" href="https://www.systeme.io/?sa=sa02764167884a74869326426ca729e008af9b332d" target="_blank" rel="noopener sponsored">
+      <div class="crow"><div class="ico logo"><img src="https://www.google.com/s2/favicons?domain=systeme.io&sz=128" alt="Systeme.io" loading="lazy"></div><div class="name">Systeme.io <span class="badge free">plan 0 zł</span></div><div class="arrow">→</div></div>
+      <div class="desc">Cały biznes online w jednym miejscu: strony sprzedażowe, maile, kursy i automatyzacje.</div>
     </a>
 
+    <!-- 6. JAK ZACZĄĆ -->
     <div class="sect">🎯 Jak zacząć (w 3 krokach)</div>
     <div class="guide">
       <h3>Od zera do pierwszej oszczędności czasu</h3>
-      <div class="step"><div class="num">1</div><div class="t"><b>Weź darmowy pack promptów</b> (wyżej), gotowe komendy, które od razu działają w ChatGPT.</div></div>
-      <div class="step"><div class="num">2</div><div class="t"><b>Wybierz jedno narzędzie</b>: lista i kampanie → GetResponse, głos AI → ElevenLabs, cały biznes → Systeme.io.</div></div>
+      <div class="step"><div class="num">1</div><div class="t"><b>Odbierz darmowy pack promptów</b> (wyżej), gotowe komendy, które od razu działają w ChatGPT.</div></div>
+      <div class="step"><div class="num">2</div><div class="t"><b>Wybierz jedno narzędzie</b>: lista i kampanie → GetResponse, głos AI → ElevenLabs, wideo → InVideo.</div></div>
       <div class="step"><div class="num">3</div><div class="t"><b>Zautomatyzuj jedną rzecz</b>, którą robisz codziennie. Jeden proces mniej = godziny odzyskane.</div></div>
     </div>
 
@@ -287,19 +278,28 @@
     <div class="foot">© 2026 proflowsync · zbudowane z AI</div>
   </div>
 
+  <!-- GetResponse Web Connect (integracja formularza z kontem proflowsync) -->
+  <script type="text/javascript">
+  (function(m, o, n, t, e, r, _){
+      m['__GetResponseAnalyticsObject'] = e;m[e] = m[e] || function() {(m[e].q = m[e].q || []).push(arguments)};
+      r = o.createElement(n);_ = o.getElementsByTagName(n)[0];r.async = 1;r.src = t;r.setAttribute('crossorigin', 'use-credentials');_.parentNode.insertBefore(r, _);
+  })(window, document, 'script', 'https://an.gr-wcon.com/script/d7966631-5e9a-442d-a251-5a9b20dbbd65/ga.js', 'GrTracking');
+  </script>
+
   <script>
-    // auto-update statystyk, hub pobiera stats.json (odświeżany codziennie przez skrypt)
+    // realne statystyki (social proof) z stats.json
     (function(){
       fetch('stats.json?t='+Date.now()).then(function(r){return r.json();}).then(function(d){
         function fmt(n){ return n>=1000 ? Math.floor(n/1000)+'k+' : String(n); }
-        var f=document.getElementById('st-filmy'), w=document.getElementById('st-wysw'), o=document.getElementById('st-obs');
-        if(f&&d.filmy) f.textContent=d.filmy;
-        if(w&&d.wyswietlenia) w.textContent=fmt(d.wyswietlenia);
-        if(o&&d.obserwujacy) o.textContent=d.obserwujacy;
+        var map={'st-filmy':d.filmy,'st-wysw':d.wyswietlenia,'st-obs':d.obserwujacy,
+                 'c-filmy':d.filmy,'c-wysw':d.wyswietlenia};
+        for(var id in map){ var el=document.getElementById(id); if(el&&map[id]!=null){ el.textContent=(id==='st-wysw'||id==='c-wysw')?fmt(map[id]):map[id]; } }
       }).catch(function(){});
     })();
+
+    // scroll-reveal
     (function(){
-      var els=document.querySelectorAll('.hero,.magnet,.sect,.card,.guide,.about,.social,.review,.stats');
+      var els=document.querySelectorAll('.hero,.magnet,.sect,.card,.guide,.about,.social,.stats');
       els.forEach(function(e){e.classList.add('rev');});
       if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');});return;}
       var io=new IntersectionObserver(function(ents){
@@ -307,14 +307,15 @@
       },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
       els.forEach(function(e){io.observe(e);});
     })();
-    // licznik ruchu (0 zł, bez konta) — hub pinguje Abacus; HUD Zenka AI czyta te same liczby
+
+    // licznik ruchu (0 zł, bez konta)
     (function(){
       var NS='pfsync-bio-h7k2', API='https://abacus.jasoncameron.dev/hit/'+NS+'/';
-      try{ fetch(API+'visits',{keepalive:true}); }catch(e){}          // wejscie na hub
+      try{ fetch(API+'visits',{keepalive:true}); }catch(e){}
       document.addEventListener('click', function(ev){
         var a=ev.target.closest && ev.target.closest('a[href^="http"]');
-        if(!a || /proflowsync\.github\.io/.test(a.href)) return;      // pomijamy linki wewnetrzne
-        try{ fetch(API+'clicks',{keepalive:true}); }catch(e){}        // klik w program/produkt
+        if(!a || /proflowsync\.github\.io/.test(a.href)) return;
+        try{ fetch(API+'clicks',{keepalive:true}); }catch(e){}
       }, true);
     })();
   </script>
