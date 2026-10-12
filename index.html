@@ -159,6 +159,30 @@
   .social a:active,.social a:hover{transform:translateY(-3px);}
   .foot{text-align:center;color:var(--mut);font-size:11px;margin-top:26px;opacity:.7;letter-spacing:.5px;}
 
+  /* NAJNOWSZY FILM (poz.2 — świeży content) */
+  .latest{display:flex;align-items:center;gap:14px;border-radius:18px;padding:14px 16px;margin-bottom:12px;
+    background:linear-gradient(160deg,rgba(255,0,51,.12),rgba(0,229,255,.05),transparent);
+    border:1px solid rgba(255,0,51,.28);text-decoration:none;color:var(--txt);position:relative;overflow:hidden;
+    transition:transform .18s,box-shadow .25s;}
+  .latest:hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(255,0,51,.18);}
+  .latest .play{width:46px;height:46px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:18px;color:#fff;
+    background:linear-gradient(135deg,#ff0033,#c04bff);box-shadow:0 0 24px rgba(255,0,51,.5);}
+  .latest .play::after{content:"";position:absolute;width:46px;height:46px;border-radius:50%;border:2px solid rgba(255,0,51,.5);
+    animation:ring 2.2s ease-out infinite;}
+  @keyframes ring{0%{transform:scale(1);opacity:.7;}100%{transform:scale(1.9);opacity:0;}}
+  .latest .lt{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#ff647e;font-weight:800;}
+  .latest .lh{font-size:15px;font-weight:700;margin-top:3px;}
+  .latest .arrow{margin-left:auto;}
+
+  /* STICKY CTA (jedno dominujące CTA powtarzane) */
+  .sticky{position:fixed;left:50%;bottom:16px;z-index:30;width:calc(100% - 36px);max-width:444px;
+    transform:translateX(-50%) translateY(140px);opacity:0;transition:transform .4s cubic-bezier(.2,.8,.2,1),opacity .35s;}
+  .sticky.show{transform:translateX(-50%) translateY(0);opacity:1;}
+  .sticky a{display:flex;align-items:center;justify-content:center;gap:9px;font-weight:800;font-size:16px;color:var(--bg);
+    background:linear-gradient(90deg,var(--lime),var(--cyan));padding:16px;border-radius:15px;text-decoration:none;
+    box-shadow:0 10px 34px rgba(57,255,158,.45),0 0 0 1px rgba(255,255,255,.1);}
+  .sticky a:active{transform:scale(.98);}
+
   .rev{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1);}
   .rev.in{opacity:1;transform:none;}
   @media (prefers-reduced-motion:reduce){.rev{opacity:1;transform:none;transition:none;}}
@@ -208,6 +232,14 @@
       </div>
       <div class="micro">✦ 0 zł ✦ bez spamu ✦ wypiszesz się jednym klikiem</div>
     </div>
+
+    <!-- 2b. ŚWIEŻY CONTENT (poz.2 wg researchu — najnowszy film) -->
+    <div class="sect">🔥 Świeżo ode mnie</div>
+    <a class="latest" href="https://www.youtube.com/@proflowsync/shorts" target="_blank" rel="noopener">
+      <div class="play">▶</div>
+      <div><div class="lt">Najnowszy film</div><div class="lh">Zobacz, co dziś wrzuciłem o AI</div></div>
+      <div class="arrow">→</div>
+    </a>
 
     <!-- 3. DOSPRZEDAŻ (drabina ofert) -->
     <div class="sect">🚀 Chcesz wejść wyżej?</div>
@@ -278,6 +310,9 @@
     <div class="foot">© 2026 proflowsync · zbudowane z AI</div>
   </div>
 
+  <!-- STICKY CTA (pojawia się po zjechaniu poza hero) -->
+  <div class="sticky" id="sticky"><a href="#pack">🎁 Odbierz 50 promptów za darmo</a></div>
+
   <!-- GetResponse Web Connect (integracja formularza z kontem proflowsync) -->
   <script type="text/javascript">
   (function(m, o, n, t, e, r, _){
@@ -287,14 +322,44 @@
   </script>
 
   <script>
-    // realne statystyki (social proof) z stats.json
+    // realne statystyki (social proof) z stats.json + animowany count-up
     (function(){
+      function fmt(n){ return n>=1000 ? Math.floor(n/1000)+'k+' : String(n); }
+      function countUp(el,target,isK){
+        if(!el) return;
+        var dur=1100, t0=null;
+        function step(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/dur,1);
+          var e=1-Math.pow(1-p,3), v=Math.floor(e*target);
+          el.textContent=isK?fmt(v):String(v);
+          if(p<1) requestAnimationFrame(step); else el.textContent=isK?fmt(target):String(target); }
+        requestAnimationFrame(step);
+      }
       fetch('stats.json?t='+Date.now()).then(function(r){return r.json();}).then(function(d){
-        function fmt(n){ return n>=1000 ? Math.floor(n/1000)+'k+' : String(n); }
-        var map={'st-filmy':d.filmy,'st-wysw':d.wyswietlenia,'st-obs':d.obserwujacy,
-                 'c-filmy':d.filmy,'c-wysw':d.wyswietlenia};
-        for(var id in map){ var el=document.getElementById(id); if(el&&map[id]!=null){ el.textContent=(id==='st-wysw'||id==='c-wysw')?fmt(map[id]):map[id]; } }
+        var statsEl=document.querySelector('.stats'), fired=false;
+        function fire(){ if(fired)return; fired=true;
+          countUp(document.getElementById('st-filmy'),d.filmy,false);
+          countUp(document.getElementById('st-wysw'),d.wyswietlenia,true);
+          countUp(document.getElementById('st-obs'),d.obserwujacy,false);
+        }
+        // hero counter od razu (nad foldem)
+        countUp(document.getElementById('c-filmy'),d.filmy,false);
+        countUp(document.getElementById('c-wysw'),d.wyswietlenia,true);
+        // sekcja statystyk — count-up gdy wejdzie w kadr
+        if(statsEl && 'IntersectionObserver' in window){
+          var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){fire();io.disconnect();}});},{threshold:.4});
+          io.observe(statsEl);
+        } else { fire(); }
       }).catch(function(){});
+    })();
+
+    // sticky CTA — pokaż po wyjściu z hero
+    (function(){
+      var bar=document.getElementById('sticky'), hero=document.querySelector('.hero');
+      if(!bar||!hero||!('IntersectionObserver' in window)) return;
+      var io=new IntersectionObserver(function(es){es.forEach(function(e){
+        bar.classList.toggle('show', !e.isIntersecting);
+      });},{threshold:0});
+      io.observe(hero);
     })();
 
     // scroll-reveal
