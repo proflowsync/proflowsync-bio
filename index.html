@@ -7,6 +7,12 @@
 <meta name="description" content="Zgarnij darmowy pack 50 promptów AI od proflowsync. Zacznij oszczędzać czas i zarabiać z AI za 0 zł.">
 <meta property="og:title" content="proflowsync: 50 promptów AI za darmo">
 <meta property="og:description" content="Darmowy pack 50 promptów AI + sprawdzony stack narzędzi. Start za 0 zł.">
+<meta property="og:image" content="https://proflowsync.github.io/proflowsync-bio/hero.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://proflowsync.github.io/proflowsync-bio/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://proflowsync.github.io/proflowsync-bio/hero.png">
+<link rel="preload" as="image" href="hero.png">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   :root{
@@ -34,6 +40,17 @@
 
   /* HERO */
   .hero{text-align:center;padding:14px 0 8px;}
+  .heroart{width:190px;height:238px;margin:0 auto 10px;border-radius:26px;position:relative;overflow:hidden;
+    box-shadow:0 0 0 1px rgba(255,255,255,.12),0 0 50px rgba(0,229,255,.4),0 0 90px rgba(192,75,255,.3);
+    animation:floaty 7s ease-in-out infinite;}
+  .heroart img{width:100%;height:100%;object-fit:cover;display:block;}
+  .heroart::after{content:"";position:absolute;inset:0;border-radius:26px;
+    background:radial-gradient(ellipse at 50% 120%,transparent 55%,rgba(5,6,13,.55));}
+  @keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+  .brandrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:2px;}
+  .brandmark{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--cyan),var(--mag));
+    display:grid;place-items:center;box-shadow:0 0 18px rgba(0,229,255,.45);}
+  .brandmark svg{width:20px;height:20px;}
   .ava{width:88px;height:88px;border-radius:26px;margin:0 auto 16px;position:relative;
     background:linear-gradient(135deg,var(--cyan),var(--mag));display:grid;place-items:center;font-size:40px;
     box-shadow:0 0 0 1px rgba(255,255,255,.15),0 0 40px rgba(0,229,255,.5),0 0 70px rgba(192,75,255,.35);
@@ -195,33 +212,38 @@
   <div class="wrap">
     <!-- 1. HOOK -->
     <div class="hero">
-      <div class="ava">
-        <svg viewBox="0 0 64 64" fill="none" aria-label="proflowsync">
-          <defs>
-            <linearGradient id="lg" x1="8" y1="10" x2="56" y2="54" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#eafcff"/><stop offset="1" stop-color="#dff2ff"/>
-            </linearGradient>
-          </defs>
-          <path d="M20 50V16h13a11 11 0 0 1 0 22H20" stroke="url(#lg)" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M12 44c6-5 10 5 16 0s10 5 16 0" stroke="url(#lg)" stroke-width="4" stroke-linecap="round" opacity=".85"/>
-          <circle cx="47" cy="18" r="3.4" fill="#eafcff"/>
-        </svg>
+      <div class="heroart">
+        <img src="hero.png" alt="proflowsync — AI, które pracuje dla Ciebie" loading="eager">
       </div>
-      <h1>proflowsync</h1>
-      <div class="promise">Widziałeś mój film? Odbierz <b>50 promptów AI za darmo</b> i zacznij robić z AI realną robotę.</div>
-      <div class="tag">Gotowe komendy do ChatGPT: treści, biznes, social media, zarabianie.</div>
-      <a class="hero-cta" href="#pack">🎁 Chcę darmowy pack</a>
+      <div class="brandrow">
+        <span class="brandmark">
+          <svg viewBox="0 0 64 64" fill="none" aria-label="proflowsync">
+            <defs>
+              <linearGradient id="lg" x1="8" y1="10" x2="56" y2="54" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#05060d"/><stop offset="1" stop-color="#0a0f1e"/>
+              </linearGradient>
+            </defs>
+            <path d="M20 50V16h13a11 11 0 0 1 0 22H20" stroke="#fff" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 44c6-5 10 5 16 0s10 5 16 0" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".85"/>
+            <circle cx="47" cy="18" r="3.4" fill="#fff"/>
+          </svg>
+        </span>
+        <h1>proflowsync</h1>
+      </div>
+      <div class="promise">Oglądasz, jak AI robi robotę. Czas, żeby robiło ją <b>dla Ciebie</b>.</div>
+      <div class="tag">Odbierz 50 gotowych promptów. Wklejasz do ChatGPT, masz tekst, pomysł i plan w minutę. 0 zł.</div>
+      <a class="hero-cta" href="#pack">🎁 Chcę 50 promptów za darmo</a>
       <div class="counter"><span class="dot"></span> <b id="c-wysw">84k+</b>&nbsp;wyświetleń · <b id="c-filmy">755</b>&nbsp;filmów o AI</div>
     </div>
 
     <!-- 2. MAGNES + ZAPIS MAILA (brama lejka) -->
     <div class="magnet" id="pack">
       <div class="gift">🎁</div>
-      <h2>50 promptów AI za darmo</h2>
+      <h2>50 promptów AI, które oszczędzają godziny</h2>
       <ul class="bullets">
-        <li>Gotowe komendy, wklejasz i działa (ChatGPT / Claude)</li>
-        <li>Pod treści, biznes, social media i oszczędzanie czasu</li>
-        <li>Plus mój ebook AI START PACK w zestawie</li>
+        <li>Wklejasz gotową komendę do ChatGPT / Claude i masz efekt. Zero uczenia się.</li>
+        <li>Napiszą Ci posta, ofertę, maila i plan działania w minutę zamiast godziny.</li>
+        <li>W zestawie ebook AI START PACK: od czego zacząć, żeby AI pracowało na Ciebie.</li>
       </ul>
       <!-- Formularz GetResponse (zapis na listę proflowsync) -->
       <getresponse-form form-id="849a9e01-ca03-4c3b-acdc-62ecd5d925ec" e="0"></getresponse-form>
