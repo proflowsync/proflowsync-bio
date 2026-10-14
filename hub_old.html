@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>proflowsync: 50 promptów AI za darmo + narzędzia, które dają przewagę</title>
+<meta name="description" content="Zgarnij darmowy pack 50 promptów AI od proflowsync. Zacznij oszczędzać czas i zarabiać z AI za 0 zł.">
+<meta property="og:title" content="proflowsync: 50 promptów AI za darmo">
+<meta property="og:description" content="Darmowy pack 50 promptów AI + sprawdzony stack narzędzi. Start za 0 zł.">
+<meta property="og:image" content="https://proflowsync.github.io/proflowsync-bio/hero.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://proflowsync.github.io/proflowsync-bio/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://proflowsync.github.io/proflowsync-bio/hero.png">
+<link rel="preload" as="image" href="hero.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  :root{
+    --bg:#0a0a0b; --bg2:#101013;
+    --txt:#ece7dd; --mut:#8d8b92; --dim:#5f5e65;
+    --line:rgba(236,231,221,.11); --line2:rgba(236,231,221,.2);
+    --card:rgba(255,255,255,.022);
+    --accent:#aeb9d8;
+    --serif:'Instrument Serif',Georgia,'Times New Roman',serif;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --mono:'Space Mono','SFMono-Regular',Consolas,monospace;
+  }
+  html,body{overflow-x:hidden;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--sans); background:var(--bg); color:var(--txt);
+    line-height:1.65; min-height:100vh; position:relative;
+    font-size:15px; letter-spacing:.1px; -webkit-font-smoothing:antialiased;
+  }
+  /* subtelne tło: delikatna poświata zamiast neonowych orbów */
+  .bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(60% 40% at 50% -5%,rgba(120,140,200,.14),transparent 70%),
+      radial-gradient(45% 30% at 85% 15%,rgba(150,110,190,.08),transparent 70%),
+      radial-gradient(50% 40% at 10% 90%,rgba(90,120,170,.06),transparent 70%);}
+  .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  .wrap{position:relative;z-index:2;max-width:500px;margin:0 auto;padding:40px 26px 120px;}
+
+  /* ——— eyebrow / labelki mono ——— */
+  .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:3px;text-transform:uppercase;color:var(--mut);}
+
+  /* ——— HERO ——— */
+  .hero{text-align:center;padding:6px 0 10px;}
+  .wordmark{font-family:var(--mono);font-size:12px;letter-spacing:5px;text-transform:uppercase;color:var(--mut);
+    display:inline-flex;align-items:center;gap:9px;margin-bottom:34px;}
+  .wordmark .mk{width:18px;height:18px;opacity:.85;}
+  .heroart{width:210px;height:263px;margin:0 auto 30px;border-radius:4px;position:relative;overflow:hidden;
+    border:1px solid var(--line2);
+    box-shadow:0 30px 80px -30px rgba(120,140,200,.5),inset 0 0 0 1px rgba(255,255,255,.04);
+    animation:floaty 8s ease-in-out infinite;}
+  .heroart img{width:100%;height:100%;object-fit:cover;display:block;}
+  @keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+  h1.head{font-family:var(--serif);font-weight:400;font-size:40px;line-height:1.08;letter-spacing:.3px;margin-bottom:20px;}
+  h1.head em{font-style:italic;color:#fff;}
+  .sub{font-size:15.5px;color:var(--mut);max-width:400px;margin:0 auto 30px;line-height:1.6;}
+  .sub b{color:var(--txt);font-weight:500;}
+
+  /* ——— przyciski ——— */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;
+    font-family:var(--sans);font-weight:500;font-size:15px;letter-spacing:.2px;text-decoration:none;
+    padding:15px 30px;border-radius:999px;transition:transform .2s ease,background .25s,border-color .25s,color .25s;border:1px solid transparent;}
+  .btn-primary{background:var(--txt);color:#0a0a0b;box-shadow:0 10px 40px -12px rgba(236,231,221,.5);}
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-primary:active{transform:scale(.98);}
+  .btn-ghost{background:transparent;color:var(--txt);border-color:var(--line2);}
+  .btn-ghost:hover{border-color:var(--txt);background:rgba(255,255,255,.03);}
+  .btn.full{display:flex;width:100%;}
+
+  .counter{margin-top:26px;font-family:var(--mono);font-size:11.5px;letter-spacing:.5px;color:var(--dim);
+    display:flex;align-items:center;justify-content:center;gap:8px;}
+  .counter b{color:var(--mut);font-weight:700;}
+  .counter .sep{color:var(--line2);}
+
+  /* ——— nagłówki sekcji (editorial) ——— */
+  .sect{display:flex;align-items:baseline;gap:14px;margin:66px 2px 24px;}
+  .sect .no{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:1px;flex:none;}
+  .sect .lb{font-family:var(--mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--mut);white-space:nowrap;}
+  .sect::after{content:"";flex:1;height:1px;background:var(--line);align-self:center;}
+
+  /* ——— LEAD MAGNET ——— */
+  .magnet{scroll-margin-top:20px;}
+  .magnet .mh{font-family:var(--serif);font-weight:400;font-size:30px;line-height:1.12;margin:10px 0 22px;}
+  .bullets{list-style:none;display:grid;gap:0;margin:0 0 28px;border-top:1px solid var(--line);}
+  .bullets li{font-size:14.5px;color:var(--mut);padding:15px 0 15px 26px;border-bottom:1px solid var(--line);position:relative;line-height:1.55;}
+  .bullets li::before{content:"";position:absolute;left:2px;top:22px;width:7px;height:7px;border:1px solid var(--accent);border-radius:50%;}
+  getresponse-form{display:block;}
+  .leadcta{display:grid;gap:11px;margin-top:4px;}
+  .micro{font-family:var(--mono);font-size:10.5px;letter-spacing:1px;color:var(--dim);margin-top:18px;text-align:center;text-transform:uppercase;}
+
+  /* ——— KARTY ——— */
+  .card{display:block;position:relative;border:1px solid var(--line);border-radius:6px;padding:22px 22px;margin-bottom:12px;
+    background:var(--card);text-decoration:none;color:var(--txt);transition:border-color .3s,background .3s,transform .25s;}
+  .card:hover{border-color:var(--line2);background:rgba(255,255,255,.035);transform:translateY(-2px);}
+  .crow{display:flex;align-items:center;gap:15px;}
+  .ico{width:44px;height:44px;border-radius:7px;display:grid;place-items:center;font-size:19px;flex:none;
+    background:rgba(255,255,255,.03);border:1px solid var(--line);font-family:var(--serif);color:var(--mut);}
+  .ico.logo{background:rgba(255,255,255,.96);padding:9px;}
+  .ico.logo img{width:100%;height:100%;object-fit:contain;}
+  .name{font-size:16.5px;font-weight:500;display:flex;align-items:center;gap:10px;flex-wrap:wrap;letter-spacing:.2px;}
+  .badge{font-family:var(--mono);font-size:10px;letter-spacing:.5px;padding:4px 9px;border-radius:999px;
+    border:1px solid var(--line2);color:var(--mut);font-weight:400;}
+  .badge.price{color:var(--txt);border-color:var(--txt);}
+  .arrow{margin-left:auto;color:var(--dim);font-size:18px;font-family:var(--serif);transition:color .25s,transform .25s;}
+  .card:hover .arrow{color:var(--txt);transform:translateX(3px);}
+  .desc{color:var(--mut);font-size:13.5px;margin-top:14px;line-height:1.6;}
+  .desc b{color:var(--txt);font-weight:500;}
+  .toptag{position:absolute;top:0;left:22px;transform:translateY(-50%);font-family:var(--mono);font-size:9.5px;
+    letter-spacing:2px;text-transform:uppercase;color:var(--accent);background:var(--bg);padding:0 10px;}
+  .card.featured{border-color:var(--line2);}
+  .card .cta{margin-top:16px;font-family:var(--mono);font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--txt);
+    display:inline-flex;align-items:center;gap:7px;border-bottom:1px solid var(--line2);padding-bottom:2px;}
+
+  /* ——— ŚWIEŻY FILM ——— */
+  .latest{display:flex;align-items:center;gap:16px;border:1px solid var(--line);border-radius:6px;padding:18px 22px;
+    background:var(--card);text-decoration:none;color:var(--txt);transition:border-color .3s,background .3s,transform .25s;}
+  .latest:hover{border-color:var(--line2);background:rgba(255,255,255,.035);transform:translateY(-2px);}
+  .latest .play{width:42px;height:42px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:14px;color:var(--txt);
+    border:1px solid var(--line2);position:relative;}
+  .latest .lt{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--mut);}
+  .latest .lh{font-size:15px;font-weight:500;margin-top:4px;font-family:var(--serif);font-size:18px;}
+  .latest .arrow{font-size:18px;}
+
+  /* ——— STATY ——— */
+  .stats{display:flex;gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .stat{flex:1;text-align:center;padding:26px 8px;border-right:1px solid var(--line);}
+  .stat:last-child{border-right:0;}
+  .stat .n{font-family:var(--serif);font-size:38px;line-height:1;color:var(--txt);font-variant-numeric:tabular-nums;}
+  .stat .l{font-family:var(--mono);font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut);margin-top:12px;}
+
+  /* ——— GUIDE ——— */
+  .guide{display:grid;gap:0;}
+  .step{display:flex;gap:18px;padding:20px 0;border-bottom:1px solid var(--line);align-items:flex-start;}
+  .step:first-child{border-top:1px solid var(--line);}
+  .step .num{font-family:var(--serif);font-size:26px;color:var(--accent);flex:none;line-height:1;width:34px;}
+  .step .t{font-size:14px;color:var(--mut);line-height:1.6;}
+  .step .t b{color:var(--txt);font-weight:500;}
+
+  /* ——— ABOUT + SOCIAL ——— */
+  .about{margin-top:50px;text-align:center;}
+  .about .q{font-family:var(--serif);font-size:22px;line-height:1.4;color:var(--txt);max-width:420px;margin:0 auto;}
+  .about .q b{font-style:italic;}
+  .about .by{font-family:var(--mono);font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--mut);margin-top:20px;}
+  .social{display:flex;gap:14px;justify-content:center;margin-top:30px;}
+  .social a{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;color:var(--mut);text-decoration:none;
+    border:1px solid var(--line);transition:transform .2s,border-color .25s,color .25s;}
+  .social a svg{width:21px;height:21px;}
+  .social a:hover{color:var(--txt);border-color:var(--line2);transform:translateY(-3px);}
+  .foot{text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;
+    color:var(--dim);margin-top:54px;}
+
+  /* ——— STICKY CTA ——— */
+  .sticky{position:fixed;left:50%;bottom:20px;z-index:30;width:calc(100% - 52px);max-width:448px;
+    transform:translateX(-50%) translateY(130px);opacity:0;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .35s;}
+  .sticky.show{transform:translateX(-50%) translateY(0);opacity:1;}
+  .sticky a{display:flex;align-items:center;justify-content:center;gap:9px;font-weight:500;font-size:15px;color:#0a0a0b;
+    background:var(--txt);padding:16px;border-radius:999px;text-decoration:none;
+    box-shadow:0 16px 44px -14px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.06);}
+  .sticky a:active{transform:scale(.98);}
+
+  .rev{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1);}
+  .rev.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){.rev{opacity:1;transform:none;transition:none;}.heroart{animation:none;}}
+  @media (max-width:380px){ h1.head{font-size:34px;} .wrap{padding:34px 20px 120px;} }
+</style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="grain"></div>
+
+  <div class="wrap">
+
+    <!-- ——— HERO ——— -->
+    <div class="hero">
+      <div class="wordmark">
+        <svg class="mk" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <path d="M20 50V16h13a11 11 0 0 1 0 22H20" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 44c6-5 10 5 16 0s10 5 16 0" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" opacity=".8"/>
+          <circle cx="47" cy="18" r="3.2" fill="currentColor"/>
+        </svg>
+        proflowsync
+      </div>
+      <div class="heroart">
+        <img src="hero.png" alt="proflowsync — AI, które pracuje dla Ciebie" loading="eager">
+      </div>
+      <h1 class="head">Oglądasz, jak AI robi robotę.<br>Czas, żeby robiło ją <em>dla Ciebie</em>.</h1>
+      <p class="sub">Odbierz <b>50 gotowych promptów</b>. Wklejasz do ChatGPT, masz tekst, pomysł i plan w minutę. Bez kursów, bez kombinowania. 0 zł.</p>
+      <a class="btn btn-primary" href="#pack">Odbierz 50 promptów</a>
+      <div class="counter"><b id="c-wysw">84k+</b> wyświetleń <span class="sep">/</span> <b id="c-filmy">755</b> filmów o AI</div>
+    </div>
+
+    <!-- ——— 01 LEAD MAGNET ——— -->
+    <div class="sect"><span class="no">01</span><span class="lb">Darmowy pack</span></div>
+    <div class="magnet" id="pack">
+      <div class="eyebrow">Lead magnet · 0 zł</div>
+      <h2 class="mh">50 promptów AI,<br>które oszczędzają godziny.</h2>
+      <ul class="bullets">
+        <li>Wklejasz gotową komendę do ChatGPT / Claude i masz efekt. Zero uczenia się.</li>
+        <li>Napiszą Ci posta, ofertę, maila i plan działania w minutę zamiast godziny.</li>
+        <li>W zestawie ebook AI START PACK: od czego zacząć, żeby AI pracowało na Ciebie.</li>
+      </ul>
+      <!-- Formularz zapisu (zostaje do podmiany na MailerLite) -->
+      <getresponse-form form-id="849a9e01-ca03-4c3b-acdc-62ecd5d925ec" e="0"></getresponse-form>
+      <div class="leadcta">
+        <a class="btn btn-primary full" href="pack.html">Otwórz 50 promptów AI</a>
+        <a class="btn btn-ghost full" href="AI_START_PACK_proflowsync.pdf" target="_blank" rel="noopener">Pobierz ebook AI START PACK</a>
+      </div>
+      <div class="micro">0 zł · bez spamu · wypiszesz się jednym klikiem</div>
+    </div>
+
+    <!-- ——— 02 ŚWIEŻY CONTENT ——— -->
+    <div class="sect"><span class="no">02</span><span class="lb">Świeżo ode mnie</span></div>
+    <a class="latest" href="https://www.youtube.com/@proflowsync/shorts" target="_blank" rel="noopener">
+      <div class="play">▶</div>
+      <div><div class="lt">Najnowszy film</div><div class="lh">Zobacz, co wrzuciłem o AI</div></div>
+      <div class="arrow">→</div>
+    </a>
+
+    <!-- ——— 03 DRABINA OFERT ——— -->
+    <div class="sect"><span class="no">03</span><span class="lb">Wejdź wyżej</span></div>
+    <a class="card" href="https://bytomartistry.gumroad.com/l/vbyrfa" target="_blank" rel="noopener sponsored">
+      <div class="crow"><div class="ico">◆</div><div class="name">200 promptów AI PRO <span class="badge price">29 zł</span></div><div class="arrow">→</div></div>
+      <div class="desc">Darmowy pack Ci zasmakował? PRO to <b>200 zaawansowanych promptów</b> pod zarabianie: copywriting sprzedażowy, viral content, e-commerce, email, SEO, strategia, automatyzacja, personal branding. Wklej, uzupełnij nawias, działaj. Dożywotni dostęp.</div>
+    </a>
+    <a class="card" href="https://bytomartistry.gumroad.com/l/hubcl" target="_blank" rel="noopener sponsored">
+      <div class="crow"><div class="ico">◆</div><div class="name">AI CONTENT MACHINE PRO <span class="badge price">79 zł</span></div><div class="arrow">→</div></div>
+      <div class="desc">Chcesz <b>zarabiać na faceless contencie</b>? Kompletny system, którym robię dziesiątki tysięcy wyświetleń: 74 prompty i szablony w 7 modułach, od viralowego tematu i hooka, przez produkcję, po lejek zamieniający wyświetlenia w kasę. Dożywotni dostęp.</div>
+    </a>
+
+    <!-- ——— 04 LICZBY ——— -->
+    <div class="sect"><span class="no">04</span><span class="lb">W liczbach</span></div>
+    <div class="stats">
+      <div class="stat"><div class="n" id="st-filmy">755</div><div class="l">filmów o AI</div></div>
+      <div class="stat"><div class="n" id="st-wysw">84k+</div><div class="l">wyświetleń</div></div>
+      <div class="stat"><div class="n" id="st-obs">539</div><div class="l">obserwujących</div></div>
+    </div>
+
+    <!-- ——— 05 STACK AI (afiliacje) ——— -->
+    <div class="sect" id="tools"><span class="no">05</span><span class="lb">Mój stack AI</span></div>
+    <a class="card featured" href="https://www.getresponse.com?a=XAhDjwqCGC" target="_blank" rel="noopener sponsored">
+      <span class="toptag">Najczęściej wybierane</span>
+      <div class="crow"><div class="ico logo"><img src="https://www.google.com/s2/favicons?domain=getresponse.com&sz=128" alt="GetResponse" loading="lazy"></div><div class="name">GetResponse <span class="badge">plan 0 zł</span></div></div>
+      <div class="desc">Tu buduję listę mailową i puszczam automatyczne kampanie, serce mojego zarabiania. AI podpowiada tematy i pisze maile za mnie.</div>
+      <div class="cta">Zacznij za darmo →</div>
+    </a>
+    <a class="card" href="https://try.elevenlabs.io/8pf4y0b3ggrt" target="_blank" rel="noopener sponsored">
+      <div class="crow"><div class="ico logo"><img src="https://www.google.com/s2/favicons?domain=elevenlabs.io&sz=128" alt="ElevenLabs" loading="lazy"></div><div class="name">ElevenLabs <span class="badge">AI głos</span></div><div class="arrow">→</div></div>
+      <div class="desc">Najlepszy generator głosu AI, brzmi jak żywy lektor. Używam do podkładów pod shorty.</div>
+    </a>
+    <a class="card" href="https://invideo.sjv.io/c/7472459/883681/12258" target="_blank" rel="noopener sponsored">
+      <div class="crow"><div class="ico logo"><img src="https://www.google.com/s2/favicons?domain=invideo.io&sz=128" alt="InVideo" loading="lazy"></div><div class="name">InVideo AI <span class="badge">AI wideo</span></div><div class="arrow">→</div></div>
+      <div class="desc">Z samego tekstu robi gotowy film z lektorem, muzyką i napisami. Do szybkiego składania materiałów.</div>
+    </a>
+    <a class="card" href="https://www.systeme.io/?sa=sa02764167884a74869326426ca729e008af9b332d" target="_blank" rel="noopener sponsored">
+      <div class="crow"><div class="ico logo"><img src="https://www.google.com/s2/favicons?domain=systeme.io&sz=128" alt="Systeme.io" loading="lazy"></div><div class="name">Systeme.io <span class="badge">plan 0 zł</span></div><div class="arrow">→</div></div>
+      <div class="desc">Cały biznes online w jednym miejscu: strony sprzedażowe, maile, kursy i automatyzacje.</div>
+    </a>
+
+    <!-- ——— 06 JAK ZACZĄĆ ——— -->
+    <div class="sect"><span class="no">06</span><span class="lb">Jak zacząć</span></div>
+    <div class="guide">
+      <div class="step"><div class="num">1</div><div class="t"><b>Odbierz darmowy pack promptów</b> (wyżej), gotowe komendy, które od razu działają w ChatGPT.</div></div>
+      <div class="step"><div class="num">2</div><div class="t"><b>Wybierz jedno narzędzie</b>: lista i kampanie → GetResponse, głos AI → ElevenLabs, wideo → InVideo.</div></div>
+      <div class="step"><div class="num">3</div><div class="t"><b>Zautomatyzuj jedną rzecz</b>, którą robisz codziennie. Jeden proces mniej = godziny odzyskane.</div></div>
+    </div>
+
+    <!-- ——— ABOUT ——— -->
+    <div class="about">
+      <p class="q">Prowadzę <b>@proflowsync</b> — pokazuję, jak sztuczna inteligencja zmienia pracę i które narzędzia naprawdę warto znać. Polecam tylko to, czego sam używam.</p>
+      <div class="by">TikTok · Instagram · YouTube</div>
+    </div>
+
+    <div class="social">
+      <a class="tt" href="https://www.tiktok.com/@proflowsync" target="_blank" rel="noopener" title="TikTok" aria-label="TikTok">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.4 2.2 1.9 4 4.1 4.3v2.9c-1.4.1-2.8-.3-4-1.1v5.9c0 3.1-2.5 5.6-5.6 5.6S5.4 18 5.4 14.9s2.5-5.6 5.6-5.6c.3 0 .6 0 .9.1v3c-.3-.1-.6-.2-.9-.2-1.5 0-2.6 1.2-2.6 2.7s1.2 2.7 2.6 2.7 2.7-1.2 2.7-2.7V3h2.8z"/></svg>
+      </a>
+      <a class="ig" href="https://www.instagram.com/proflowsync" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.4"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a class="yt" href="https://www.youtube.com/@proflowsync" target="_blank" rel="noopener" title="YouTube" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 8.2s-.2-1.6-.9-2.3c-.9-.9-1.8-.9-2.3-1C16.6 4.6 12 4.6 12 4.6h0s-4.6 0-7.8.3c-.5 0-1.4 0-2.3 1-.7.7-.9 2.3-.9 2.3S.8 10 .8 11.9v1.8c0 1.9.2 3.7.2 3.7s.2 1.6.9 2.3c.9.9 2.1.9 2.6 1 1.9.2 7.5.2 7.5.2s4.6 0 7.8-.3c.5 0 1.4 0 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.8.2-3.7v-1.8c0-1.9-.2-3.6-.2-3.6zM9.7 15.5V9.2l6 3.2-6 3.1z"/></svg>
+      </a>
+    </div>
+
+    <div class="foot">© 2026 proflowsync</div>
+  </div>
+
+  <!-- STICKY CTA -->
+  <div class="sticky" id="sticky"><a href="#pack">Odbierz 50 promptów za darmo</a></div>
+
+  <!-- GetResponse Web Connect (integracja formularza z kontem proflowsync) -->
+  <script type="text/javascript">
+  (function(m, o, n, t, e, r, _){
+      m['__GetResponseAnalyticsObject'] = e;m[e] = m[e] || function() {(m[e].q = m[e].q || []).push(arguments)};
+      r = o.createElement(n);_ = o.getElementsByTagName(n)[0];r.async = 1;r.src = t;r.setAttribute('crossorigin', 'use-credentials');_.parentNode.insertBefore(r, _);
+  })(window, document, 'script', 'https://an.gr-wcon.com/script/d7966631-5e9a-442d-a251-5a9b20dbbd65/ga.js', 'GrTracking');
+  </script>
+
+  <script>
+    // realne statystyki (social proof) z stats.json + animowany count-up
+    (function(){
+      function fmt(n){ return n>=1000 ? Math.floor(n/1000)+'k+' : String(n); }
+      function countUp(el,target,isK){
+        if(!el) return;
+        var dur=1200, t0=null;
+        function step(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/dur,1);
+          var e=1-Math.pow(1-p,3), v=Math.floor(e*target);
+          el.textContent=isK?fmt(v):String(v);
+          if(p<1) requestAnimationFrame(step); else el.textContent=isK?fmt(target):String(target); }
+        requestAnimationFrame(step);
+      }
+      fetch('stats.json?t='+Date.now()).then(function(r){return r.json();}).then(function(d){
+        var statsEl=document.querySelector('.stats'), fired=false;
+        function fire(){ if(fired)return; fired=true;
+          countUp(document.getElementById('st-filmy'),d.filmy,false);
+          countUp(document.getElementById('st-wysw'),d.wyswietlenia,true);
+          countUp(document.getElementById('st-obs'),d.obserwujacy,false);
+        }
+        countUp(document.getElementById('c-filmy'),d.filmy,false);
+        countUp(document.getElementById('c-wysw'),d.wyswietlenia,true);
+        if(statsEl && 'IntersectionObserver' in window){
+          var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){fire();io.disconnect();}});},{threshold:.4});
+          io.observe(statsEl);
+        } else { fire(); }
+      }).catch(function(){});
+    })();
+
+    // sticky CTA — pokaż po wyjściu z hero
+    (function(){
+      var bar=document.getElementById('sticky'), hero=document.querySelector('.hero');
+      if(!bar||!hero||!('IntersectionObserver' in window)) return;
+      var io=new IntersectionObserver(function(es){es.forEach(function(e){
+        bar.classList.toggle('show', !e.isIntersecting);
+      });},{threshold:0});
+      io.observe(hero);
+    })();
+
+    // scroll-reveal
+    (function(){
+      var els=document.querySelectorAll('.hero,.magnet,.sect,.card,.latest,.guide,.about,.social,.stats');
+      els.forEach(function(e){e.classList.add('rev');});
+      if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');});return;}
+      var io=new IntersectionObserver(function(ents){
+        ents.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+      },{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+      els.forEach(function(e){io.observe(e);});
+    })();
+
+    // licznik ruchu (0 zł, bez konta)
+    (function(){
+      var NS='pfsync-bio-h7k2', API='https://abacus.jasoncameron.dev/hit/'+NS+'/';
+      try{ fetch(API+'visits',{keepalive:true}); }catch(e){}
+      document.addEventListener('click', function(ev){
+        var a=ev.target.closest && ev.target.closest('a[href^="http"]');
+        if(!a || /proflowsync\.github\.io/.test(a.href)) return;
+        try{ fetch(API+'clicks',{keepalive:true}); }catch(e){}
+      }, true);
+    })();
+  </script>
+</body>
+</html>

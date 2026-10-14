@@ -3,408 +3,489 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>proflowsync: 50 promptów AI za darmo + narzędzia, które dają przewagę</title>
-<meta name="description" content="Zgarnij darmowy pack 50 promptów AI od proflowsync. Zacznij oszczędzać czas i zarabiać z AI za 0 zł.">
-<meta property="og:title" content="proflowsync: 50 promptów AI za darmo">
-<meta property="og:description" content="Darmowy pack 50 promptów AI + sprawdzony stack narzędzi. Start za 0 zł.">
-<meta property="og:image" content="https://proflowsync.github.io/proflowsync-bio/hero.png">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://proflowsync.github.io/proflowsync-bio/">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://proflowsync.github.io/proflowsync-bio/hero.png">
-<link rel="preload" as="image" href="hero.png">
+<title>proflowsync: wejdź do środka AI</title>
+<meta name="description" content="Hub narzędzi AI i darmowy Prompt Pack. Przeleć nad płytą główną i weź to, co potrzebne.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%237c5cff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
-  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  :root{
-    --bg:#05060d; --cyan:#00e5ff; --mag:#c04bff; --lime:#39ff9e;
-    --card:rgba(255,255,255,.035); --line:rgba(255,255,255,.09);
-    --txt:#eaf2ff; --mut:#8fa0bd;
-  }
-  html,body{overflow-x:hidden;}
-  html{scroll-behavior:smooth;}
-  body{
-    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-    background:var(--bg); color:var(--txt); line-height:1.5;
-    min-height:100vh; position:relative;
-  }
-  .bg{position:fixed;inset:0;z-index:0;overflow:hidden;}
-  .orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;animation:float 14s ease-in-out infinite;}
-  .orb.a{width:340px;height:340px;background:var(--cyan);top:-120px;left:-100px;}
-  .orb.b{width:300px;height:300px;background:var(--mag);top:30%;right:-120px;animation-delay:-5s;}
-  .orb.c{width:260px;height:260px;background:var(--lime);bottom:-100px;left:20%;opacity:.35;animation-delay:-9s;}
-  @keyframes float{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(20px,-30px) scale(1.12);}}
-  .grid{position:fixed;inset:0;z-index:0;opacity:.14;
-    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
-    background-size:44px 44px;mask-image:radial-gradient(ellipse at 50% 30%,#000 30%,transparent 78%);}
-  .wrap{position:relative;z-index:2;max-width:480px;margin:0 auto;padding:34px 18px 60px;}
+:root{--bg:#05060d;--txt:#eef0ff;--muted:#9aa0c0;--a:#7c5cff;--b:#28e0c8;--c:#ff5ca8;}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--txt);font-family:'Inter',system-ui,sans-serif}
+body{height:540vh}
+canvas#gl{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0}
+.vig{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 42%,rgba(5,6,13,.8) 100%)}
+.ui{position:fixed;inset:0;z-index:5;pointer-events:none}
+.logo{position:absolute;top:26px;left:30px;font-weight:800;letter-spacing:-.02em;font-size:20px;display:flex;gap:10px;align-items:center}
+.logo i{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--a),var(--b));display:grid;place-items:center;font-style:normal;font-size:13px;box-shadow:0 0 22px rgba(124,92,255,.6)}
+.top-cta{position:absolute;top:20px;right:30px;pointer-events:auto;padding:11px 20px;border-radius:999px;font-weight:700;font-size:13px;
+  color:#fff;text-decoration:none;background:linear-gradient(135deg,var(--a),#5a3cff);box-shadow:0 0 26px rgba(124,92,255,.5)}
+.dots{position:absolute;right:26px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:20px;align-items:flex-end;pointer-events:auto;z-index:6}
+.dots button{display:flex;align-items:center;gap:12px;background:none;border:none;cursor:pointer;padding:4px 0;color:rgba(238,240,255,.65);
+  font:600 12px/1 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;transition:color .3s}
+.dots button i{display:block;width:14px;height:14px;border-radius:50%;border:2px solid rgba(238,240,255,.75);background:rgba(5,6,13,.6);
+  box-shadow:0 0 10px rgba(0,0,0,.8);transition:all .3s;flex:none}
+.dots button:hover{color:#fff}
+.dots button:hover i{border-color:var(--b)}
+.dots button.on{color:var(--b)}
+.dots button.on i{background:var(--b);border-color:var(--b);box-shadow:0 0 18px var(--b);transform:scale(1.25)}
+.prog{position:absolute;left:30px;bottom:28px;font-size:12px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}
+.pager{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);display:flex;gap:12px;pointer-events:auto;z-index:6}
+.pager button{padding:13px 24px;border-radius:999px;font:700 14px 'Inter',sans-serif;color:#fff;cursor:pointer;transition:all .2s;
+  border:1px solid rgba(255,255,255,.22);background:rgba(10,11,24,.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.pager button:hover:not(:disabled){border-color:var(--b);box-shadow:0 0 22px rgba(40,224,200,.4);transform:translateY(-2px)}
+.pager #next{background:linear-gradient(135deg,var(--a),#5a3cff);border-color:transparent;box-shadow:0 8px 26px rgba(124,92,255,.45)}
+.pager button:disabled{opacity:.28;cursor:default}
+.hint{position:absolute;left:50%;bottom:92px;transform:translateX(-50%);font-size:12px;color:var(--muted);letter-spacing:.16em;text-transform:uppercase;transition:opacity .5s}
+.hint b{display:block;width:1px;height:34px;margin:10px auto 0;background:linear-gradient(var(--b),transparent);animation:drop 1.8s ease-in-out infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-  /* HERO */
-  .hero{text-align:center;padding:14px 0 8px;}
-  .heroart{width:190px;height:238px;margin:0 auto 10px;border-radius:26px;position:relative;overflow:hidden;
-    box-shadow:0 0 0 1px rgba(255,255,255,.12),0 0 50px rgba(0,229,255,.4),0 0 90px rgba(192,75,255,.3);
-    animation:floaty 7s ease-in-out infinite;}
-  .heroart img{width:100%;height:100%;object-fit:cover;display:block;}
-  .heroart::after{content:"";position:absolute;inset:0;border-radius:26px;
-    background:radial-gradient(ellipse at 50% 120%,transparent 55%,rgba(5,6,13,.55));}
-  @keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
-  .brandrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:2px;}
-  .brandmark{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--cyan),var(--mag));
-    display:grid;place-items:center;box-shadow:0 0 18px rgba(0,229,255,.45);}
-  .brandmark svg{width:20px;height:20px;}
-  .ava{width:88px;height:88px;border-radius:26px;margin:0 auto 16px;position:relative;
-    background:linear-gradient(135deg,var(--cyan),var(--mag));display:grid;place-items:center;font-size:40px;
-    box-shadow:0 0 0 1px rgba(255,255,255,.15),0 0 40px rgba(0,229,255,.5),0 0 70px rgba(192,75,255,.35);
-    animation:pulse 3.5s ease-in-out infinite;}
-  @keyframes pulse{0%,100%{box-shadow:0 0 0 1px rgba(255,255,255,.15),0 0 40px rgba(0,229,255,.5),0 0 70px rgba(192,75,255,.35);}
-    50%{box-shadow:0 0 0 1px rgba(255,255,255,.25),0 0 55px rgba(0,229,255,.75),0 0 95px rgba(192,75,255,.55);}}
-  h1{font-size:30px;font-weight:800;letter-spacing:.5px;
-    background:linear-gradient(90deg,#fff,var(--cyan),var(--mag),#fff);background-size:200% auto;
-    -webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite;}
-  @keyframes shine{to{background-position:200% center;}}
-  .promise{font-size:20px;font-weight:800;margin-top:12px;color:var(--txt);line-height:1.35;}
-  .promise b{color:var(--lime);}
-  .tag{color:var(--mut);font-size:14px;margin-top:10px;letter-spacing:.3px;}
-  .hero-cta{display:inline-block;margin-top:20px;font-weight:800;font-size:17px;color:var(--bg);
-    background:linear-gradient(90deg,var(--lime),var(--cyan));padding:16px 30px;border-radius:14px;text-decoration:none;
-    box-shadow:0 0 34px rgba(57,255,158,.45);transition:transform .15s,box-shadow .25s;letter-spacing:.3px;}
-  .hero-cta:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 0 46px rgba(57,255,158,.65);}
-  .hero-cta:active{transform:scale(.97);}
-  .counter{display:inline-flex;align-items:center;gap:7px;margin-top:16px;font-size:12.5px;color:var(--mut);
-    padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);}
-  .counter b{color:var(--lime);font-weight:800;font-variant-numeric:tabular-nums;}
-  .counter .dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px var(--lime);animation:blip 2s ease-in-out infinite;}
-  @keyframes blip{0%,100%{opacity:1;}50%{opacity:.4;}}
-
-  /* SEKCJE */
-  .sect{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--mut);
-    margin:34px 4px 12px;display:flex;align-items:center;gap:8px;}
-  .sect::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent);}
-
-  /* LEAD MAGNET + CAPTURE (serce lejka) */
-  .magnet{text-align:center;border-radius:20px;padding:26px 18px;margin:26px 0 6px;position:relative;overflow:hidden;
-    background:linear-gradient(160deg,rgba(192,75,255,.16),rgba(0,229,255,.1));border:1px solid rgba(192,75,255,.32);
-    box-shadow:0 0 50px rgba(192,75,255,.18);scroll-margin-top:18px;}
-  .magnet .gift{font-size:44px;filter:drop-shadow(0 0 16px rgba(192,75,255,.7));animation:bob 2.6s ease-in-out infinite;}
-  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
-  .magnet h2{font-size:23px;font-weight:800;margin:8px 0 6px;}
-  .magnet p{color:var(--mut);font-size:13.5px;margin-bottom:16px;}
-  .lead{display:flex;flex-direction:column;gap:10px;}
-  .lead input[type=email]{width:100%;padding:15px 16px;border-radius:13px;font-size:16px;
-    background:rgba(5,6,13,.6);border:1px solid var(--line);color:var(--txt);outline:none;transition:border-color .2s,box-shadow .2s;}
-  .lead input[type=email]:focus{border-color:rgba(0,229,255,.55);box-shadow:0 0 0 3px rgba(0,229,255,.12);}
-  .lead button{font-weight:800;font-size:16px;color:var(--bg);cursor:pointer;border:0;
-    background:linear-gradient(90deg,var(--mag),var(--cyan));padding:15px;border-radius:13px;
-    box-shadow:0 0 30px rgba(192,75,255,.45);transition:transform .15s;}
-  .lead button:active{transform:scale(.97);}
-  .magnet .micro{font-size:11px;color:var(--mut);margin-top:12px;letter-spacing:.5px;}
-  .bullets{list-style:none;text-align:left;max-width:300px;margin:4px auto 16px;display:grid;gap:7px;}
-  .bullets li{font-size:13.5px;color:var(--txt);display:flex;gap:9px;align-items:flex-start;}
-  .bullets li::before{content:"✦";color:var(--lime);flex:none;}
-  /* dostarczenie packa (pod formularzem GetResponse) */
-  .dlbox{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);}
-  .dl{display:block;font-weight:800;font-size:16px;color:var(--bg);margin-top:4px;
-    background:linear-gradient(90deg,var(--lime),var(--cyan));padding:14px;border-radius:13px;text-decoration:none;
-    box-shadow:0 0 30px rgba(57,255,158,.4);}
-  .okmsg{font-size:13px;color:var(--mut);font-weight:600;margin-bottom:12px;}
-  /* osadzony formularz GetResponse — damy mu oddech */
-  getresponse-form{display:block;min-height:120px;}
-
-  /* KARTY */
-  .card{display:block;position:relative;border-radius:18px;padding:16px 16px;margin-bottom:12px;
-    background:var(--card);border:1px solid var(--line);text-decoration:none;color:var(--txt);
-    transition:transform .18s ease,box-shadow .25s ease,border-color .25s ease;overflow:hidden;cursor:pointer;}
-  .card::before{content:"";position:absolute;inset:0;border-radius:18px;padding:1px;
-    background:linear-gradient(120deg,transparent,rgba(0,229,255,.5),rgba(192,75,255,.5),transparent);
-    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-    -webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .25s;}
-  .card:hover,.card:active{transform:translateY(-2px);border-color:transparent;
-    box-shadow:0 10px 40px rgba(0,229,255,.15),0 0 0 1px rgba(0,229,255,.2);}
-  .card:hover::before{opacity:1;}
-  .crow{display:flex;align-items:center;gap:13px;}
-  .ico{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:23px;flex:none;
-    background:linear-gradient(135deg,rgba(0,229,255,.14),rgba(192,75,255,.14));border:1px solid var(--line);overflow:hidden;}
-  .ico.logo{background:#fff;padding:7px;}
-  .ico.logo img{width:100%;height:100%;object-fit:contain;}
-  .name{font-size:17px;font-weight:700;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-  .badge{font-size:10px;letter-spacing:.5px;text-transform:uppercase;padding:3px 8px;border-radius:999px;
-    background:rgba(0,229,255,.12);color:var(--cyan);border:1px solid rgba(0,229,255,.25);font-weight:700;}
-  .badge.free{background:rgba(57,255,158,.12);color:var(--lime);border-color:rgba(57,255,158,.28);}
-  .badge.pro{background:rgba(192,75,255,.16);color:#d98bff;border-color:rgba(192,75,255,.4);}
-  .pro-card{border-color:rgba(192,75,255,.35);background:linear-gradient(160deg,rgba(192,75,255,.1),rgba(0,229,255,.05),transparent);box-shadow:0 0 20px rgba(192,75,255,.14);}
-  .desc{color:var(--mut);font-size:13.5px;margin-top:10px;}
-  .cta{margin-top:13px;font-weight:700;font-size:14px;color:var(--bg);
-    background:linear-gradient(90deg,var(--cyan),var(--mag));padding:11px;border-radius:11px;text-align:center;
-    box-shadow:0 0 22px rgba(0,229,255,.3);}
-  .arrow{margin-left:auto;color:var(--mut);font-size:20px;}
-  .featured{border:1px solid rgba(57,255,158,.3);
-    background:linear-gradient(160deg,rgba(57,255,158,.08),rgba(0,229,255,.05),transparent);}
-  .featured .crown{position:absolute;top:0;right:16px;transform:translateY(-50%);
-    font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--bg);
-    background:linear-gradient(90deg,var(--lime),var(--cyan));padding:5px 12px;border-radius:999px;
-    box-shadow:0 0 20px rgba(57,255,158,.5);}
-
-  /* STATY */
-  .stats{display:flex;gap:10px;margin:2px 0;}
-  .stat{flex:1;text-align:center;padding:18px 8px;border-radius:15px;background:var(--card);border:1px solid var(--line);
-    transition:border-color .25s,box-shadow .25s;}
-  .stat:hover{border-color:rgba(0,229,255,.3);box-shadow:0 0 20px rgba(0,229,255,.12);}
-  .stat .n{font-size:26px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;
-    background:linear-gradient(90deg,var(--cyan),var(--mag));-webkit-background-clip:text;background-clip:text;color:transparent;}
-  .stat .l{font-size:11px;color:var(--mut);margin-top:6px;letter-spacing:.3px;}
-
-  /* GUIDE */
-  .guide{border-radius:18px;padding:18px;background:var(--card);border:1px solid var(--line);}
-  .guide h3{font-size:16px;margin-bottom:14px;}
-  .step{display:flex;gap:13px;margin-bottom:13px;align-items:flex-start;}
-  .step:last-child{margin-bottom:0;}
-  .num{width:28px;height:28px;border-radius:9px;flex:none;display:grid;place-items:center;font-weight:800;font-size:14px;
-    color:var(--cyan);background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.25);}
-  .step .t{font-size:13.5px;color:var(--mut);}
-  .step .t b{color:var(--txt);}
-
-  /* ABOUT + SOCIAL */
-  .about{border-radius:18px;padding:20px;background:var(--card);border:1px solid var(--line);margin-top:14px;text-align:center;}
-  .about h3{font-size:16px;margin-bottom:8px;}
-  .about p{font-size:13.5px;color:var(--mut);}
-  .social{display:flex;gap:12px;justify-content:center;margin-top:22px;}
-  .social a{width:54px;height:54px;border-radius:15px;display:grid;place-items:center;color:var(--txt);text-decoration:none;
-    background:var(--card);border:1px solid var(--line);transition:transform .15s,box-shadow .25s,border-color .25s,color .25s;}
-  .social a svg{width:25px;height:25px;}
-  .social a.tt:hover{color:#fff;border-color:rgba(255,255,255,.5);box-shadow:0 0 24px rgba(255,255,255,.2);}
-  .social a.ig:hover{color:#e1306c;border-color:rgba(225,48,108,.5);box-shadow:0 0 24px rgba(225,48,108,.3);}
-  .social a.yt:hover{color:#ff0033;border-color:rgba(255,0,51,.5);box-shadow:0 0 24px rgba(255,0,51,.3);}
-  .social a:active,.social a:hover{transform:translateY(-3px);}
-  .foot{text-align:center;color:var(--mut);font-size:11px;margin-top:26px;opacity:.7;letter-spacing:.5px;}
-
-  /* NAJNOWSZY FILM (poz.2 — świeży content) */
-  .latest{display:flex;align-items:center;gap:14px;border-radius:18px;padding:14px 16px;margin-bottom:12px;
-    background:linear-gradient(160deg,rgba(255,0,51,.12),rgba(0,229,255,.05),transparent);
-    border:1px solid rgba(255,0,51,.28);text-decoration:none;color:var(--txt);position:relative;overflow:hidden;
-    transition:transform .18s,box-shadow .25s;}
-  .latest:hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(255,0,51,.18);}
-  .latest .play{width:46px;height:46px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:18px;color:#fff;
-    background:linear-gradient(135deg,#ff0033,#c04bff);box-shadow:0 0 24px rgba(255,0,51,.5);}
-  .latest .play::after{content:"";position:absolute;width:46px;height:46px;border-radius:50%;border:2px solid rgba(255,0,51,.5);
-    animation:ring 2.2s ease-out infinite;}
-  @keyframes ring{0%{transform:scale(1);opacity:.7;}100%{transform:scale(1.9);opacity:0;}}
-  .latest .lt{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#ff647e;font-weight:800;}
-  .latest .lh{font-size:15px;font-weight:700;margin-top:3px;}
-  .latest .arrow{margin-left:auto;}
-
-  /* STICKY CTA (jedno dominujące CTA powtarzane) */
-  .sticky{position:fixed;left:50%;bottom:16px;z-index:30;width:calc(100% - 36px);max-width:444px;
-    transform:translateX(-50%) translateY(140px);opacity:0;transition:transform .4s cubic-bezier(.2,.8,.2,1),opacity .35s;}
-  .sticky.show{transform:translateX(-50%) translateY(0);opacity:1;}
-  .sticky a{display:flex;align-items:center;justify-content:center;gap:9px;font-weight:800;font-size:16px;color:var(--bg);
-    background:linear-gradient(90deg,var(--lime),var(--cyan));padding:16px;border-radius:15px;text-decoration:none;
-    box-shadow:0 10px 34px rgba(57,255,158,.45),0 0 0 1px rgba(255,255,255,.1);}
-  .sticky a:active{transform:scale(.98);}
-
-  .rev{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1);}
-  .rev.in{opacity:1;transform:none;}
-  @media (prefers-reduced-motion:reduce){.rev{opacity:1;transform:none;transition:none;}}
+.st{position:absolute;left:50%;top:50%;width:min(780px,88vw);transform:translate(-50%,-50%);text-align:center;opacity:0;pointer-events:none;will-change:opacity,transform}
+.st.low{top:72%}
+.st .tag{display:inline-block;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--b);margin-bottom:18px;font-weight:700}
+.st h1,.st h2{font-weight:800;letter-spacing:-.035em;line-height:1.04;margin-bottom:18px;text-shadow:0 0 40px rgba(5,6,13,.95),0 0 12px rgba(5,6,13,.8)}
+.st h1{font-size:clamp(40px,7.4vw,86px)}
+.st h2{font-size:clamp(32px,5.4vw,60px)}
+.st.low h2{font-size:clamp(26px,3.6vw,40px);margin-bottom:10px}
+.grad{background:linear-gradient(110deg,var(--b),var(--a),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.st p{color:#c4c8e6;font-size:clamp(15px,2vw,19px);max-width:560px;margin:0 auto 26px;text-shadow:0 0 24px rgba(5,6,13,.95),0 0 10px rgba(5,6,13,.9)}
+.st.low p{margin-bottom:18px;font-size:clamp(14px,1.6vw,16px)}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:15px 28px;border-radius:14px;font-weight:700;font-size:15px;text-decoration:none;color:#fff;
+  background:linear-gradient(135deg,var(--a),#5a3cff);box-shadow:0 10px 34px rgba(124,92,255,.5);border:none;cursor:pointer;transition:transform .18s}
+.btn:hover{transform:translateY(-3px)}
+.btn.ghost{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);box-shadow:none}
+.row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.chip{padding:11px 18px;border-radius:999px;font-weight:600;font-size:14px;color:var(--txt);text-decoration:none;
+  border:1px solid rgba(255,255,255,.16);background:rgba(10,11,24,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:all .2s}
+.chip:hover{border-color:var(--b);box-shadow:0 0 20px rgba(40,224,200,.35);transform:translateY(-2px)}
+.glass{background:rgba(10,11,24,.62);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:24px 26px 20px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+form{display:flex;gap:10px;max-width:480px;margin:0 auto;flex-wrap:wrap}
+input{flex:1;min-width:210px;padding:15px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.16);background:rgba(0,0,0,.4);color:var(--txt);font-size:15px;outline:none}
+input:focus{border-color:var(--a)}
+.st p.aff{font-size:12px;color:var(--muted);margin:16px auto 0;max-width:460px}
+.note{font-size:12px;color:var(--muted);margin-top:12px;width:100%}
+.fail{display:none;position:fixed;inset:0;z-index:20;place-items:center;text-align:center;padding:30px;background:var(--bg);color:var(--muted)}
+@media(max-width:640px){.top-cta{display:none}.dots{right:12px;gap:16px}.dots button span{display:none}.logo{left:18px}}
+@media(prefers-reduced-motion:reduce){.hint b{animation:none}}
 </style>
 </head>
 <body>
-  <div class="bg"><div class="orb a"></div><div class="orb b"></div><div class="orb c"></div></div>
-  <div class="grid"></div>
 
-  <div class="wrap">
-    <!-- 1. HOOK -->
-    <div class="hero">
-      <div class="heroart">
-        <img src="hero.png" alt="proflowsync — AI, które pracuje dla Ciebie" loading="eager">
-      </div>
-      <div class="brandrow">
-        <span class="brandmark">
-          <svg viewBox="0 0 64 64" fill="none" aria-label="proflowsync">
-            <defs>
-              <linearGradient id="lg" x1="8" y1="10" x2="56" y2="54" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#05060d"/><stop offset="1" stop-color="#0a0f1e"/>
-              </linearGradient>
-            </defs>
-            <path d="M20 50V16h13a11 11 0 0 1 0 22H20" stroke="#fff" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M12 44c6-5 10 5 16 0s10 5 16 0" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".85"/>
-            <circle cx="47" cy="18" r="3.4" fill="#fff"/>
-          </svg>
-        </span>
-        <h1>proflowsync</h1>
-      </div>
-      <div class="promise">Oglądasz, jak AI robi robotę. Czas, żeby robiło ją <b>dla Ciebie</b>.</div>
-      <div class="tag">Odbierz 50 gotowych promptów. Wklejasz do ChatGPT, masz tekst, pomysł i plan w minutę. 0 zł.</div>
-      <a class="hero-cta" href="#pack">🎁 Chcę 50 promptów za darmo</a>
-      <div class="counter"><span class="dot"></span> <b id="c-wysw">84k+</b>&nbsp;wyświetleń · <b id="c-filmy">755</b>&nbsp;filmów o AI</div>
+<canvas id="gl"></canvas>
+<div class="vig"></div>
+
+<div class="ui">
+  <div class="logo"><i>◆</i> proflowsync</div>
+  <a class="top-cta" href="#" data-go="2">Darmowy pack</a>
+  <div class="dots" id="dots"></div>
+  <div class="prog" id="prog">01 / 04</div>
+  <div class="hint" id="hint">Scrolluj<b></b></div>
+  <div class="pager"><button id="prev" type="button">← Wstecz</button><button id="next" type="button">Dalej →</button></div>
+
+  <section class="st" data-at="0.02">
+    <span class="tag">Hub narzędzi AI</span>
+    <h1>Wejdź do <span class="grad">środka AI.</span></h1>
+    <p>Zebrałem w jednym miejscu narzędzia, prompty i treści, z których sam korzystam. Przeleć nad płytą i weź to, co potrzebne.</p>
+    <div class="row"><a class="btn" href="#" data-go="1">Lecimy ◆</a></div>
+  </section>
+
+  <section class="st" data-at="0.30">
+    <span class="tag">Narzędzia, których używam</span>
+    <h2>Mój <span class="grad">warsztat AI</span></h2>
+    <p>Bez setki zakładek. Tylko to, co realnie robi robotę, a większość ruszysz za darmo.</p>
+    <div class="chips">
+      <a class="chip" href="https://claude.ai" target="_blank" rel="noopener">Claude</a>
+      <a class="chip" href="https://www.anthropic.com/claude-code" target="_blank" rel="noopener">Claude Code</a>
+      <a class="chip" href="https://try.elevenlabs.io/8pf4y0b3ggrt" target="_blank" rel="noopener sponsored">ElevenLabs</a>
+      <a class="chip" href="https://invideo.sjv.io/c/7472459/883681/12258" target="_blank" rel="noopener sponsored">InVideo</a>
+      <a class="chip" href="https://www.systeme.io/?sa=sa02764167884a74869326426ca729e008af9b332d" target="_blank" rel="noopener sponsored">Systeme.io</a>
     </div>
+    <p class="aff">Część linków to linki partnerskie. Jak coś kupisz przez nie, dostaję prowizję, a Ciebie to nic nie kosztuje.</p>
+  </section>
 
-    <!-- 2. MAGNES + ZAPIS MAILA (brama lejka) -->
-    <div class="magnet" id="pack">
-      <div class="gift">🎁</div>
-      <h2>50 promptów AI, które oszczędzają godziny</h2>
-      <ul class="bullets">
-        <li>Wklejasz gotową komendę do ChatGPT / Claude i masz efekt. Zero uczenia się.</li>
-        <li>Napiszą Ci posta, ofertę, maila i plan działania w minutę zamiast godziny.</li>
-        <li>W zestawie ebook AI START PACK: od czego zacząć, żeby AI pracowało na Ciebie.</li>
-      </ul>
-      <!-- Formularz GetResponse (zapis na listę proflowsync) -->
-      <getresponse-form form-id="849a9e01-ca03-4c3b-acdc-62ecd5d925ec" e="0"></getresponse-form>
-      <div class="dlbox">
-        <div class="okmsg">Pack wpada na Twój e-mail. Chcesz od razu? Pobierz tutaj:</div>
-        <a class="dl" href="AI_START_PACK_proflowsync.pdf" target="_blank" rel="noopener">📖 Pobierz ebook AI START PACK</a>
-        <a class="dl" href="pack.html" style="margin-top:10px">📝 Otwórz 50 promptów AI</a>
-      </div>
-      <div class="micro">✦ 0 zł ✦ bez spamu ✦ wypiszesz się jednym klikiem</div>
+  <section class="st" data-at="0.56">
+    <span class="tag">Start tutaj</span>
+    <h2>Prompt Pack <span class="grad">za 0 zł</span></h2>
+    <p>Gotowe prompty, które wklejasz do ChatGPT albo Claude i masz tekst w kilka sekund. Posty, opisy, maile, scenariusze.</p>
+    <div class="row">
+      <a class="btn" href="pack.html" target="_blank" rel="noopener">Pobierz darmowy pack ◆</a>
+      <a class="btn ghost" href="https://bytomartistry.gumroad.com/l/vbyrfa" target="_blank" rel="noopener">Wersja PRO 29 zł</a>
     </div>
+  </section>
 
-    <!-- 2b. ŚWIEŻY CONTENT (poz.2 wg researchu — najnowszy film) -->
-    <div class="sect">🔥 Świeżo ode mnie</div>
-    <a class="latest" href="https://www.youtube.com/@proflowsync/shorts" target="_blank" rel="noopener">
-      <div class="play">▶</div>
-      <div><div class="lt">Najnowszy film</div><div class="lh">Zobacz, co dziś wrzuciłem o AI</div></div>
-      <div class="arrow">→</div>
-    </a>
-
-    <!-- 3. DOSPRZEDAŻ (drabina ofert) -->
-    <div class="sect">🚀 Chcesz wejść wyżej?</div>
-    <a class="card pro-card" href="https://bytomartistry.gumroad.com/l/vbyrfa" target="_blank" rel="noopener sponsored">
-      <div class="crow"><div class="ico">🚀</div><div class="name">200 promptów AI PRO <span class="badge pro">29 zł</span></div><div class="arrow">→</div></div>
-      <div class="desc">Darmowy pack Ci zasmakował? PRO to <b>200 zaawansowanych promptów</b> pod ZARABIANIE: copywriting sprzedażowy, viral content, e-commerce, email, SEO, strategia, automatyzacja, personal branding. Wklej, uzupełnij nawias, działaj. Dożywotni dostęp.</div>
-    </a>
-    <a class="card pro-card" href="https://bytomartistry.gumroad.com/l/hubcl" target="_blank" rel="noopener sponsored">
-      <div class="crow"><div class="ico">🎬</div><div class="name">AI CONTENT MACHINE PRO <span class="badge pro">79 zł</span></div><div class="arrow">→</div></div>
-      <div class="desc">Chcesz <b>zarabiać na faceless contencie</b>? Kompletny system, którym robię dziesiątki tysięcy wyświetleń: 74 prompty i szablony w 7 modułach, od viralowego tematu i hooka, przez produkcję, po lejek zamieniający wyświetlenia w kasę. Dożywotni dostęp.</div>
-    </a>
-
-    <!-- 4. SOCIAL PROOF -->
-    <div class="sect">📊 proflowsync w liczbach</div>
-    <div class="stats">
-      <div class="stat"><div class="n" id="st-filmy">755</div><div class="l">filmów o AI</div></div>
-      <div class="stat"><div class="n" id="st-wysw">84k+</div><div class="l">wyświetleń</div></div>
-      <div class="stat"><div class="n" id="st-obs">539</div><div class="l">obserwujących</div></div>
+  <section class="st low" data-at="0.95">
+    <div class="glass">
+      <h2>Dołącz do <span class="grad">listy</span></h2>
+      <p>Zostaw maila, a pack ląduje u Ciebie od ręki. Czasem wrzucę newsletter o narzędziach, które warto znać.</p>
+      <form onsubmit="event.preventDefault();this.querySelector('.note').textContent='Dzięki. To podgląd, formularz podepniemy pod MailerLite.';">
+        <input type="email" placeholder="twoj@email.pl" required>
+        <button class="btn" type="submit">Chcę pack ◆</button>
+        <div class="note">Zero spamu. Wypisujesz się jednym klikiem.</div>
+      </form>
     </div>
+  </section>
+</div>
 
-    <!-- 5. NARZĘDZIA (afiliacje — tylko to, czego używam) -->
-    <div class="sect" id="tools">👑 Narzędzia AI, których używam</div>
-    <a class="card featured" href="https://www.getresponse.com?a=XAhDjwqCGC" target="_blank" rel="noopener sponsored">
-      <span class="crown">★ najlepszy wybór</span>
-      <div class="crow"><div class="ico logo"><img src="https://www.google.com/s2/favicons?domain=getresponse.com&sz=128" alt="GetResponse" loading="lazy"></div><div class="name">GetResponse <span class="badge free">plan 0 zł</span></div></div>
-      <div class="desc">Tu buduję listę mailową i puszczam automatyczne kampanie, serce mojego zarabiania. AI podpowiada tematy i pisze maile za mnie.</div>
-      <div class="cta">Zacznij za darmo →</div>
-    </a>
-    <a class="card" href="https://try.elevenlabs.io/8pf4y0b3ggrt" target="_blank" rel="noopener sponsored">
-      <div class="crow"><div class="ico logo"><img src="https://www.google.com/s2/favicons?domain=elevenlabs.io&sz=128" alt="ElevenLabs" loading="lazy"></div><div class="name">ElevenLabs <span class="badge">AI głos</span></div><div class="arrow">→</div></div>
-      <div class="desc">Najlepszy generator głosu AI, brzmi jak żywy lektor. Używam do podkładów pod shorty.</div>
-    </a>
-    <a class="card" href="https://invideo.sjv.io/c/7472459/883681/12258" target="_blank" rel="noopener sponsored">
-      <div class="crow"><div class="ico logo"><img src="https://www.google.com/s2/favicons?domain=invideo.io&sz=128" alt="InVideo" loading="lazy"></div><div class="name">InVideo AI <span class="badge">AI wideo</span></div><div class="arrow">→</div></div>
-      <div class="desc">Z samego tekstu robi gotowy film z lektorem, muzyką i napisami. Do szybkiego składania materiałów.</div>
-    </a>
-    <a class="card" href="https://www.systeme.io/?sa=sa02764167884a74869326426ca729e008af9b332d" target="_blank" rel="noopener sponsored">
-      <div class="crow"><div class="ico logo"><img src="https://www.google.com/s2/favicons?domain=systeme.io&sz=128" alt="Systeme.io" loading="lazy"></div><div class="name">Systeme.io <span class="badge free">plan 0 zł</span></div><div class="arrow">→</div></div>
-      <div class="desc">Cały biznes online w jednym miejscu: strony sprzedażowe, maile, kursy i automatyzacje.</div>
-    </a>
+<div class="fail" id="fail"><div>Ta przeglądarka nie obsługuje WebGL.<br>Otwórz stronę w nowszym Edge albo Chrome.</div></div>
 
-    <!-- 6. JAK ZACZĄĆ -->
-    <div class="sect">🎯 Jak zacząć (w 3 krokach)</div>
-    <div class="guide">
-      <h3>Od zera do pierwszej oszczędności czasu</h3>
-      <div class="step"><div class="num">1</div><div class="t"><b>Odbierz darmowy pack promptów</b> (wyżej), gotowe komendy, które od razu działają w ChatGPT.</div></div>
-      <div class="step"><div class="num">2</div><div class="t"><b>Wybierz jedno narzędzie</b>: lista i kampanie → GetResponse, głos AI → ElevenLabs, wideo → InVideo.</div></div>
-      <div class="step"><div class="num">3</div><div class="t"><b>Zautomatyzuj jedną rzecz</b>, którą robisz codziennie. Jeden proces mniej = godziny odzyskane.</div></div>
-    </div>
+<script type="importmap">{"imports":{"three":"./three.module.min.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
 
-    <div class="about">
-      <h3>Kim jestem?</h3>
-      <p>Prowadzę <b>@proflowsync</b>, konto o AI na TikToku, Instagramie i YouTubie. Pokazuję, jak sztuczna inteligencja zmienia pracę i które narzędzia warto znać. Polecam tylko to, czego sam używam.</p>
-    </div>
+const canvas=document.getElementById('gl');
+let renderer;
+try{
+  renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});
+}catch(e){document.getElementById('fail').style.display='grid';throw e;}
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.75));
+renderer.setSize(innerWidth,innerHeight);
+renderer.setClearColor(0x05060d);
 
-    <div class="social">
-      <a class="tt" href="https://www.tiktok.com/@proflowsync" target="_blank" rel="noopener" title="TikTok" aria-label="TikTok">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.4 2.2 1.9 4 4.1 4.3v2.9c-1.4.1-2.8-.3-4-1.1v5.9c0 3.1-2.5 5.6-5.6 5.6S5.4 18 5.4 14.9s2.5-5.6 5.6-5.6c.3 0 .6 0 .9.1v3c-.3-.1-.6-.2-.9-.2-1.5 0-2.6 1.2-2.6 2.7s1.2 2.7 2.6 2.7 2.7-1.2 2.7-2.7V3h2.8z"/></svg>
-      </a>
-      <a class="ig" href="https://www.instagram.com/proflowsync" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="2.5" width="19" height="19" rx="5.4"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
-      </a>
-      <a class="yt" href="https://www.youtube.com/@proflowsync" target="_blank" rel="noopener" title="YouTube" aria-label="YouTube">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 8.2s-.2-1.6-.9-2.3c-.9-.9-1.8-.9-2.3-1C16.6 4.6 12 4.6 12 4.6h0s-4.6 0-7.8.3c-.5 0-1.4 0-2.3 1-.7.7-.9 2.3-.9 2.3S.8 10 .8 11.9v1.8c0 1.9.2 3.7.2 3.7s.2 1.6.9 2.3c.9.9 2.1.9 2.6 1 1.9.2 7.5.2 7.5.2s4.6 0 7.8-.3c.5 0 1.4 0 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.8.2-3.7v-1.8c0-1.9-.2-3.6-.2-3.6zM9.7 15.5V9.2l6 3.2-6 3.1z"/></svg>
-      </a>
-    </div>
+const scene=new THREE.Scene();
+scene.fog=new THREE.FogExp2(0x05060d,0.026);
+const cam=new THREE.PerspectiveCamera(62,innerWidth/innerHeight,0.3,300);
 
-    <div class="foot">© 2026 proflowsync · zbudowane z AI</div>
-  </div>
+const VIOLET=0x7c5cff, TEAL=0x28e0c8, PINK=0xff5ca8;
+const COLS=[VIOLET,TEAL,PINK];
+const LEN=120;                 // dlugosc lotu kamery
+const CZ=-LEN-24;              // srodek wielkiego chipa
+const CHIP=32;                 // bok wielkiego chipa
 
-  <!-- STICKY CTA (pojawia się po zjechaniu poza hero) -->
-  <div class="sticky" id="sticky"><a href="#pack">🎁 Odbierz 50 promptów za darmo</a></div>
+// powtarzalny random
+let _s=1337;
+const rnd=()=>{_s|=0;_s=_s+0x6D2B79F5|0;let t=Math.imul(_s^_s>>>15,1|_s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};
+const rr=(a,b)=>a+rnd()*(b-a);
+const pick=a=>a[(rnd()*a.length)|0];
 
-  <!-- GetResponse Web Connect (integracja formularza z kontem proflowsync) -->
-  <script type="text/javascript">
-  (function(m, o, n, t, e, r, _){
-      m['__GetResponseAnalyticsObject'] = e;m[e] = m[e] || function() {(m[e].q = m[e].q || []).push(arguments)};
-      r = o.createElement(n);_ = o.getElementsByTagName(n)[0];r.async = 1;r.src = t;r.setAttribute('crossorigin', 'use-credentials');_.parentNode.insertBefore(r, _);
-  })(window, document, 'script', 'https://an.gr-wcon.com/script/d7966631-5e9a-442d-a251-5a9b20dbbd65/ga.js', 'GrTracking');
-  </script>
+// --- plyta
+const board=new THREE.Mesh(
+  new THREE.PlaneGeometry(120,420),
+  new THREE.MeshStandardMaterial({color:0x080a1c,roughness:.55,metalness:.5})
+);
+board.rotation.x=-Math.PI/2; board.position.set(0,-0.06,-130);
+scene.add(board);
 
-  <script>
-    // realne statystyki (social proof) z stats.json + animowany count-up
-    (function(){
-      function fmt(n){ return n>=1000 ? Math.floor(n/1000)+'k+' : String(n); }
-      function countUp(el,target,isK){
-        if(!el) return;
-        var dur=1100, t0=null;
-        function step(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/dur,1);
-          var e=1-Math.pow(1-p,3), v=Math.floor(e*target);
-          el.textContent=isK?fmt(v):String(v);
-          if(p<1) requestAnimationFrame(step); else el.textContent=isK?fmt(target):String(target); }
-        requestAnimationFrame(step);
-      }
-      fetch('stats.json?t='+Date.now()).then(function(r){return r.json();}).then(function(d){
-        var statsEl=document.querySelector('.stats'), fired=false;
-        function fire(){ if(fired)return; fired=true;
-          countUp(document.getElementById('st-filmy'),d.filmy,false);
-          countUp(document.getElementById('st-wysw'),d.wyswietlenia,true);
-          countUp(document.getElementById('st-obs'),d.obserwujacy,false);
-        }
-        // hero counter od razu (nad foldem)
-        countUp(document.getElementById('c-filmy'),d.filmy,false);
-        countUp(document.getElementById('c-wysw'),d.wyswietlenia,true);
-        // sekcja statystyk — count-up gdy wejdzie w kadr
-        if(statsEl && 'IntersectionObserver' in window){
-          var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){fire();io.disconnect();}});},{threshold:.4});
-          io.observe(statsEl);
-        } else { fire(); }
-      }).catch(function(){});
-    })();
+// --- sciezki swiecace (shader z impulsami danych)
+const tPos=[],tAlong=[],tCol=[],tSeed=[],tIdx=[],pads=[],padCol=[];
+let vcount=0;
+const cObj=new THREE.Color();
+function addTrace(pts,colHex,w){
+  cObj.set(colHex);
+  const seed=rnd();
+  let along=0;
+  for(let i=0;i<pts.length-1;i++){
+    const [ax,az]=pts[i],[bx,bz]=pts[i+1];
+    const dx=bx-ax,dz=bz-az,len=Math.hypot(dx,dz); if(len<.001) continue;
+    const nx=-dz/len*w/2, nz=dx/len*w/2;
+    const verts=[[ax+nx,az+nz,along],[ax-nx,az-nz,along],[bx+nx,bz+nz,along+len],[bx-nx,bz-nz,along+len]];
+    for(const v of verts){tPos.push(v[0],0.02,v[1]);tAlong.push(v[2]);tCol.push(cObj.r,cObj.g,cObj.b);tSeed.push(seed);}
+    tIdx.push(vcount,vcount+1,vcount+2,vcount+1,vcount+3,vcount+2);
+    vcount+=4; along+=len;
+  }
+  for(const p of [pts[0],pts[pts.length-1]]){pads.push(p[0],0.05,p[1]);padCol.push(cObj.r,cObj.g,cObj.b);}
+}
+// magistrale rownolegle (wyglad realnej plyty)
+for(let b=0;b<30;b++){
+  let x=rr(-30,30), z=rr(14,-LEN+6);
+  const pts=[[x,z]];
+  const segs=3+((rnd()*3)|0);
+  for(let s=0;s<segs;s++){
+    const L=rr(7,17);
+    if(s%2===0){z-=L;}else{const dir=rnd()<.5?-1:1;x+=dir*L;z-=L;}
+    pts.push([x,z]);
+  }
+  const col=pick(COLS), n=3+((rnd()*5)|0);
+  for(let k=0;k<n;k++) addTrace(pts.map(p=>[p[0]+k*.6,p[1]]),col,.1);
+}
+// sciezki zbiegajace do wielkiego chipa
+const frontZ=CZ+CHIP/2;
+for(let i=0;i<46;i++){
+  const ex=rr(-CHIP/2+2,CHIP/2-2), pad=rr(0,5);
+  const sx=ex+(rnd()<.5?-1:1)*rr(4,16);
+  const dx=Math.abs(ex-sx);
+  const p2=[ex,frontZ+pad], p1=[sx,frontZ+pad+dx];
+  const p0=[sx,p1[1]+rr(8,34)], p3=[ex,frontZ-1.5];
+  addTrace([p0,p1,p2,p3],COLS[i%3],.11);
+}
+const tg=new THREE.BufferGeometry();
+tg.setAttribute('position',new THREE.Float32BufferAttribute(tPos,3));
+tg.setAttribute('along',new THREE.Float32BufferAttribute(tAlong,1));
+tg.setAttribute('aCol',new THREE.Float32BufferAttribute(tCol,3));
+tg.setAttribute('seed',new THREE.Float32BufferAttribute(tSeed,1));
+tg.setIndex(tIdx);
+const tmat=new THREE.ShaderMaterial({
+  uniforms:{uTime:{value:0}},
+  transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,side:THREE.DoubleSide,
+  vertexShader:`
+    attribute float along; attribute float seed; attribute vec3 aCol;
+    varying vec3 vC; varying float vA; varying float vS; varying float vF;
+    void main(){
+      vec4 mv=modelViewMatrix*vec4(position,1.0);
+      vF=exp(-length(mv.xyz)*0.021);
+      vC=aCol; vA=along; vS=seed;
+      gl_Position=projectionMatrix*mv;
+    }`,
+  fragmentShader:`
+    uniform float uTime;
+    varying vec3 vC; varying float vA; varying float vS; varying float vF;
+    void main(){
+      float f=fract(vA*0.035-uTime*(0.22+vS*0.35)+vS*7.0);
+      float head=pow(1.0-f,7.0);
+      float k=0.26+1.9*head;
+      gl_FragColor=vec4(vC*k*vF,1.0);
+    }`
+});
+scene.add(new THREE.Mesh(tg,tmat));
+// pady/przelotki na koncach sciezek
+const padG=new THREE.BufferGeometry();
+padG.setAttribute('position',new THREE.Float32BufferAttribute(pads,3));
+padG.setAttribute('color',new THREE.Float32BufferAttribute(padCol,3));
+scene.add(new THREE.Points(padG,new THREE.PointsMaterial({size:.32,vertexColors:true,transparent:true,opacity:.75,blending:THREE.AdditiveBlending,depthWrite:false})));
 
-    // sticky CTA — pokaż po wyjściu z hero
-    (function(){
-      var bar=document.getElementById('sticky'), hero=document.querySelector('.hero');
-      if(!bar||!hero||!('IntersectionObserver' in window)) return;
-      var io=new IntersectionObserver(function(es){es.forEach(function(e){
-        bar.classList.toggle('show', !e.isIntersecting);
-      });},{threshold:0});
-      io.observe(hero);
-    })();
+// --- materialy elementow
+const bodyMat=new THREE.MeshStandardMaterial({color:0x0e1024,roughness:.5,metalness:.35});
+const pinMat=new THREE.MeshStandardMaterial({color:0xaab0d8,roughness:.3,metalness:.85,emissive:0x151830});
+const aluMat=new THREE.MeshStandardMaterial({color:0x7a80a2,roughness:.35,metalness:.8,emissive:0x15172b});
+const copperMat=new THREE.MeshStandardMaterial({color:0xc2763a,roughness:.35,metalness:.65,emissive:0x3b1c08});
+const capBody={};
+const lineMat=c=>new THREE.LineBasicMaterial({color:c,transparent:true,opacity:.85});
+const addMat=(c,o)=>new THREE.MeshBasicMaterial({color:c,transparent:true,opacity:o,blending:THREE.AdditiveBlending,depthWrite:false});
 
-    // scroll-reveal
-    (function(){
-      var els=document.querySelectorAll('.hero,.magnet,.sect,.card,.guide,.about,.social,.stats');
-      els.forEach(function(e){e.classList.add('rev');});
-      if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');});return;}
-      var io=new IntersectionObserver(function(ents){
-        ents.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
-      },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
-      els.forEach(function(e){io.observe(e);});
-    })();
+// tekstury gornej scianki chipow
+function chipTex(label,hex){
+  const c=document.createElement('canvas'); c.width=c.height=256; const g=c.getContext('2d');
+  const col='#'+hex.toString(16).padStart(6,'0');
+  g.fillStyle='#0a0c1e'; g.fillRect(0,0,256,256);
+  g.strokeStyle=col; g.globalAlpha=.55; g.lineWidth=3; g.strokeRect(10,10,236,236);
+  g.globalAlpha=.25; g.lineWidth=1;
+  for(let i=1;i<6;i++){g.beginPath();g.moveTo(22,10+i*38);g.lineTo(234,10+i*38);g.stroke();}
+  g.globalAlpha=1; g.fillStyle=col; g.beginPath(); g.arc(30,30,7,0,7); g.fill();
+  g.shadowColor=col; g.shadowBlur=18; g.fillStyle='#eef0ff';
+  g.font='800 58px Inter,Arial,sans-serif'; g.textAlign='center'; g.textBaseline='middle';
+  g.fillText(label,128,132);
+  g.shadowBlur=0; g.fillStyle=col; g.font='600 16px Arial'; g.fillText('PROFLOWSYNC',128,200);
+  const t=new THREE.CanvasTexture(c); t.anisotropy=4; t.colorSpace=THREE.SRGBColorSpace; return t;
+}
+const LABELS=['LLM','GPT','NPU','AI-01','TOKEN','GPU','RAG','AGENT'];
+const chipTexCache=LABELS.map((l,i)=>chipTex(l,COLS[i%3]));
 
-    // licznik ruchu (0 zł, bez konta)
-    (function(){
-      var NS='pfsync-bio-h7k2', API='https://abacus.jasoncameron.dev/hit/'+NS+'/';
-      try{ fetch(API+'visits',{keepalive:true}); }catch(e){}
-      document.addEventListener('click', function(ev){
-        var a=ev.target.closest && ev.target.closest('a[href^="http"]');
-        if(!a || /proflowsync\.github\.io/.test(a.href)) return;
-        try{ fetch(API+'clicks',{keepalive:true}); }catch(e){}
-      }, true);
-    })();
-  </script>
+// --- zajetosc (zeby elementy nie wchodzily w siebie)
+const occ=[];
+const free=(x,z,hx,hz)=>!occ.some(o=>Math.abs(o[0]-x)<o[2]+hx+.8&&Math.abs(o[1]-z)<o[3]+hz+.8);
+const mark=(x,z,hx,hz)=>occ.push([x,z,hx,hz]);
+
+const dummy=new THREE.Object3D();
+function makeChip(x,z,w,d,h){
+  const g=new THREE.Group(); g.position.set(x,0,z);
+  const bg=new THREE.BoxGeometry(w,h,d);
+  const body=new THREE.Mesh(bg,bodyMat); body.position.y=h/2; g.add(body);
+  const col=pick(COLS);
+  const edge=new THREE.LineSegments(new THREE.EdgesGeometry(bg),lineMat(col)); edge.position.y=h/2; g.add(edge);
+  const top=new THREE.Mesh(new THREE.PlaneGeometry(w*.9,d*.9),new THREE.MeshBasicMaterial({map:pick(chipTexCache)}));
+  top.rotation.x=-Math.PI/2; top.position.y=h+.02; g.add(top);
+  // nozki
+  const px=Math.max(3,Math.floor(d/.8)), pz=Math.max(3,Math.floor(w/.8));
+  const pinsMesh=new THREE.InstancedMesh(new THREE.BoxGeometry(.5,.12,.2),pinMat,(px+pz)*2);
+  let k=0;
+  for(let i=0;i<px;i++){const zz=-d/2+.5+i*((d-1)/(px-1));
+    for(const sx of [-1,1]){dummy.position.set(sx*(w/2+.2),.2,zz);dummy.rotation.set(0,0,0);dummy.updateMatrix();pinsMesh.setMatrixAt(k++,dummy.matrix);}}
+  for(let i=0;i<pz;i++){const xx=-w/2+.5+i*((w-1)/(pz-1));
+    for(const sz of [-1,1]){dummy.position.set(xx,.2,sz*(d/2+.2));dummy.rotation.set(0,Math.PI/2,0);dummy.updateMatrix();pinsMesh.setMatrixAt(k++,dummy.matrix);}}
+  g.add(pinsMesh);
+  scene.add(g);
+}
+function makeCap(x,z,r,h){
+  const g=new THREE.Group(); g.position.set(x,0,z);
+  const col=pick(COLS);
+  const mat=capBody[col]||(capBody[col]=new THREE.MeshStandardMaterial({color:0x0b0d20,roughness:.4,metalness:.55,emissive:new THREE.Color(col).multiplyScalar(.09)}));
+  const cyl=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,28),mat); cyl.position.y=h/2; g.add(cyl);
+  const top=new THREE.Mesh(new THREE.CylinderGeometry(r*.88,r*.88,.1,28),aluMat); top.position.y=h+.05; g.add(top);
+  const band=new THREE.Mesh(new THREE.TorusGeometry(r+.01,.07,8,40),addMat(col,.9)); band.rotation.x=Math.PI/2; band.position.y=h*.72; g.add(band);
+  const band2=new THREE.Mesh(new THREE.TorusGeometry(r+.01,.05,8,40),addMat(col,.55)); band2.rotation.x=Math.PI/2; band2.position.y=h*.18; g.add(band2);
+  scene.add(g);
+}
+function makeCoil(x,z,R,t){
+  const g=new THREE.Group(); g.position.set(x,0,z);
+  const base=new THREE.Mesh(new THREE.BoxGeometry(R*2.7,.25,R*2.7),bodyMat); base.position.y=.125; g.add(base);
+  const levels=rnd()<.5?1:2;
+  for(let i=0;i<levels;i++){
+    const tor=new THREE.Mesh(new THREE.TorusGeometry(R,t,16,48),copperMat);
+    tor.rotation.x=Math.PI/2; tor.position.y=.25+t+i*t*1.9; g.add(tor);
+  }
+  const glow=new THREE.Mesh(new THREE.TorusGeometry(R,t*1.04,8,48),addMat(pick(COLS),.15));
+  glow.rotation.x=Math.PI/2; glow.position.y=.25+t; g.add(glow);
+  scene.add(g);
+}
+function makeSink(x,z,w,d,h){
+  const g=new THREE.Group(); g.position.set(x,0,z);
+  const base=new THREE.Mesh(new THREE.BoxGeometry(w,.4,d),aluMat); base.position.y=.2; g.add(base);
+  const n=Math.max(5,Math.floor(w/.45));
+  const fins=new THREE.InstancedMesh(new THREE.BoxGeometry(.18,h,d*.96),aluMat,n);
+  for(let i=0;i<n;i++){dummy.position.set(-w/2+.3+i*((w-.6)/(n-1)),.4+h/2,0);dummy.rotation.set(0,0,0);dummy.updateMatrix();fins.setMatrixAt(i,dummy.matrix);}
+  g.add(fins);
+  const col=pick(COLS);
+  const strip=new THREE.Mesh(new THREE.PlaneGeometry(w,.12),addMat(col,.8)); strip.rotation.x=-Math.PI/2; strip.position.y=.41+h; g.add(strip);
+  const edge=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(w,.4,d)),lineMat(col)); edge.position.y=.2; g.add(edge);
+  scene.add(g);
+}
+function makeSlot(x,z,len){
+  const g=new THREE.Group(); g.position.set(x,0,z);
+  const col=pick(COLS);
+  const bg=new THREE.BoxGeometry(2.1,1.1,len);
+  const m=new THREE.Mesh(bg,new THREE.MeshStandardMaterial({color:0x090a18,roughness:.6,metalness:.2})); m.position.y=.55; g.add(m);
+  const e=new THREE.LineSegments(new THREE.EdgesGeometry(bg),lineMat(col)); e.position.y=.55; g.add(e);
+  const gl=new THREE.Mesh(new THREE.PlaneGeometry(.35,len*.94),addMat(col,.85)); gl.rotation.x=-Math.PI/2; gl.position.y=1.12; g.add(gl);
+  scene.add(g);
+}
+
+// --- rozmieszczenie elementow po obu stronach trasy
+for(const side of [-1,1]){
+  let z=12;
+  while(z>-LEN-8){
+    const r=rnd(); let x=side*rr(5.5,26);
+    const row=Math.abs(x);
+    if(r<.30){const w=rr(3.6,8),d=rr(3.6,8);if(row-w/2>3&&free(x,z,w/2+.5,d/2+.5)){makeChip(x,z,w,d,rr(.7,1.4));mark(x,z,w/2+.5,d/2+.5);}}
+    else if(r<.52){const rad=rr(.8,1.5);if(row-rad>3&&free(x,z,rad,rad)){makeCap(x,z,rad,rr(1.8,3.6));mark(x,z,rad,rad);}}
+    else if(r<.70){const R=rr(.9,1.6);if(row-R*1.4>3&&free(x,z,R*1.4,R*1.4)){makeCoil(x,z,R,R*.42);mark(x,z,R*1.4,R*1.4);}}
+    else if(r<.86){const w=rr(4,7),d=rr(3.5,6),h=rr(2.2,4.4);if(row-w/2>3.2&&free(x,z,w/2,d/2)){makeSink(x,z,w,d,h);mark(x,z,w/2,d/2);}}
+    else{const len=rr(7,14);if(row-1.1>3&&free(x,z,1.1,len/2)){makeSlot(x,z,len);mark(x,z,1.1,len/2);}}
+    z-=rr(3.5,8);
+  }
+}
+
+// --- wielki chip finalowy z logo
+const finale=new THREE.Group(); finale.position.set(0,0,CZ); scene.add(finale);
+const bigH=3.2;
+const bigG=new THREE.BoxGeometry(CHIP,bigH,CHIP);
+const bigBody=new THREE.Mesh(bigG,new THREE.MeshStandardMaterial({color:0x0c0e24,roughness:.45,metalness:.5})); bigBody.position.y=bigH/2; finale.add(bigBody);
+const bigEdge=new THREE.LineSegments(new THREE.EdgesGeometry(bigG),lineMat(TEAL)); bigEdge.position.y=bigH/2; finale.add(bigEdge);
+// tekstura logo
+(function(){
+  const c=document.createElement('canvas'); c.width=c.height=1024; const g=c.getContext('2d');
+  g.fillStyle='#07091c'; g.fillRect(0,0,1024,1024);
+  g.strokeStyle='#28e0c8'; g.lineWidth=5; g.globalAlpha=.7; g.strokeRect(24,24,976,976);
+  g.globalAlpha=.18; g.lineWidth=2;
+  for(let i=1;i<16;i++){g.beginPath();g.moveTo(40,24+i*61);g.lineTo(984,24+i*61);g.stroke();g.beginPath();g.moveTo(24+i*61,40);g.lineTo(24+i*61,984);g.stroke();}
+  g.globalAlpha=1;
+  const grd=g.createLinearGradient(160,0,864,0); grd.addColorStop(0,'#28e0c8'); grd.addColorStop(.5,'#7c5cff'); grd.addColorStop(1,'#ff5ca8');
+  g.shadowColor='#7c5cff'; g.shadowBlur=40;
+  g.fillStyle=grd; g.font='800 190px Inter,Arial,sans-serif'; g.textAlign='center'; g.textBaseline='middle';
+  g.fillText('◆',512,360);
+  g.font='800 150px Inter,Arial,sans-serif'; g.fillText('proflowsync',512,560);
+  g.shadowBlur=0; g.fillStyle='#9aa0c0'; g.font='600 40px Inter,Arial,sans-serif';
+  g.fillText('AI  ·  PROMPTY  ·  AUTOMATYZACJA',512,720);
+  const t=new THREE.CanvasTexture(c); t.anisotropy=8; t.colorSpace=THREE.SRGBColorSpace;
+  const top=new THREE.Mesh(new THREE.PlaneGeometry(CHIP*.94,CHIP*.94),new THREE.MeshBasicMaterial({map:t}));
+  top.rotation.x=-Math.PI/2; top.position.y=bigH+.03; finale.add(top);
+})();
+// nozki wielkiego chipa
+(function(){
+  const per=26;
+  const m=new THREE.InstancedMesh(new THREE.BoxGeometry(1.0,.2,.34),pinMat,per*4);
+  let k=0;
+  for(let i=0;i<per;i++){
+    const t=-CHIP/2+1+i*((CHIP-2)/(per-1));
+    for(const s of [-1,1]){dummy.position.set(s*(CHIP/2+.5),.32,t);dummy.rotation.set(0,0,0);dummy.updateMatrix();m.setMatrixAt(k++,dummy.matrix);}
+    for(const s of [-1,1]){dummy.position.set(t,.32,s*(CHIP/2+.5));dummy.rotation.set(0,Math.PI/2,0);dummy.updateMatrix();m.setMatrixAt(k++,dummy.matrix);}
+  }
+  finale.add(m);
+})();
+// fale uderzeniowe wokol chipa
+const rings=[];
+for(let i=0;i<3;i++){
+  const r=new THREE.Mesh(new THREE.RingGeometry(CHIP*.62,CHIP*.62+.35,96),
+    new THREE.MeshBasicMaterial({color:COLS[i],transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide}));
+  r.rotation.x=-Math.PI/2; r.position.y=.08; r.userData.off=i/3; finale.add(r); rings.push(r);
+}
+
+// --- czasteczki danych nad plyta
+const PN=900,pp=new Float32Array(PN*3),pc=new Float32Array(PN*3);
+const cc=[new THREE.Color(VIOLET),new THREE.Color(TEAL),new THREE.Color(PINK)];
+for(let i=0;i<PN;i++){
+  pp[i*3]=(Math.random()-.5)*60; pp[i*3+1]=Math.random()*14+.3; pp[i*3+2]=-Math.random()*(LEN+70)+16;
+  const c=cc[(Math.random()*3)|0]; pc[i*3]=c.r;pc[i*3+1]=c.g;pc[i*3+2]=c.b;
+}
+const pg=new THREE.BufferGeometry();
+pg.setAttribute('position',new THREE.BufferAttribute(pp,3)); pg.setAttribute('color',new THREE.BufferAttribute(pc,3));
+const dust=new THREE.Points(pg,new THREE.PointsMaterial({size:.08,vertexColors:true,transparent:true,opacity:.8,blending:THREE.AdditiveBlending,depthWrite:false}));
+scene.add(dust);
+
+// --- swiatla
+scene.add(new THREE.AmbientLight(0x2a2f66,1.1));
+const L1=new THREE.PointLight(VIOLET,120,44,1.5),L2=new THREE.PointLight(TEAL,100,44,1.5),L3=new THREE.PointLight(PINK,70,52,1.5);
+scene.add(L1,L2,L3);
+
+// --- scroll, mysz, nawigacja
+const stations=[...document.querySelectorAll('.st')];
+const ats=stations.map(s=>+s.dataset.at);
+let target=0,p=0,mx=0,my=0,smx=0,smy=0;
+const calc=()=>{const m=document.documentElement.scrollHeight-innerHeight;target=m>0?scrollY/m:0;};
+addEventListener('scroll',calc,{passive:true}); calc();
+addEventListener('pointermove',e=>{mx=e.clientX/innerWidth*2-1;my=e.clientY/innerHeight*2-1;},{passive:true});
+addEventListener('resize',()=>{renderer.setSize(innerWidth,innerHeight);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();calc();});
+const dots=document.getElementById('dots');
+const NAMES=['Start','Narzędzia','Pack','Lista'];
+ats.forEach((a,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Sekcja '+NAMES[i]);b.innerHTML='<span>'+NAMES[i]+'</span><i></i>';b.onclick=()=>goto(i);dots.appendChild(b);});
+function goto(i){const m=document.documentElement.scrollHeight-innerHeight;scrollTo({top:m*ats[i],behavior:'smooth'});}
+document.querySelectorAll('[data-go]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();goto(+a.dataset.go);}));
+const prog=document.getElementById('prog'),hint=document.getElementById('hint');
+const prevB=document.getElementById('prev'),nextB=document.getElementById('next');
+let cur=0;
+prevB.onclick=()=>goto(Math.max(0,cur-1));
+nextB.onclick=()=>goto(Math.min(ats.length-1,cur+1));
+addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT')return;
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key==='PageDown'){e.preventDefault();nextB.click();}
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();prevB.click();}
+});
+
+if(location.hash==='#koniec'){history.scrollRestoration='manual';scrollTo(0,document.documentElement.scrollHeight);calc();}
+const clock=new THREE.Clock();
+const look=new THREE.Vector3(), lookA=new THREE.Vector3(), lookB=new THREE.Vector3(0,1,CZ+2);
+const ease=x=>x*x*(3-2*x);
+function frame(){
+  const t=clock.getElapsedTime();
+  p+=(target-p)*(reduce?1:.06);
+  smx+=(mx-smx)*.05; smy+=(my-smy)*.05;
+  tmat.uniforms.uTime.value=t;
+
+  const q=ease(Math.min(1,Math.max(0,(p-.74)/.26)));          // faza wznoszenia nad chip
+  const fly=Math.min(1,p/.78);
+  const z=4-fly*(LEN-2);
+  const sway=reduce?0:Math.sin(p*7)*.8;
+  const y=3.1+Math.sin(p*5)*.25-smy*.3+q*17;
+  cam.position.set(sway+smx*.9,y,z);
+  lookA.set(sway*.4+smx*2.4,2.6-smy*1.0,z-16);
+  look.lerpVectors(lookA,lookB,q);
+  cam.lookAt(look);
+  cam.rotation.z=reduce?0:-Math.sin(p*7)*.012*(1-q);
+
+  L1.position.set(-6,7,z-6); L2.position.set(6,7,z-14); L3.position.set(0,12,z-26);
+  rings.forEach(r=>{const f=(t*.22+r.userData.off)%1;r.scale.setScalar(.25+f*1.15);r.material.opacity=(1-f)*.55*(.4+q*.6);});
+  bigEdge.material.opacity=.6+.3*Math.sin(t*2);
+  dust.position.y=Math.sin(t*.2)*.4;
+
+  let best=0,bd=9;
+  stations.forEach((s,i)=>{
+    const d=p-ats[i],ad=Math.abs(d),o=Math.max(0,1-ad/.15),e=o*o*(3-2*o);
+    s.style.opacity=e;
+    s.style.transform=`translate(-50%,-50%) scale(${1+(d>0?d*2.2:d*.6)}) translateY(${-d*120}px)`;
+    s.style.pointerEvents=e>.55?'auto':'none';
+    if(ad<bd){bd=ad;best=i;}
+  });
+  [...dots.children].forEach((b,i)=>b.classList.toggle('on',i===best));
+  cur=best; prevB.disabled=best===0; nextB.disabled=best===ats.length-1;
+  prog.textContent='0'+(best+1)+' / 0'+ats.length;
+  hint.style.opacity=p<.04?1:0;
+
+  renderer.render(scene,cam);
+  requestAnimationFrame(frame);
+}
+frame();
+</script>
 </body>
 </html>
