@@ -67,7 +67,24 @@ input{flex:1;min-width:210px;padding:15px 18px;border-radius:12px;border:1px sol
 input:focus{border-color:var(--a)}
 .st p.aff{font-size:12px;color:var(--muted);margin:16px auto 0;max-width:460px}
 .note{font-size:12px;color:var(--muted);margin-top:12px;width:100%}
-.fail{display:none;position:fixed;inset:0;z-index:20;place-items:center;text-align:center;padding:30px;background:var(--bg);color:var(--muted)}
+.fail{display:none;position:fixed;inset:0;z-index:20;overflow-y:auto;text-align:center;padding:40px 22px;background:
+  radial-gradient(ellipse at top,rgba(124,92,255,.14),transparent 60%),var(--bg);color:var(--txt)}
+.fail.on{display:block}
+.fb{max-width:440px;margin:0 auto;display:flex;flex-direction:column;gap:14px;align-items:stretch}
+.fb-logo{font-weight:800;font-size:22px;letter-spacing:-.02em;margin-bottom:2px}
+.fb-logo span{background:linear-gradient(110deg,var(--b),var(--a),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.fb h2{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-top:6px}
+.fb p{color:var(--muted);font-size:15px;line-height:1.5}
+.fb-btn{display:block;padding:15px 20px;border-radius:14px;font-weight:700;font-size:15px;text-decoration:none;color:#fff;
+  background:linear-gradient(135deg,var(--a),#5a3cff);box-shadow:0 8px 26px rgba(124,92,255,.4)}
+.fb-btn.ghost{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);box-shadow:none}
+.fb-tools{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.fb-tools a{padding:13px 18px;border-radius:12px;text-decoration:none;color:var(--txt);text-align:left;font-weight:600;font-size:14px;
+  border:1px solid rgba(255,255,255,.14);background:rgba(10,11,24,.6)}
+.fb-tools a span{display:block;font-weight:400;font-size:12px;color:var(--muted);margin-top:2px}
+.fb form{flex-direction:column;max-width:none;gap:10px;margin-top:6px}
+.fb .fb-aff{font-size:12px;color:var(--muted);margin-top:8px}
+.fb .divider{height:1px;background:rgba(255,255,255,.1);margin:10px 0}
 @media(max-width:640px){.top-cta{display:none}.dots{right:12px;gap:16px}.dots button span{display:none}.logo{left:18px}}
 @media(prefers-reduced-motion:reduce){.hint b{animation:none}}
 </style>
@@ -120,17 +137,64 @@ input:focus{border-color:var(--a)}
     <div class="glass">
       <h2>Dołącz do <span class="grad">listy</span></h2>
       <p>Zostaw maila, a pack ląduje u Ciebie od ręki. Czasem wrzucę newsletter o narzędziach, które warto znać.</p>
-      <form onsubmit="event.preventDefault();this.querySelector('.note').textContent='Dzięki. To podgląd, formularz podepniemy pod MailerLite.';">
-        <input type="email" placeholder="twoj@email.pl" required>
+      <form action="https://formsubmit.co/proflowsync@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Nowy zapis na Prompt Pack — proflowsync">
+        <input type="hidden" name="_next" value="https://proflowsync.github.io/proflowsync-bio/pack.html">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="text" name="_honey" style="display:none">
+        <input type="email" name="email" placeholder="twoj@email.pl" required>
         <button class="btn" type="submit">Chcę pack ◆</button>
-        <div class="note">Zero spamu. Wypisujesz się jednym klikiem.</div>
+        <div class="note">Zero spamu. Pack otwiera się od razu po zapisie.</div>
       </form>
     </div>
   </section>
 </div>
 
-<div class="fail" id="fail"><div>Ta przeglądarka nie obsługuje WebGL.<br>Otwórz stronę w nowszym Edge albo Chrome.</div></div>
+<div class="fail" id="fail">
+  <div class="fb">
+    <div class="fb-logo">◆ <span>proflowsync</span></div>
+    <h2>Twój warsztat <span style="background:linear-gradient(110deg,var(--b),var(--a));-webkit-background-clip:text;background-clip:text;color:transparent">AI</span></h2>
+    <p>Narzędzia, prompty i treści, z których sam korzystam. Weź to, co potrzebne.</p>
+    <a class="fb-btn" href="pack.html">🎁 Pobierz darmowy Prompt Pack</a>
+    <a class="fb-btn ghost" href="https://bytomartistry.gumroad.com/l/vbyrfa" target="_blank" rel="noopener">Wersja PRO — 29 zł</a>
+    <div class="divider"></div>
+    <div class="fb-tools">
+      <a href="https://try.elevenlabs.io/8pf4y0b3ggrt" target="_blank" rel="noopener sponsored">ElevenLabs<span>Głos AI, lektor, klonowanie głosu</span></a>
+      <a href="https://invideo.sjv.io/c/7472459/883681/12258" target="_blank" rel="noopener sponsored">InVideo AI<span>Wideo z tekstu w kilka minut</span></a>
+      <a href="https://www.systeme.io/?sa=sa02764167884a74869326426ca729e008af9b332d" target="_blank" rel="noopener sponsored">Systeme.io<span>Lejki, kursy i maile za darmo</span></a>
+      <a href="https://claude.ai" target="_blank" rel="noopener">Claude<span>Mój główny asystent AI</span></a>
+    </div>
+    <div class="divider"></div>
+    <h2 style="font-size:20px">Dołącz do listy</h2>
+    <p>Zostaw maila, a pack ląduje u Ciebie od ręki.</p>
+    <form action="https://formsubmit.co/proflowsync@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Nowy zapis na Prompt Pack — proflowsync (wersja prosta)">
+      <input type="hidden" name="_next" value="https://proflowsync.github.io/proflowsync-bio/pack.html">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="text" name="_honey" style="display:none">
+      <input type="email" name="email" placeholder="twoj@email.pl" required>
+      <button class="btn" type="submit">Chcę pack ◆</button>
+    </form>
+    <p class="fb-aff">Część linków to linki partnerskie. Jak coś kupisz przez nie, dostaję prowizję, a Ciebie to nic nie kosztuje.</p>
+  </div>
+</div>
 
+<script>
+// FALLBACK: jesli WebGL/moduly 3D nie wstana (czeste w in-app browserach TikTok/IG),
+// pokazujemy prosty, czytelny hub z linkami i packiem zamiast czarnego ekranu.
+function showFallback(){
+  var f=document.getElementById('fail'); if(f) f.classList.add('on');
+  var ui=document.querySelector('.ui'); if(ui) ui.style.display='none';
+  var gl=document.getElementById('gl'); if(gl) gl.style.display='none';
+  var vig=document.querySelector('.vig'); if(vig) vig.style.display='none';
+  document.body.style.height='auto';
+}
+window.addEventListener('load',function(){
+  setTimeout(function(){ if(!window.__glok) showFallback(); },2800);
+});
+</script>
 <script type="importmap">{"imports":{"three":"./three.module.min.js"}}</script>
 <script type="module">
 import * as THREE from 'three';
@@ -139,7 +203,7 @@ const canvas=document.getElementById('gl');
 let renderer;
 try{
   renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});
-}catch(e){document.getElementById('fail').style.display='grid';throw e;}
+}catch(e){showFallback();throw e;}
 const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.75));
 renderer.setSize(innerWidth,innerHeight);
@@ -448,6 +512,7 @@ const clock=new THREE.Clock();
 const look=new THREE.Vector3(), lookA=new THREE.Vector3(), lookB=new THREE.Vector3(0,1,CZ+2);
 const ease=x=>x*x*(3-2*x);
 function frame(){
+  window.__glok=true;        // sygnal dla fallback-timera: 3D ruszylo, nie pokazuj prostej wersji
   const t=clock.getElapsedTime();
   p+=(target-p)*(reduce?1:.06);
   smx+=(mx-smx)*.05; smy+=(my-smy)*.05;
