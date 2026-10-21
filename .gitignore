@@ -1,6 +1,12 @@
 pack_pro.html
 PROMPT_PACK_PRO.pdf
 pack_pro_podglad.png
+pack_machine_pro.html
+AI_CONTENT_MACHINE_PRO.pdf
+ebook_machine.html
+AI_CONTENT_MACHINE_EBOOK.pdf
+ebook_machine_en.html
+AI_CONTENT_MACHINE_EBOOK_EN.pdf
 
 # Robocze narzędzia i zrzuty ekranu — NIE należą do publicznego bio-huba.
 # Kod strony to *.html + stats.json. Reszta (skrypty automatyzacji, screeny
@@ -9,3 +15,7 @@ pack_pro_podglad.png
 *.png
 *.jpg
 README_AFILIACJA.md
+
+# Landing cinematic 3D — assety strony MUSZA trafic na Pages (mimo globalnych *.jpg/*.png)
+!assets/
+!assets/**

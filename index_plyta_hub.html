@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>proflowsync: wejdź do środka AI</title>
+<meta name="description" content="Hub narzędzi AI i darmowy Prompt Pack. Przeleć nad płytą główną i weź to, co potrzebne.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%237c5cff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05060d;--txt:#eef0ff;--muted:#9aa0c0;--a:#7c5cff;--b:#28e0c8;--c:#ff5ca8;}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--txt);font-family:'Inter',system-ui,sans-serif}
+body{height:540vh}
+canvas#gl{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0}
+.vig{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 42%,rgba(5,6,13,.8) 100%)}
+.ui{position:fixed;inset:0;z-index:5;pointer-events:none}
+.logo{position:absolute;top:26px;left:30px;font-weight:800;letter-spacing:-.02em;font-size:20px;display:flex;gap:10px;align-items:center}
+.logo i{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--a),var(--b));display:grid;place-items:center;font-style:normal;font-size:13px;box-shadow:0 0 22px rgba(124,92,255,.6)}
+.top-cta{position:absolute;top:20px;right:30px;pointer-events:auto;padding:11px 20px;border-radius:999px;font-weight:700;font-size:13px;
+  color:#fff;text-decoration:none;background:linear-gradient(135deg,var(--a),#5a3cff);box-shadow:0 0 26px rgba(124,92,255,.5)}
+.dots{position:absolute;right:26px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:20px;align-items:flex-end;pointer-events:auto;z-index:6}
+.dots button{display:flex;align-items:center;gap:12px;background:none;border:none;cursor:pointer;padding:4px 0;color:rgba(238,240,255,.65);
+  font:600 12px/1 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;transition:color .3s}
+.dots button i{display:block;width:14px;height:14px;border-radius:50%;border:2px solid rgba(238,240,255,.75);background:rgba(5,6,13,.6);
+  box-shadow:0 0 10px rgba(0,0,0,.8);transition:all .3s;flex:none}
+.dots button:hover{color:#fff}
+.dots button:hover i{border-color:var(--b)}
+.dots button.on{color:var(--b)}
+.dots button.on i{background:var(--b);border-color:var(--b);box-shadow:0 0 18px var(--b);transform:scale(1.25)}
+.prog{position:absolute;left:30px;bottom:28px;font-size:12px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}
+.pager{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);display:flex;gap:12px;pointer-events:auto;z-index:6}
+.pager button{padding:13px 24px;border-radius:999px;font:700 14px 'Inter',sans-serif;color:#fff;cursor:pointer;transition:all .2s;
+  border:1px solid rgba(255,255,255,.22);background:rgba(10,11,24,.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.pager button:hover:not(:disabled){border-color:var(--b);box-shadow:0 0 22px rgba(40,224,200,.4);transform:translateY(-2px)}
+.pager #next{background:linear-gradient(135deg,var(--a),#5a3cff);border-color:transparent;box-shadow:0 8px 26px rgba(124,92,255,.45)}
+.pager button:disabled{opacity:.28;cursor:default}
+.hint{position:absolute;left:50%;bottom:92px;transform:translateX(-50%);font-size:12px;color:var(--muted);letter-spacing:.16em;text-transform:uppercase;transition:opacity .5s}
+.hint b{display:block;width:1px;height:34px;margin:10px auto 0;background:linear-gradient(var(--b),transparent);animation:drop 1.8s ease-in-out infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+.st{position:absolute;left:50%;top:50%;width:min(780px,88vw);transform:translate(-50%,-50%);text-align:center;opacity:0;pointer-events:none;will-change:opacity,transform}
+.st.low{top:72%}
+.st .tag{display:inline-block;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--b);margin-bottom:18px;font-weight:700}
+.st h1,.st h2{font-weight:800;letter-spacing:-.035em;line-height:1.04;margin-bottom:18px;text-shadow:0 0 40px rgba(5,6,13,.95),0 0 12px rgba(5,6,13,.8)}
+.st h1{font-size:clamp(40px,7.4vw,86px)}
+.st h2{font-size:clamp(32px,5.4vw,60px)}
+.st.low h2{font-size:clamp(26px,3.6vw,40px);margin-bottom:10px}
+.grad{background:linear-gradient(110deg,var(--b),var(--a),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.st p{color:#c4c8e6;font-size:clamp(15px,2vw,19px);max-width:560px;margin:0 auto 26px;text-shadow:0 0 24px rgba(5,6,13,.95),0 0 10px rgba(5,6,13,.9)}
+.st.low p{margin-bottom:18px;font-size:clamp(14px,1.6vw,16px)}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:15px 28px;border-radius:14px;font-weight:700;font-size:15px;text-decoration:none;color:#fff;
+  background:linear-gradient(135deg,var(--a),#5a3cff);box-shadow:0 10px 34px rgba(124,92,255,.5);border:none;cursor:pointer;transition:transform .18s}
+.btn:hover{transform:translateY(-3px)}
+.btn.ghost{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);box-shadow:none}
+.row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.chip{padding:11px 18px;border-radius:999px;font-weight:600;font-size:14px;color:var(--txt);text-decoration:none;
+  border:1px solid rgba(255,255,255,.16);background:rgba(10,11,24,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:all .2s}
+.chip:hover{border-color:var(--b);box-shadow:0 0 20px rgba(40,224,200,.35);transform:translateY(-2px)}
+.glass{background:rgba(10,11,24,.62);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:24px 26px 20px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+form{display:flex;gap:10px;max-width:480px;margin:0 auto;flex-wrap:wrap}
+input{flex:1;min-width:210px;padding:15px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.16);background:rgba(0,0,0,.4);color:var(--txt);font-size:15px;outline:none}
+input:focus{border-color:var(--a)}
+.st p.aff{font-size:12px;color:var(--muted);margin:16px auto 0;max-width:460px}
+.note{font-size:12px;color:var(--muted);margin-top:12px;width:100%}
+.fail{display:none;position:fixed;inset:0;z-index:20;overflow-y:auto;text-align:center;padding:40px 22px;background:
+  radial-gradient(ellipse at top,rgba(124,92,255,.14),transparent 60%),var(--bg);color:var(--txt)}
+.fail.on{display:block}
+.fb{max-width:440px;margin:0 auto;display:flex;flex-direction:column;gap:14px;align-items:stretch}
+.fb-logo{font-weight:800;font-size:22px;letter-spacing:-.02em;margin-bottom:2px}
+.fb-logo span{background:linear-gradient(110deg,var(--b),var(--a),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.fb h2{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-top:6px}
+.fb p{color:var(--muted);font-size:15px;line-height:1.5}
+.fb-btn{display:block;padding:15px 20px;border-radius:14px;font-weight:700;font-size:15px;text-decoration:none;color:#fff;
+  background:linear-gradient(135deg,var(--a),#5a3cff);box-shadow:0 8px 26px rgba(124,92,255,.4)}
+.fb-btn.ghost{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);box-shadow:none}
+.fb-tools{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.fb-tools a{padding:13px 18px;border-radius:12px;text-decoration:none;color:var(--txt);text-align:left;font-weight:600;font-size:14px;
+  border:1px solid rgba(255,255,255,.14);background:rgba(10,11,24,.6)}
+.fb-tools a span{display:block;font-weight:400;font-size:12px;color:var(--muted);margin-top:2px}
+.fb form{flex-direction:column;max-width:none;gap:10px;margin-top:6px}
+.fb .fb-aff{font-size:12px;color:var(--muted);margin-top:8px}
+.fb .divider{height:1px;background:rgba(255,255,255,.1);margin:10px 0}
+@media(max-width:640px){.top-cta{display:none}.dots{right:12px;gap:16px}.dots button span{display:none}.logo{left:18px}}
+@media(prefers-reduced-motion:reduce){.hint b{animation:none}}
+</style>
+</head>
+<body>
+
+<canvas id="gl"></canvas>
+<div class="vig"></div>
+
+<div class="ui">
+  <div class="logo"><i>◆</i> proflowsync</div>
+  <a class="top-cta" href="#" data-go="2">Darmowy pack</a>
+  <div class="dots" id="dots"></div>
+  <div class="prog" id="prog">01 / 04</div>
+  <div class="hint" id="hint">Scrolluj<b></b></div>
+  <div class="pager"><button id="prev" type="button">← Wstecz</button><button id="next" type="button">Dalej →</button></div>
+
+  <section class="st" data-at="0.02">
+    <span class="tag">Hub narzędzi AI</span>
+    <h1>Wejdź do <span class="grad">środka AI.</span></h1>
+    <p>Zebrałem w jednym miejscu narzędzia, prompty i treści, z których sam korzystam. Przeleć nad płytą i weź to, co potrzebne.</p>
+    <div class="row"><a class="btn" href="#" data-go="1">Lecimy ◆</a></div>
+  </section>
+
+  <section class="st" data-at="0.30">
+    <span class="tag">Narzędzia, których używam</span>
+    <h2>Mój <span class="grad">warsztat AI</span></h2>
+    <p>Bez setki zakładek. Tylko to, co realnie robi robotę, a większość ruszysz za darmo.</p>
+    <div class="chips">
+      <a class="chip" href="https://claude.ai" target="_blank" rel="noopener">Claude</a>
+      <a class="chip" href="https://www.anthropic.com/claude-code" target="_blank" rel="noopener">Claude Code</a>
+      <a class="chip" href="https://try.elevenlabs.io/8pf4y0b3ggrt" target="_blank" rel="noopener sponsored">ElevenLabs</a>
+      <a class="chip" href="https://invideo.sjv.io/c/7472459/883681/12258" target="_blank" rel="noopener sponsored">InVideo</a>
+      <a class="chip" href="https://www.systeme.io/?sa=sa02764167884a74869326426ca729e008af9b332d" target="_blank" rel="noopener sponsored">Systeme.io</a>
+    </div>
+    <p class="aff">Część linków to linki partnerskie. Jak coś kupisz przez nie, dostaję prowizję, a Ciebie to nic nie kosztuje.</p>
+  </section>
+
+  <section class="st" data-at="0.56">
+    <span class="tag">Start tutaj</span>
+    <h2>Prompt Pack <span class="grad">za 0 zł</span></h2>
+    <p>Gotowe prompty, które wklejasz do ChatGPT albo Claude i masz tekst w kilka sekund. Posty, opisy, maile, scenariusze.</p>
+    <div class="row">
+      <a class="btn" href="pack.html" target="_blank" rel="noopener">Pobierz darmowy pack ◆</a>
+      <a class="btn ghost" href="https://bytomartistry.gumroad.com/l/vbyrfa" target="_blank" rel="noopener">Wersja PRO 29 zł</a>
+    </div>
+  </section>
+
+  <section class="st low" data-at="0.95">
+    <div class="glass">
+      <h2>Dołącz do <span class="grad">listy</span></h2>
+      <p>Zostaw maila, a pack ląduje u Ciebie od ręki. Czasem wrzucę newsletter o narzędziach, które warto znać.</p>
+      <form action="https://formsubmit.co/proflowsync@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Nowy zapis na Prompt Pack — proflowsync">
+        <input type="hidden" name="_next" value="https://proflowsync.github.io/proflowsync-bio/pack.html">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="text" name="_honey" style="display:none">
+        <input type="email" name="email" placeholder="twoj@email.pl" required>
+        <button class="btn" type="submit">Chcę pack ◆</button>
+        <div class="note">Zero spamu. Pack otwiera się od razu po zapisie.</div>
+      </form>
+    </div>
+  </section>
+</div>
+
+<div class="fail" id="fail">
+  <div class="fb">
+    <div class="fb-logo">◆ <span>proflowsync</span></div>
+    <h2>Twój warsztat <span style="background:linear-gradient(110deg,var(--b),var(--a));-webkit-background-clip:text;background-clip:text;color:transparent">AI</span></h2>
+    <p>Narzędzia, prompty i treści, z których sam korzystam. Weź to, co potrzebne.</p>
+    <a class="fb-btn" href="pack.html">🎁 Pobierz darmowy Prompt Pack</a>
+    <a class="fb-btn ghost" href="https://bytomartistry.gumroad.com/l/vbyrfa" target="_blank" rel="noopener">Wersja PRO — 29 zł</a>
+    <div class="divider"></div>
+    <div class="fb-tools">
+      <a href="https://try.elevenlabs.io/8pf4y0b3ggrt" target="_blank" rel="noopener sponsored">ElevenLabs<span>Głos AI, lektor, klonowanie głosu</span></a>
+      <a href="https://invideo.sjv.io/c/7472459/883681/12258" target="_blank" rel="noopener sponsored">InVideo AI<span>Wideo z tekstu w kilka minut</span></a>
+      <a href="https://www.systeme.io/?sa=sa02764167884a74869326426ca729e008af9b332d" target="_blank" rel="noopener sponsored">Systeme.io<span>Lejki, kursy i maile za darmo</span></a>
+      <a href="https://claude.ai" target="_blank" rel="noopener">Claude<span>Mój główny asystent AI</span></a>
+    </div>
+    <div class="divider"></div>
+    <h2 style="font-size:20px">Dołącz do listy</h2>
+    <p>Zostaw maila, a pack ląduje u Ciebie od ręki.</p>
+    <form action="https://formsubmit.co/proflowsync@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Nowy zapis na Prompt Pack — proflowsync (wersja prosta)">
+      <input type="hidden" name="_next" value="https://proflowsync.github.io/proflowsync-bio/pack.html">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="text" name="_honey" style="display:none">
+      <input type="email" name="email" placeholder="twoj@email.pl" required>
+      <button class="btn" type="submit">Chcę pack ◆</button>
+    </form>
+    <p class="fb-aff">Część linków to linki partnerskie. Jak coś kupisz przez nie, dostaję prowizję, a Ciebie to nic nie kosztuje.</p>
+  </div>
+</div>
+
+<script>
+// FALLBACK: jesli WebGL/moduly 3D nie wstana (czeste w in-app browserach TikTok/IG),
+// pokazujemy prosty, czytelny hub z linkami i packiem zamiast czarnego ekranu.
+function showFallback(){
+  var f=document.getElementById('fail'); if(f) f.classList.add('on');
+  var ui=document.querySelector('.ui'); if(ui) ui.style.display='none';
+  var gl=document.getElementById('gl'); if(gl) gl.style.display='none';
+  var vig=document.querySelector('.vig'); if(vig) vig.style.display='none';
+  document.body.style.height='auto';
+}
+window.addEventListener('load',function(){
+  setTimeout(function(){ if(!window.__glok) showFallback(); },2800);
+});
+</script>
+<script type="importmap">{"imports":{"three":"./three.module.min.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+
+const canvas=document.getElementById('gl');
+let renderer;
+try{
+  renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});
+}catch(e){showFallback();throw e;}
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.75));
+renderer.setSize(innerWidth,innerHeight);
+renderer.setClearColor(0x05060d);
+
+const scene=new THREE.Scene();
+scene.fog=new THREE.FogExp2(0x05060d,0.026);
+const cam=new THREE.PerspectiveCamera(62,innerWidth/innerHeight,0.3,300);
+
+const VIOLET=0x7c5cff, TEAL=0x28e0c8, PINK=0xff5ca8;
+const COLS=[VIOLET,TEAL,PINK];
+const LEN=120;                 // dlugosc lotu kamery
+const CZ=-LEN-24;              // srodek wielkiego chipa
+const CHIP=32;                 // bok wielkiego chipa
+
+// powtarzalny random
+let _s=1337;
+const rnd=()=>{_s|=0;_s=_s+0x6D2B79F5|0;let t=Math.imul(_s^_s>>>15,1|_s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};
+const rr=(a,b)=>a+rnd()*(b-a);
+const pick=a=>a[(rnd()*a.length)|0];
+
+// --- plyta
+const board=new THREE.Mesh(
+  new THREE.PlaneGeometry(120,420),
+  new THREE.MeshStandardMaterial({color:0x080a1c,roughness:.55,metalness:.5})
+);
+board.rotation.x=-Math.PI/2; board.position.set(0,-0.06,-130);
+scene.add(board);
+
+// --- sciezki swiecace (shader z impulsami danych)
+const tPos=[],tAlong=[],tCol=[],tSeed=[],tIdx=[],pads=[],padCol=[];
+let vcount=0;
+const cObj=new THREE.Color();
+function addTrace(pts,colHex,w){
+  cObj.set(colHex);
+  const seed=rnd();
+  let along=0;
+  for(let i=0;i<pts.length-1;i++){
+    const [ax,az]=pts[i],[bx,bz]=pts[i+1];
+    const dx=bx-ax,dz=bz-az,len=Math.hypot(dx,dz); if(len<.001) continue;
+    const nx=-dz/len*w/2, nz=dx/len*w/2;
+    const verts=[[ax+nx,az+nz,along],[ax-nx,az-nz,along],[bx+nx,bz+nz,along+len],[bx-nx,bz-nz,along+len]];
+    for(const v of verts){tPos.push(v[0],0.02,v[1]);tAlong.push(v[2]);tCol.push(cObj.r,cObj.g,cObj.b);tSeed.push(seed);}
+    tIdx.push(vcount,vcount+1,vcount+2,vcount+1,vcount+3,vcount+2);
+    vcount+=4; along+=len;
+  }
+  for(const p of [pts[0],pts[pts.length-1]]){pads.push(p[0],0.05,p[1]);padCol.push(cObj.r,cObj.g,cObj.b);}
+}
+// magistrale rownolegle (wyglad realnej plyty)
+for(let b=0;b<30;b++){
+  let x=rr(-30,30), z=rr(14,-LEN+6);
+  const pts=[[x,z]];
+  const segs=3+((rnd()*3)|0);
+  for(let s=0;s<segs;s++){
+    const L=rr(7,17);
+    if(s%2===0){z-=L;}else{const dir=rnd()<.5?-1:1;x+=dir*L;z-=L;}
+    pts.push([x,z]);
+  }
+  const col=pick(COLS), n=3+((rnd()*5)|0);
+  for(let k=0;k<n;k++) addTrace(pts.map(p=>[p[0]+k*.6,p[1]]),col,.1);
+}
+// sciezki zbiegajace do wielkiego chipa
+const frontZ=CZ+CHIP/2;
+for(let i=0;i<46;i++){
+  const ex=rr(-CHIP/2+2,CHIP/2-2), pad=rr(0,5);
+  const sx=ex+(rnd()<.5?-1:1)*rr(4,16);
+  const dx=Math.abs(ex-sx);
+  const p2=[ex,frontZ+pad], p1=[sx,frontZ+pad+dx];
+  const p0=[sx,p1[1]+rr(8,34)], p3=[ex,frontZ-1.5];
+  addTrace([p0,p1,p2,p3],COLS[i%3],.11);
+}
+const tg=new THREE.BufferGeometry();
+tg.setAttribute('position',new THREE.Float32BufferAttribute(tPos,3));
+tg.setAttribute('along',new THREE.Float32BufferAttribute(tAlong,1));
+tg.setAttribute('aCol',new THREE.Float32BufferAttribute(tCol,3));
+tg.setAttribute('seed',new THREE.Float32BufferAttribute(tSeed,1));
+tg.setIndex(tIdx);
+const tmat=new THREE.ShaderMaterial({
+  uniforms:{uTime:{value:0}},
+  transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,side:THREE.DoubleSide,
+  vertexShader:`
+    attribute float along; attribute float seed; attribute vec3 aCol;
+    varying vec3 vC; varying float vA; varying float vS; varying float vF;
+    void main(){
+      vec4 mv=modelViewMatrix*vec4(position,1.0);
+      vF=exp(-length(mv.xyz)*0.021);
+      vC=aCol; vA=along; vS=seed;
+      gl_Position=projectionMatrix*mv;
+    }`,
+  fragmentShader:`
+    uniform float uTime;
+    varying vec3 vC; varying float vA; varying float vS; varying float vF;
+    void main(){
+      float f=fract(vA*0.035-uTime*(0.22+vS*0.35)+vS*7.0);
+      float head=pow(1.0-f,7.0);
+      float k=0.26+1.9*head;
+      gl_FragColor=vec4(vC*k*vF,1.0);
+    }`
+});
+scene.add(new THREE.Mesh(tg,tmat));
+// pady/przelotki na koncach sciezek
+const padG=new THREE.BufferGeometry();
+padG.setAttribute('position',new THREE.Float32BufferAttribute(pads,3));
+padG.setAttribute('color',new THREE.Float32BufferAttribute(padCol,3));
+scene.add(new THREE.Points(padG,new THREE.PointsMaterial({size:.32,vertexColors:true,transparent:true,opacity:.75,blending:THREE.AdditiveBlending,depthWrite:false})));
+
+// --- materialy elementow
+const bodyMat=new THREE.MeshStandardMaterial({color:0x0e1024,roughness:.5,metalness:.35});
+const pinMat=new THREE.MeshStandardMaterial({color:0xaab0d8,roughness:.3,metalness:.85,emissive:0x151830});
+const aluMat=new THREE.MeshStandardMaterial({color:0x7a80a2,roughness:.35,metalness:.8,emissive:0x15172b});
+const copperMat=new THREE.MeshStandardMaterial({color:0xc2763a,roughness:.35,metalness:.65,emissive:0x3b1c08});
+const capBody={};
+const lineMat=c=>new THREE.LineBasicMaterial({color:c,transparent:true,opacity:.85});
+const addMat=(c,o)=>new THREE.MeshBasicMaterial({color:c,transparent:true,opacity:o,blending:THREE.AdditiveBlending,depthWrite:false});
+
+// tekstury gornej scianki chipow
+function chipTex(label,hex){
+  const c=document.createElement('canvas'); c.width=c.height=256; const g=c.getContext('2d');
+  const col='#'+hex.toString(16).padStart(6,'0');
+  g.fillStyle='#0a0c1e'; g.fillRect(0,0,256,256);
+  g.strokeStyle=col; g.globalAlpha=.55; g.lineWidth=3; g.strokeRect(10,10,236,236);
+  g.globalAlpha=.25; g.lineWidth=1;
+  for(let i=1;i<6;i++){g.beginPath();g.moveTo(22,10+i*38);g.lineTo(234,10+i*38);g.stroke();}
+  g.globalAlpha=1; g.fillStyle=col; g.beginPath(); g.arc(30,30,7,0,7); g.fill();
+  g.shadowColor=col; g.shadowBlur=18; g.fillStyle='#eef0ff';
+  g.font='800 58px Inter,Arial,sans-serif'; g.textAlign='center'; g.textBaseline='middle';
+  g.fillText(label,128,132);
+  g.shadowBlur=0; g.fillStyle=col; g.font='600 16px Arial'; g.fillText('PROFLOWSYNC',128,200);
+  const t=new THREE.CanvasTexture(c); t.anisotropy=4; t.colorSpace=THREE.SRGBColorSpace; return t;
+}
+const LABELS=['LLM','GPT','NPU','AI-01','TOKEN','GPU','RAG','AGENT'];
+const chipTexCache=LABELS.map((l,i)=>chipTex(l,COLS[i%3]));
+
+// --- zajetosc (zeby elementy nie wchodzily w siebie)
+const occ=[];
+const free=(x,z,hx,hz)=>!occ.some(o=>Math.abs(o[0]-x)<o[2]+hx+.8&&Math.abs(o[1]-z)<o[3]+hz+.8);
+const mark=(x,z,hx,hz)=>occ.push([x,z,hx,hz]);
+
+const dummy=new THREE.Object3D();
+function makeChip(x,z,w,d,h){
+  const g=new THREE.Group(); g.position.set(x,0,z);
+  const bg=new THREE.BoxGeometry(w,h,d);
+  const body=new THREE.Mesh(bg,bodyMat); body.position.y=h/2; g.add(body);
+  const col=pick(COLS);
+  const edge=new THREE.LineSegments(new THREE.EdgesGeometry(bg),lineMat(col)); edge.position.y=h/2; g.add(edge);
+  const top=new THREE.Mesh(new THREE.PlaneGeometry(w*.9,d*.9),new THREE.MeshBasicMaterial({map:pick(chipTexCache)}));
+  top.rotation.x=-Math.PI/2; top.position.y=h+.02; g.add(top);
+  // nozki
+  const px=Math.max(3,Math.floor(d/.8)), pz=Math.max(3,Math.floor(w/.8));
+  const pinsMesh=new THREE.InstancedMesh(new THREE.BoxGeometry(.5,.12,.2),pinMat,(px+pz)*2);
+  let k=0;
+  for(let i=0;i<px;i++){const zz=-d/2+.5+i*((d-1)/(px-1));
+    for(const sx of [-1,1]){dummy.position.set(sx*(w/2+.2),.2,zz);dummy.rotation.set(0,0,0);dummy.updateMatrix();pinsMesh.setMatrixAt(k++,dummy.matrix);}}
+  for(let i=0;i<pz;i++){const xx=-w/2+.5+i*((w-1)/(pz-1));
+    for(const sz of [-1,1]){dummy.position.set(xx,.2,sz*(d/2+.2));dummy.rotation.set(0,Math.PI/2,0);dummy.updateMatrix();pinsMesh.setMatrixAt(k++,dummy.matrix);}}
+  g.add(pinsMesh);
+  scene.add(g);
+}
+function makeCap(x,z,r,h){
+  const g=new THREE.Group(); g.position.set(x,0,z);
+  const col=pick(COLS);
+  const mat=capBody[col]||(capBody[col]=new THREE.MeshStandardMaterial({color:0x0b0d20,roughness:.4,metalness:.55,emissive:new THREE.Color(col).multiplyScalar(.09)}));
+  const cyl=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,28),mat); cyl.position.y=h/2; g.add(cyl);
+  const top=new THREE.Mesh(new THREE.CylinderGeometry(r*.88,r*.88,.1,28),aluMat); top.position.y=h+.05; g.add(top);
+  const band=new THREE.Mesh(new THREE.TorusGeometry(r+.01,.07,8,40),addMat(col,.9)); band.rotation.x=Math.PI/2; band.position.y=h*.72; g.add(band);
+  const band2=new THREE.Mesh(new THREE.TorusGeometry(r+.01,.05,8,40),addMat(col,.55)); band2.rotation.x=Math.PI/2; band2.position.y=h*.18; g.add(band2);
+  scene.add(g);
+}
+function makeCoil(x,z,R,t){
+  const g=new THREE.Group(); g.position.set(x,0,z);
+  const base=new THREE.Mesh(new THREE.BoxGeometry(R*2.7,.25,R*2.7),bodyMat); base.position.y=.125; g.add(base);
+  const levels=rnd()<.5?1:2;
+  for(let i=0;i<levels;i++){
+    const tor=new THREE.Mesh(new THREE.TorusGeometry(R,t,16,48),copperMat);
+    tor.rotation.x=Math.PI/2; tor.position.y=.25+t+i*t*1.9; g.add(tor);
+  }
+  const glow=new THREE.Mesh(new THREE.TorusGeometry(R,t*1.04,8,48),addMat(pick(COLS),.15));
+  glow.rotation.x=Math.PI/2; glow.position.y=.25+t; g.add(glow);
+  scene.add(g);
+}
+function makeSink(x,z,w,d,h){
+  const g=new THREE.Group(); g.position.set(x,0,z);
+  const base=new THREE.Mesh(new THREE.BoxGeometry(w,.4,d),aluMat); base.position.y=.2; g.add(base);
+  const n=Math.max(5,Math.floor(w/.45));
+  const fins=new THREE.InstancedMesh(new THREE.BoxGeometry(.18,h,d*.96),aluMat,n);
+  for(let i=0;i<n;i++){dummy.position.set(-w/2+.3+i*((w-.6)/(n-1)),.4+h/2,0);dummy.rotation.set(0,0,0);dummy.updateMatrix();fins.setMatrixAt(i,dummy.matrix);}
+  g.add(fins);
+  const col=pick(COLS);
+  const strip=new THREE.Mesh(new THREE.PlaneGeometry(w,.12),addMat(col,.8)); strip.rotation.x=-Math.PI/2; strip.position.y=.41+h; g.add(strip);
+  const edge=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(w,.4,d)),lineMat(col)); edge.position.y=.2; g.add(edge);
+  scene.add(g);
+}
+function makeSlot(x,z,len){
+  const g=new THREE.Group(); g.position.set(x,0,z);
+  const col=pick(COLS);
+  const bg=new THREE.BoxGeometry(2.1,1.1,len);
+  const m=new THREE.Mesh(bg,new THREE.MeshStandardMaterial({color:0x090a18,roughness:.6,metalness:.2})); m.position.y=.55; g.add(m);
+  const e=new THREE.LineSegments(new THREE.EdgesGeometry(bg),lineMat(col)); e.position.y=.55; g.add(e);
+  const gl=new THREE.Mesh(new THREE.PlaneGeometry(.35,len*.94),addMat(col,.85)); gl.rotation.x=-Math.PI/2; gl.position.y=1.12; g.add(gl);
+  scene.add(g);
+}
+
+// --- rozmieszczenie elementow po obu stronach trasy
+for(const side of [-1,1]){
+  let z=12;
+  while(z>-LEN-8){
+    const r=rnd(); let x=side*rr(5.5,26);
+    const row=Math.abs(x);
+    if(r<.30){const w=rr(3.6,8),d=rr(3.6,8);if(row-w/2>3&&free(x,z,w/2+.5,d/2+.5)){makeChip(x,z,w,d,rr(.7,1.4));mark(x,z,w/2+.5,d/2+.5);}}
+    else if(r<.52){const rad=rr(.8,1.5);if(row-rad>3&&free(x,z,rad,rad)){makeCap(x,z,rad,rr(1.8,3.6));mark(x,z,rad,rad);}}
+    else if(r<.70){const R=rr(.9,1.6);if(row-R*1.4>3&&free(x,z,R*1.4,R*1.4)){makeCoil(x,z,R,R*.42);mark(x,z,R*1.4,R*1.4);}}
+    else if(r<.86){const w=rr(4,7),d=rr(3.5,6),h=rr(2.2,4.4);if(row-w/2>3.2&&free(x,z,w/2,d/2)){makeSink(x,z,w,d,h);mark(x,z,w/2,d/2);}}
+    else{const len=rr(7,14);if(row-1.1>3&&free(x,z,1.1,len/2)){makeSlot(x,z,len);mark(x,z,1.1,len/2);}}
+    z-=rr(3.5,8);
+  }
+}
+
+// --- wielki chip finalowy z logo
+const finale=new THREE.Group(); finale.position.set(0,0,CZ); scene.add(finale);
+const bigH=3.2;
+const bigG=new THREE.BoxGeometry(CHIP,bigH,CHIP);
+const bigBody=new THREE.Mesh(bigG,new THREE.MeshStandardMaterial({color:0x0c0e24,roughness:.45,metalness:.5})); bigBody.position.y=bigH/2; finale.add(bigBody);
+const bigEdge=new THREE.LineSegments(new THREE.EdgesGeometry(bigG),lineMat(TEAL)); bigEdge.position.y=bigH/2; finale.add(bigEdge);
+// tekstura logo
+(function(){
+  const c=document.createElement('canvas'); c.width=c.height=1024; const g=c.getContext('2d');
+  g.fillStyle='#07091c'; g.fillRect(0,0,1024,1024);
+  g.strokeStyle='#28e0c8'; g.lineWidth=5; g.globalAlpha=.7; g.strokeRect(24,24,976,976);
+  g.globalAlpha=.18; g.lineWidth=2;
+  for(let i=1;i<16;i++){g.beginPath();g.moveTo(40,24+i*61);g.lineTo(984,24+i*61);g.stroke();g.beginPath();g.moveTo(24+i*61,40);g.lineTo(24+i*61,984);g.stroke();}
+  g.globalAlpha=1;
+  const grd=g.createLinearGradient(160,0,864,0); grd.addColorStop(0,'#28e0c8'); grd.addColorStop(.5,'#7c5cff'); grd.addColorStop(1,'#ff5ca8');
+  g.shadowColor='#7c5cff'; g.shadowBlur=40;
+  g.fillStyle=grd; g.font='800 190px Inter,Arial,sans-serif'; g.textAlign='center'; g.textBaseline='middle';
+  g.fillText('◆',512,360);
+  g.font='800 150px Inter,Arial,sans-serif'; g.fillText('proflowsync',512,560);
+  g.shadowBlur=0; g.fillStyle='#9aa0c0'; g.font='600 40px Inter,Arial,sans-serif';
+  g.fillText('AI  ·  PROMPTY  ·  AUTOMATYZACJA',512,720);
+  const t=new THREE.CanvasTexture(c); t.anisotropy=8; t.colorSpace=THREE.SRGBColorSpace;
+  const top=new THREE.Mesh(new THREE.PlaneGeometry(CHIP*.94,CHIP*.94),new THREE.MeshBasicMaterial({map:t}));
+  top.rotation.x=-Math.PI/2; top.position.y=bigH+.03; finale.add(top);
+})();
+// nozki wielkiego chipa
+(function(){
+  const per=26;
+  const m=new THREE.InstancedMesh(new THREE.BoxGeometry(1.0,.2,.34),pinMat,per*4);
+  let k=0;
+  for(let i=0;i<per;i++){
+    const t=-CHIP/2+1+i*((CHIP-2)/(per-1));
+    for(const s of [-1,1]){dummy.position.set(s*(CHIP/2+.5),.32,t);dummy.rotation.set(0,0,0);dummy.updateMatrix();m.setMatrixAt(k++,dummy.matrix);}
+    for(const s of [-1,1]){dummy.position.set(t,.32,s*(CHIP/2+.5));dummy.rotation.set(0,Math.PI/2,0);dummy.updateMatrix();m.setMatrixAt(k++,dummy.matrix);}
+  }
+  finale.add(m);
+})();
+// fale uderzeniowe wokol chipa
+const rings=[];
+for(let i=0;i<3;i++){
+  const r=new THREE.Mesh(new THREE.RingGeometry(CHIP*.62,CHIP*.62+.35,96),
+    new THREE.MeshBasicMaterial({color:COLS[i],transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide}));
+  r.rotation.x=-Math.PI/2; r.position.y=.08; r.userData.off=i/3; finale.add(r); rings.push(r);
+}
+
+// --- czasteczki danych nad plyta
+const PN=900,pp=new Float32Array(PN*3),pc=new Float32Array(PN*3);
+const cc=[new THREE.Color(VIOLET),new THREE.Color(TEAL),new THREE.Color(PINK)];
+for(let i=0;i<PN;i++){
+  pp[i*3]=(Math.random()-.5)*60; pp[i*3+1]=Math.random()*14+.3; pp[i*3+2]=-Math.random()*(LEN+70)+16;
+  const c=cc[(Math.random()*3)|0]; pc[i*3]=c.r;pc[i*3+1]=c.g;pc[i*3+2]=c.b;
+}
+const pg=new THREE.BufferGeometry();
+pg.setAttribute('position',new THREE.BufferAttribute(pp,3)); pg.setAttribute('color',new THREE.BufferAttribute(pc,3));
+const dust=new THREE.Points(pg,new THREE.PointsMaterial({size:.08,vertexColors:true,transparent:true,opacity:.8,blending:THREE.AdditiveBlending,depthWrite:false}));
+scene.add(dust);
+
+// --- swiatla
+scene.add(new THREE.AmbientLight(0x2a2f66,1.1));
+const L1=new THREE.PointLight(VIOLET,120,44,1.5),L2=new THREE.PointLight(TEAL,100,44,1.5),L3=new THREE.PointLight(PINK,70,52,1.5);
+scene.add(L1,L2,L3);
+
+// --- scroll, mysz, nawigacja
+const stations=[...document.querySelectorAll('.st')];
+const ats=stations.map(s=>+s.dataset.at);
+let target=0,p=0,mx=0,my=0,smx=0,smy=0;
+const calc=()=>{const m=document.documentElement.scrollHeight-innerHeight;target=m>0?scrollY/m:0;};
+addEventListener('scroll',calc,{passive:true}); calc();
+addEventListener('pointermove',e=>{mx=e.clientX/innerWidth*2-1;my=e.clientY/innerHeight*2-1;},{passive:true});
+addEventListener('resize',()=>{renderer.setSize(innerWidth,innerHeight);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();calc();});
+const dots=document.getElementById('dots');
+const NAMES=['Start','Narzędzia','Pack','Lista'];
+ats.forEach((a,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Sekcja '+NAMES[i]);b.innerHTML='<span>'+NAMES[i]+'</span><i></i>';b.onclick=()=>goto(i);dots.appendChild(b);});
+function goto(i){const m=document.documentElement.scrollHeight-innerHeight;scrollTo({top:m*ats[i],behavior:'smooth'});}
+document.querySelectorAll('[data-go]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();goto(+a.dataset.go);}));
+const prog=document.getElementById('prog'),hint=document.getElementById('hint');
+const prevB=document.getElementById('prev'),nextB=document.getElementById('next');
+let cur=0;
+prevB.onclick=()=>goto(Math.max(0,cur-1));
+nextB.onclick=()=>goto(Math.min(ats.length-1,cur+1));
+addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT')return;
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key==='PageDown'){e.preventDefault();nextB.click();}
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();prevB.click();}
+});
+
+if(location.hash==='#koniec'){history.scrollRestoration='manual';scrollTo(0,document.documentElement.scrollHeight);calc();}
+const clock=new THREE.Clock();
+const look=new THREE.Vector3(), lookA=new THREE.Vector3(), lookB=new THREE.Vector3(0,1,CZ+2);
+const ease=x=>x*x*(3-2*x);
+function frame(){
+  window.__glok=true;        // sygnal dla fallback-timera: 3D ruszylo, nie pokazuj prostej wersji
+  const t=clock.getElapsedTime();
+  p+=(target-p)*(reduce?1:.06);
+  smx+=(mx-smx)*.05; smy+=(my-smy)*.05;
+  tmat.uniforms.uTime.value=t;
+
+  const q=ease(Math.min(1,Math.max(0,(p-.74)/.26)));          // faza wznoszenia nad chip
+  const fly=Math.min(1,p/.78);
+  const z=4-fly*(LEN-2);
+  const sway=reduce?0:Math.sin(p*7)*.8;
+  const y=3.1+Math.sin(p*5)*.25-smy*.3+q*17;
+  cam.position.set(sway+smx*.9,y,z);
+  lookA.set(sway*.4+smx*2.4,2.6-smy*1.0,z-16);
+  look.lerpVectors(lookA,lookB,q);
+  cam.lookAt(look);
+  cam.rotation.z=reduce?0:-Math.sin(p*7)*.012*(1-q);
+
+  L1.position.set(-6,7,z-6); L2.position.set(6,7,z-14); L3.position.set(0,12,z-26);
+  rings.forEach(r=>{const f=(t*.22+r.userData.off)%1;r.scale.setScalar(.25+f*1.15);r.material.opacity=(1-f)*.55*(.4+q*.6);});
+  bigEdge.material.opacity=.6+.3*Math.sin(t*2);
+  dust.position.y=Math.sin(t*.2)*.4;
+
+  let best=0,bd=9;
+  stations.forEach((s,i)=>{
+    const d=p-ats[i],ad=Math.abs(d),o=Math.max(0,1-ad/.15),e=o*o*(3-2*o);
+    s.style.opacity=e;
+    s.style.transform=`translate(-50%,-50%) scale(${1+(d>0?d*2.2:d*.6)}) translateY(${-d*120}px)`;
+    s.style.pointerEvents=e>.55?'auto':'none';
+    if(ad<bd){bd=ad;best=i;}
+  });
+  [...dots.children].forEach((b,i)=>b.classList.toggle('on',i===best));
+  cur=best; prevB.disabled=best===0; nextB.disabled=best===ats.length-1;
+  prog.textContent='0'+(best+1)+' / 0'+ats.length;
+  hint.style.opacity=p<.04?1:0;
+
+  renderer.render(scene,cam);
+  requestAnimationFrame(frame);
+}
+frame();
+</script>
+<!-- GoatCounter — darmowy licznik ruchu (łapie utm_source z linków w opisach) -->
+<script data-goatcounter="https://proflowsync.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
