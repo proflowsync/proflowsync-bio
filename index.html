@@ -169,9 +169,9 @@
           <article class="card card--dark reveal"><h3>Automatyzacja</h3><p>Przepływy, które chodzą same: treści, publikacja, lejki mailowe. Raz ustawione, pracują w tle.</p><code>n8n · 0 zł</code></article>
         </div>
         <div class="tool-links reveal" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:32px">
-          <a href="https://try.elevenlabs.io/8pf4y0b3ggrt" target="_blank" rel="noopener sponsored" style="padding:12px 18px;border-radius:999px;background:#0b0d1a;color:#eef0ff;text-decoration:none;font-weight:600;font-size:14px;border:1px solid rgba(0,0,0,.14)">ElevenLabs · głos AI</a>
-          <a href="https://invideo.sjv.io/c/7472459/883681/12258" target="_blank" rel="noopener sponsored" style="padding:12px 18px;border-radius:999px;background:#0b0d1a;color:#eef0ff;text-decoration:none;font-weight:600;font-size:14px;border:1px solid rgba(0,0,0,.14)">InVideo · wideo AI</a>
-          <a href="https://www.systeme.io/?sa=sa02764167884a74869326426ca729e008af9b332d" target="_blank" rel="noopener sponsored" style="padding:12px 18px;border-radius:999px;background:#0b0d1a;color:#eef0ff;text-decoration:none;font-weight:600;font-size:14px;border:1px solid rgba(0,0,0,.14)">Systeme.io · lejki i kursy</a>
+          <a href="https://try.elevenlabs.io/8pf4y0b3ggrt" target="_blank" rel="noopener sponsored" style="padding:12px 18px;border-radius:999px;background:#0b0d1a;color:#eef0ff;text-decoration:none;font-weight:600;font-size:14px;border:1px solid rgba(0,0,0,.14)">ElevenLabs · lektor do shorta w minutę</a>
+          <a href="https://invideo.sjv.io/c/7472459/883681/12258" target="_blank" rel="noopener sponsored" style="padding:12px 18px;border-radius:999px;background:#0b0d1a;color:#eef0ff;text-decoration:none;font-weight:600;font-size:14px;border:1px solid rgba(0,0,0,.14)">InVideo · gotowe wideo z samego tekstu</a>
+          <a href="https://www.systeme.io/?sa=sa02764167884a74869326426ca729e008af9b332d" target="_blank" rel="noopener sponsored" style="padding:12px 18px;border-radius:999px;background:#0b0d1a;color:#eef0ff;text-decoration:none;font-weight:600;font-size:14px;border:1px solid rgba(0,0,0,.14)">Systeme.io · lejek i sprzedaż za 0 zł</a>
           <a href="https://claude.ai" target="_blank" rel="noopener" style="padding:12px 18px;border-radius:999px;background:#0b0d1a;color:#eef0ff;text-decoration:none;font-weight:600;font-size:14px;border:1px solid rgba(0,0,0,.14)">Claude · asystent AI</a>
         </div>
       </div>
@@ -235,5 +235,20 @@
   <script src="assets/js/main.js?v=8" defer></script>
   <!-- GoatCounter — darmowy licznik ruchu (ten sam co bio-hub, lapie utm_source z linkow w opisach) -->
   <script data-goatcounter="https://proflowsync.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <!-- POMIAR KLIKNIEC W REFKI: kazde klikniecie w link partnerski (rel~=sponsored) leci do GoatCounter
+       jako event. Wtedy w panelu widac KTORY link realnie klikaja (klucz do optymalizacji przychodu). -->
+  <script>
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[rel~="sponsored"]');
+      if (!a) return;
+      var nm = (a.textContent || a.href).trim().slice(0, 60);
+      function send() {
+        if (window.goatcounter && window.goatcounter.count) {
+          window.goatcounter.count({ path: 'klik-refka/' + nm, title: 'Klik refka: ' + nm, event: true });
+        }
+      }
+      send();
+    }, true);
+  </script>
 </body>
 </html>

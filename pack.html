@@ -138,5 +138,16 @@
 <!-- GoatCounter — licznik na stronie packa (krok z mailem) -->
 <script data-goatcounter="https://proflowsync.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+<!-- POMIAR KLIKNIEC W REFKI na packu: tu lead juz zostawil maila, wiec klik w narzedzie jest najcenniejszy. -->
+<script>
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[rel~="sponsored"]');
+    if (!a) return;
+    var nm = (a.textContent || a.href).trim().slice(0, 60);
+    if (window.goatcounter && window.goatcounter.count) {
+      window.goatcounter.count({ path: 'klik-refka-pack/' + nm, title: 'Klik refka (pack): ' + nm, event: true });
+    }
+  }, true);
+</script>
 </body>
 </html>

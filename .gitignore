@@ -19,3 +19,8 @@ README_AFILIACJA.md
 # Landing cinematic 3D — assety strony MUSZA trafic na Pages (mimo globalnych *.jpg/*.png)
 !assets/
 !assets/**
+
+# Robocze: backupy edycji, notatka z sekwencja maili, logi — NIE na publiczna strone
+*.bak_*
+SEKWENCJA_MAILI.md
+*.log
