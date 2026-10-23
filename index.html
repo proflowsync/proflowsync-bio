@@ -58,13 +58,9 @@
     <div class="film-bg__grain"></div>
   </div>
 
-  <!-- FIXED centered 3D stage: the hero object stays centered on the whole scroll.
-       Renders assets/Objects/hero.glb (export a Blender object via the skill),
-       or a procedurally-generated placeholder if the model is absent.
-       pointer-events:none so all content stays clickable. -->
-  <div class="stage3d" aria-hidden="true">
-    <canvas id="hero3d"></canvas>
-  </div>
+  <!-- Hero 3D (latający procesor/chip) usunięty 23.10 — nie pasował do strony.
+       Kod initHero3D w main.js ma guard (brak #hero3d = grzecznie pomija). -->
+
 
   <!-- Fixed HUD + film progress (driven by the same full-page progress) -->
   <div class="film-hud" aria-hidden="true">
@@ -108,7 +104,6 @@
     <!-- ============ HERO : Blender 3D object ============ -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero__glow" aria-hidden="true"></div>
-      <div class="hero__fallback-note" id="hero3dStatus" role="status" aria-live="polite">Wczytuję rdzeń…</div>
 
       <div class="container hero__inner">
         <p class="eyebrow eyebrow--glass"><span class="pulse-dot" aria-hidden="true"></span> Hub narzędzi AI &middot; Prompty &middot; Automatyzacja</p>
