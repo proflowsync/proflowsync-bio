@@ -88,6 +88,7 @@
         <ul class="nav__list" id="primary-nav">
           <li><a href="#film">Rdzeń</a></li>
           <li><a href="#craft">Narzędzia</a></li>
+          <li><a href="#demo">Demo</a></li>
           <li><a href="#metrics">Efekty</a></li>
           <li><a href="#pricing">Pack</a></li>
         </ul>
@@ -101,9 +102,12 @@
   </header>
 
   <main id="main">
-    <!-- ============ HERO : Blender 3D object ============ -->
+    <!-- ============ HERO ============ -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero__glow" aria-hidden="true"></div>
+      <div class="hero__visual" aria-hidden="true">
+        <img src="assets/media/hero.png" alt="" width="520" height="650" loading="eager" class="hero__img" fetchpriority="high">
+      </div>
 
       <div class="container hero__inner">
         <p class="eyebrow eyebrow--glass"><span class="pulse-dot" aria-hidden="true"></span> Hub narzędzi AI &middot; Prompty &middot; Automatyzacja</p>
@@ -117,7 +121,7 @@
         </p>
         <div class="hero__actions">
           <a class="btn btn--primary btn--lg" href="#cta">Odbierz darmowy pack <span aria-hidden="true">&darr;</span></a>
-          <a class="btn btn--ghost btn--lg" href="#craft">Zobacz narzędzia</a>
+          <a class="btn btn--ghost btn--lg" href="#demo">Zobacz demo</a>
         </div>
         <div class="hero__meta">
           <div class="hero__hint"><span aria-hidden="true">✦</span> Przewiń, żeby lecieć w głąb rdzenia &middot; Rusz myszką dla paralaksy &middot; Scroll steruje całą sceną</div>
@@ -169,6 +173,39 @@
           <a href="https://www.systeme.io/?sa=sa02764167884a74869326426ca729e008af9b332d" target="_blank" rel="noopener sponsored" style="padding:12px 18px;border-radius:999px;background:#0b0d1a;color:#eef0ff;text-decoration:none;font-weight:600;font-size:14px;border:1px solid rgba(0,0,0,.14)">Systeme.io · lejek i sprzedaż za 0 zł</a>
           <a href="https://fliki.ai/?via=piotr-sysak" target="_blank" rel="noopener sponsored" style="padding:12px 18px;border-radius:999px;background:#0b0d1a;color:#eef0ff;text-decoration:none;font-weight:600;font-size:14px;border:1px solid rgba(0,0,0,.14)">Fliki · lektor AI i wideo z tekstu (80+ języków)</a>
           <a href="https://claude.ai" target="_blank" rel="noopener" style="padding:12px 18px;border-radius:999px;background:#0b0d1a;color:#eef0ff;text-decoration:none;font-weight:600;font-size:14px;border:1px solid rgba(0,0,0,.14)">Claude · asystent AI</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DEMO ============ -->
+    <section class="section section--dark demo-section" id="demo" aria-labelledby="demo-title">
+      <div class="container demo-wrap">
+        <div class="demo__copy reveal">
+          <p class="section__eyebrow section__eyebrow--light">W akcji</p>
+          <h2 class="section__title section__title--xl section__title--light" id="demo-title">AI pipeline<br>w 15 sekund.</h2>
+          <p class="demo__lede">Wchodzisz do narzędzia, podajesz temat — wychodzi gotowy content. Zero edycji, zero renderowania godzinami. Skrypt, głos, napisy, montaż — automatycznie.</p>
+          <ul class="demo__list">
+            <li><span class="demo__icon">⚡</span>Scenariusz w 3 sekundy</li>
+            <li><span class="demo__icon">🎙</span>Lektor AI · Edge-TTS / ElevenLabs</li>
+            <li><span class="demo__icon">🎬</span>Montaż FFmpeg bez klikania</li>
+            <li><span class="demo__icon">📱</span>Upload IG + YT automatycznie</li>
+          </ul>
+          <a class="btn btn--primary" href="#cta">Chcę taki pipeline &rarr;</a>
+        </div>
+        <div class="demo__phone reveal">
+          <div class="phone-frame">
+            <div class="phone-frame__notch" aria-hidden="true"></div>
+            <div class="phone-frame__screen">
+              <video class="phone-frame__video"
+                poster="assets/media/demo-poster.jpg"
+                autoplay loop muted playsinline
+                disablepictureinpicture tabindex="-1"
+                aria-label="Demo pipeline ProFlowSync">
+                <source src="assets/media/demo.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+          <p class="demo__caption">Nagranie z pipeline'u · AI-generated short w 12 s</p>
         </div>
       </div>
     </section>

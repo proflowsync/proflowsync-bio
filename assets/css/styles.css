@@ -203,3 +203,29 @@ main,#main{position:relative;z-index:2}
   .film-bg__video{object-fit:cover}
   .beat{min-height:auto;padding:3rem 1.5rem}
 }
+
+/* ============ HERO VISUAL (hero.png — floating AI figure) ============ */
+.hero__visual{position:absolute;right:0;bottom:0;width:min(500px,46vw);pointer-events:none;z-index:1}
+.hero__img{width:100%;height:auto;object-fit:contain;opacity:.82;filter:drop-shadow(0 0 60px rgba(60,120,255,.45)) drop-shadow(0 0 20px rgba(0,200,255,.25));animation:hero-float 6s ease-in-out infinite}
+@keyframes hero-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+
+/* ============ DEMO SECTION ============ */
+.demo-section{background:linear-gradient(135deg,#06080f 0%,#0b0d1e 60%,#070914 100%)}
+.demo-wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,6vw,5rem);align-items:center}
+.demo__copy .section__title--light{max-width:16ch}
+.demo__lede{color:rgba(238,240,255,.72);font-size:1rem;line-height:1.65;margin:1.1rem 0 1.5rem}
+.demo__list{list-style:none;padding:0;margin:0 0 2rem;display:flex;flex-direction:column;gap:.65rem}
+.demo__list li{display:flex;align-items:center;gap:.7rem;font-size:.95rem;color:rgba(238,240,255,.8)}
+.demo__icon{font-size:1.1rem;line-height:1;width:1.6em;text-align:center}
+
+/* Phone frame */
+.demo__phone{display:flex;flex-direction:column;align-items:center;gap:1rem}
+.phone-frame{position:relative;width:min(260px,100%);aspect-ratio:9/19.5;background:#0d0e14;border-radius:48px;border:2px solid rgba(255,255,255,.14);box-shadow:0 0 0 1px rgba(255,255,255,.06),0 24px 80px rgba(0,0,0,.7),0 0 60px rgba(60,120,255,.18),inset 0 0 0 1px rgba(255,255,255,.04);overflow:hidden;padding:14px}
+.phone-frame__notch{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:70px;height:9px;background:rgba(0,0,0,.8);border-radius:999px;z-index:2}
+.phone-frame__screen{border-radius:34px;overflow:hidden;height:100%;background:#000}
+.phone-frame__video{width:100%;height:100%;object-fit:cover;display:block}
+.demo__caption{font-size:.75rem;color:rgba(255,255,255,.38);letter-spacing:.04em;text-align:center}
+
+@media (max-width:900px){.demo-wrap{grid-template-columns:1fr;text-align:center}.demo__list{align-items:center}.demo__phone{margin-top:1.5rem}}
+@media (max-width:760px){.hero__visual{width:min(300px,55vw);opacity:.6}}
+@media (max-width:480px){.hero__visual{display:none}}
